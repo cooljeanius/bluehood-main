@@ -1,0 +1,45 @@
+.mutter{
+	background-color: #55acee;
+	height: 1.5em;
+	border-radius: 0.5em;
+	color: white;
+	font-size: large;
+	font-weight: bold;
+	padding: 0.25em 16px;
+}
+.draw{
+	background-color: orange;
+	height: 1.5em;
+	border-radius: 0.5em;
+	color: white;
+	font-size: large;
+	font-weight: bold;
+	padding: 0.25em 16px;
+}
+.topic{
+	background-color: rgb(223, 86, 86);
+	height: 1.5em;
+	border-radius: 0.5em;
+	color: white;
+	font-size: large;
+	font-weight: bold;
+	padding: 0.25em 16px;
+}
+.fromsoft{
+	background-color: rgb(58, 171, 210);
+	height: 16px;
+	border-radius: 6px;
+	color: white;
+	font-size: large;
+	font-weight: bold;
+	padding: 8px 16px;
+}
+.link{
+	background-color: rgb(58, 171, 210);
+	height: 16px;
+	border-radius: 6px;
+	color: white;
+	font-size: large;
+	font-weight: bold;
+	padding: 8px 16px;
+}
