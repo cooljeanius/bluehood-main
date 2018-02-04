@@ -216,7 +216,7 @@
 	}
 
 	function mysql_start(){
-		$db = mysql_connect(MYSQL_ADDR, MYSQL_USER, NYSQL_PASS);
+		$db = mysql_connect(MYSQL_ADDR, MYSQL_USER, MYSQL_PASS);
 		if (!$db) return mysql_error();
 		mysql_select_db('twiverse');
 		mysql_query('SET NAMES utf8', $db);

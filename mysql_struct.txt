@@ -1,0 +1,98 @@
+-- MySQL dump 10.13  Distrib 5.5.58, for Linux (x86_64)
+--
+-- Host: localhost    Database: twiverse
+-- ------------------------------------------------------
+-- Server version	5.5.58-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `comm`
+--
+
+DROP TABLE IF EXISTS `comm`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `comm` (
+  `id` varchar(8) NOT NULL DEFAULT '',
+  `soft_id` varchar(16) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `name` text NOT NULL,
+  `banner` text,
+  `list_id` bigint(20) unsigned DEFAULT NULL,
+  `collection_id` bigint(20) unsigned DEFAULT NULL,
+  `list_n` int(10) unsigned DEFAULT NULL,
+  `post_n` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `soft_id2name`
+--
+
+DROP TABLE IF EXISTS `soft_id2name`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `soft_id2name` (
+  `id` varchar(16) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `name` text,
+  `default_name` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `tweet`
+--
+
+DROP TABLE IF EXISTS `tweet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tweet` (
+  `id` bigint(20) unsigned NOT NULL,
+  `favorite_count` int(10) unsigned DEFAULT NULL,
+  `retweet_count` int(10) unsigned DEFAULT NULL,
+  `screen_name` text,
+  `hide` tinyint(1) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
+  `comm_id` varchar(8) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `screen_name` varchar(16) NOT NULL,
+  `draft_draw` text,
+  `collection_id` bigint(20) unsigned DEFAULT NULL,
+  `album_id` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`screen_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-02-04 20:52:46
