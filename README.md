@@ -1,5 +1,5 @@
 # Twiverse
-<img src="https://github.com/Hato6502/Twiverse/blob/master/twiverse.png"><br>
+<img src="https://github.com/Hato6502/Twiverse/blob/master/img/twiverse/default.png"><br>
 An universal game community on Twitter. <br>
 <br>
 
