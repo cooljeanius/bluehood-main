@@ -89,7 +89,6 @@ $(function(){
 	}, 'json');
 });
 
-var thumb_data = '';
 var imgform_send = $('iframe[name="imgform_send"]');
 imgform_send.unbind().bind('load', function(){
 	var err = imgform_send.contents().find('#err').html();
@@ -162,6 +161,9 @@ $(function(){
 		$('#title').html(comm_name + 'の投稿');
 	}
 	updateText();
+	if (thumb_data){
+		thumb.setAttribute('src', 'data:image/jpeg;base64,'+thumb_data);
+	}
 });
 
 var updateText = function(){

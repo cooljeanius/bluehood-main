@@ -35,7 +35,7 @@
                 			foreach($search as $status){
 						//var_dump($status);
 						$media = $status->entities->media[0];
-						echo '<img src="'.$media->media_url_https.':small" alt="'.$media->display_url.'" style="width: 240px; border: 1px solid lightgray; border-radius: 0.5em; ">';
+						echo '<a href="action.php?'.http_build_query(['id' => $status->id_str, 'img' => $media->media_url_https]).'"><img src="'.$media->media_url_https.':small" alt="'.$media->display_url.'" style="width: 240px; border: 1px solid lightgray; border-radius: 0.5em; "></a>';
 					}
 				}
         		}else echo 'アルバムがありません。';
