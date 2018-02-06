@@ -1,7 +1,7 @@
 <?php
 	include('/var/www/twiverse.php');
 	$conn = twitter_start();
-	$query = http_build_query(['comm_id' => $_GET['comm_id']]);
+	$query = $_SERVER['QUERY_STRING'];
 	if ((useragent() != '3ds')&&(useragent() != 'new3ds')){
 		header( 'location: '. DOMAIN.ROOT_URL.'tweet/draw/draw/?'.$query);
 		die();
