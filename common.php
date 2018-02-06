@@ -300,7 +300,7 @@
 				?></div>
 				<?php if ((useragent() == '3ds')/*||(useragent() == 'new3ds')*/) echo emb_3ds($status); else{ ?>
 					<div id="tweet-<?php echo $id; ?>"></div>
-					<script>$(function(){ twttr.widgets.createTweet('<?php echo $status->id; ?>', document.getElementById('tweet-<?php echo $id++; ?>')); }); </script>
+					<script>$(function(){ twttr.widgets.createTweet('<?php echo $status->id; ?>', document.getElementById('tweet-<?php echo $id++; ?>'), {lang: lang, }); }); </script>
 				<?php } ?>
 			</div><?php
 			return true;
@@ -346,6 +346,10 @@
 			<script type="text/javascript">
 				var root_url = '<?php echo ROOT_URL; ?>';
 				var tweet_url = root_url + 'tweet/';
+				var lang = (window.navigator.languages && window.navigator.languages[0]) ||
+            				window.navigator.language ||
+            				window.navigator.userLanguage ||
+            				window.navigator.browserLanguage;
 
 				<?php if (useragent() == 'wiiu'){ ?>
 					$(function(){
