@@ -223,6 +223,11 @@
 		return $db;
 	}
 
+	function mysql_throw(){	// MySQL のエラーがあったとき throw する
+		$err = mysql_error();
+		if (!empty($err)) throw new Exception($err);
+	}
+
 				function twitter_text($status){
 					$text = nl2br(htmlspecialchars($status->text));
 
