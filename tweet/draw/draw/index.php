@@ -20,12 +20,12 @@
 		<div class="main paddingleft paddingright" style="min-height: 0; ">
 			<center>
 			<div id="toolbox" style="text-align: left; display: inline-block; ">
+				<br>
 				<button id="save-draft">お絵かきを下書き保存</button>
 				<span id="reply"></span>
-				<!--<form id="imgform" action="../../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send" style="width: 48px; ">
+				<form id="imgform" action="../../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send" style="width: 48px; ">
 					<input id="selimg" name="selimg" type="file" accept="image/jpeg">
-				</form>-->
-				<button onClick="$('#sc-dialog').dialog('open'); ">スクリーンショットを選択</button><br>
+				</form>
 				<iframe name="imgform_send" style="width:0px;height:0px;border:0px;"></iframe>
 
 				<button id="clear"><img src="new.png" alt="clear"></button>
@@ -55,40 +55,36 @@
 		</div>
 
 		<div id="stamp-dialog" title="スタンプの選択" style="text-align: center; ">
-			大きさ<input id="zoom" type="number" value="1" min="1" max="8"><br>
 			<?php
-				$collection = $conn->get('collections/entries', ['id' => 'custom-'.COLLECTON_STAMP, 'count' => '200']);
-				$i = 0;
-				//foreach($collection->response->timeline as $context){
-				foreach($collection->response->timeline as $context){
-					$status = $collection->objects->tweets->{$context->tweet->id};
-					//var_dump($status);
-					?>
-						<div style="display: inline-block; width: 240px; ">
-							<input type="radio" name="stamp" value="<?php echo $i; ?>">
-							<div id="stamp-<?php echo $i; ?>" src="<?php echo $status->entities->media[0]->media_url_https; ?>"></div>
-						</div>
-						<script>
-							$(function(){
-								$('#stamp').click(function(){
-									$('#stamp-<?php echo $i; ?>').empty();
-									twttr.widgets.createTweet('<?php echo $status->id; ?>', document.getElementById('stamp-<?php echo $i; ?>'));
-								});
-							});
-						</script>
-					<?php
-					$i++;
+				try{
+					mysql_start();
+					$res = mysql_query("select image_url from selstamp where screen_name = '".$_SESSION['twitter']['screen_name']."'");
+					mysql_throw();
+					$i = 0;
+					while($image_url = mysql_fetch_assoc($res)['image_url']){
+						?>
+							<div style="display: inline-block; vertical-align: top; ">
+								<input type="radio" name="stamp" value="<?php echo $i; ?>">
+								<div id="stamp-<?php echo $i; ?>" src="<?php echo $image_url; ?>">
+									<img src="<?php echo $image_url; ?>">
+								</div>
+							</div>
+						<?php
+						$i++;
+					}
+					mysql_close();
+				}catch(Exception $e){
+					catch_default($e);
 				}
 			?>
+			<br>大きさ<input id="zoom" type="number" value="1" min="1" max="8">
 		</div>
 		<script>$(function(){
 			$('#stamp-dialog').dialog({
 				autoOpen: false,
-                	        width: 790,
                 	        modal: true,
                 	        resizable: false,
                 	        draggable: false,
-				position: ['center', 'top'],
                 	});
 		});</script>
 		<script type="text/javascript" src="../../common.js"></script>

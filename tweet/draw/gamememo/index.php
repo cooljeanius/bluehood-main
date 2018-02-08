@@ -11,8 +11,6 @@
 <html>
 	<?php head(); ?>
 	<head>
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 	</head>
 	<body>
 		<h2 id="title" class="topbar">お絵かきの投稿</h2>
@@ -20,13 +18,9 @@
 			<div class="paddingleft paddingright">
 				<div id="reply"></div>
 				<span style="font-size: small; ">スクリーンショット</span>
-				<?php if (useragent() == '3ds'){ ?>
-					<form id="imgform" action="../../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send">
-						<input id="selimg" name="selimg" type="file" accept="image/jpeg">
-					</form>
-				<?php }else{ ?>
-					<button onClick="$('#sc-dialog').dialog('open'); ">スクリーンショットを選択</button><br>
-				<?php } ?>
+				<form id="imgform" action="../../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send">
+					<input id="selimg" name="selimg" type="file" accept="image/jpeg">
+				</form>
 				<center><img id="thumb" width="192px" src="../../noimage.jpg"></center>
 				<form id="gamememo-form" action="memoup.php" method="post" enctype="multipart/form-data" target="gamememo-send">
 					<span style="font-size: small; ">お絵かき ※権利等を確認し選択してください。</span>

@@ -23,70 +23,17 @@ $(function(){
 		
 	});
 
-	if ($('#imgform')[0]){
-		var imgform = document.getElementById('imgform');
-		var selimg = document.getElementById('selimg');
-		selimg.onchange = function(){
-			imgform.submit();
-			prev_image = $('#thumb').attr('src');
-			thumb.setAttribute('src', tweet_url + 'loader.gif');
+	var imgform = document.getElementById('imgform');
+	var selimg = document.getElementById('selimg');
+	selimg.onchange = function(){
+		imgform.submit();
+		prev_image = $('#thumb').attr('src');
+		thumb.setAttribute('src', tweet_url + 'loader.gif');
 
-			send.setAttribute('disabled', 'disabled');
-			selimg.setAttribute('disabled', 'disabled');	
-			$('#sc-dialog').dialog('close');
-		};
-	}else $.post(tweet_url+'getalbum.php', {}, function(res){
-		var album_html = '<div id="album-list" style="display: none; text-align: center; ">';
-		res.album.forEach(function(album){
-			album_html += '<div style="display: inline-block; width: 150px; ">\n\
-				<img src="'+album.img+'" style="width: 100%; " class="album-button" tweet-id="'+album.tweet_id+'">\n\
-			</div>';
-		});
-		album_html += '</div>';
-
-		$('.main').append('<div id="sc-dialog" title="スクリーンショットの選択" style="font-size: small; ">\n\
-			<form id="imgform" action="'+tweet_url+'thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send">\n\
-				<input id="selimg" name="selimg" type="file" accept="image/jpeg">\n\
-				<input id="selalbum" name="selalbum" type="hidden">\n\
-			</form>\n\
-			<a href="'+root_url+'user/album/" target="_blank">アルバム</a>から\n\
-			<button onclick="$(\'#album-list\').css(\'display\', \'block\'); $(this).hide(); ">アルバムを選択</button>\n\
-			'+album_html+'\n\
-		</div>');
-
-		var imgform = document.getElementById('imgform');
-		var selimg = document.getElementById('selimg');
-		selimg.onchange = function(){
-			imgform.submit();
-			prev_image = $('#thumb').attr('src');
-			thumb.setAttribute('src', tweet_url + 'loader.gif');
-
-			send.setAttribute('disabled', 'disabled');
-			selimg.setAttribute('disabled', 'disabled');	
-			$('#sc-dialog').dialog('close');
-		};
-
-		$('.album-button').click(function(){
-			$('#selalbum').val($(this).attr('tweet-id'));
-			imgform.submit();
-			prev_image = $('#thumb').attr('src');
-			thumb.setAttribute('src', tweet_url + 'loader.gif');
-
-			send.setAttribute('disabled', 'disabled');
-			selimg.setAttribute('disabled', 'disabled');	
-			$('#sc-dialog').dialog('close');
-		});
-
-		var width = $('body').width()*0.95;
-		$('#sc-dialog').dialog({
-			autoOpen: false,
-			width: width,
-			modal: true,
-			resizable: false,
-			draggable: false,
-			position: ['center', 'top'],
-		});
-	}, 'json');
+		send.setAttribute('disabled', 'disabled');
+		selimg.setAttribute('disabled', 'disabled');	
+		$('#sc-dialog').dialog('close');
+	};
 });
 
 var imgform_send = $('iframe[name="imgform_send"]');
