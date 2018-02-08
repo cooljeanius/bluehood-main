@@ -164,6 +164,8 @@
 
 			<h3 id="notification"><?php l($s['note']); ?></h3>
 			<p><?php l($s['note_desc']); ?></p>
+			<br>
+			本 Web サイト中の製品名は、各社の商標です。
 		</div>
 	</body>
 </html>

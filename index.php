@@ -3,7 +3,7 @@
 	$s = [
 		//'' => ['ja' => '', 'en' => '', ],
 		'title' => ['ja' => 'トップページ', 'en' => 'Top Page', ],
-		'desc' => ['ja' => 'Twiverse(ツイバース)はTwitterを活用したUniversalゲームコミュニティです。', 'en' => 'An universal game community on Twitter. ', ],
+		'desc' => ['ja' => 'Twitterを活用したUniversalゲームコミュニティです。', 'en' => 'An universal game community on Twitter. ', ],
 		'guide' => ['ja' => 'Twiverse利用ガイド', 'en' => "Twiverse User's Guide", ],
 		'contact' => ['ja' => 'お知らせ・お問い合わせ', 'en' => 'News・Contact', ],
 		'allposts' => ['ja' => 'すべての投稿', 'en' => 'All posts', ],
@@ -71,7 +71,8 @@
 					<!--<img src="<?php echo ROOT_URL; ?>img/banner.php" alt="Twiverse" width="200px" onclick="window.amiibo.playAmiiboSE(); alert('Easter Egg! '); ">-->
 					<table id="banner" onClick = "amiibo.playAmiiboSE(); amiibo.startSearchAmiibo(); alert('Your amiibo please! '); "><tr>
 						<td><img src="<?php echo ROOT_URL; ?>img/twiverse.php" height="64px"></td>
-						<td><img src="<?php echo ROOT_URL; ?>img/banner.php"></td>
+						<!--<td><img src="<?php echo ROOT_URL; ?>img/banner.php"></td>-->
+						<td><h3>ゲームコミュニティ (仮称)</h3></td>
 					</tr></table>
 					<p><?php l($s['desc']); ?></p>
 					<a href="guide.php"><?php l($s['guide']); ?></a>
