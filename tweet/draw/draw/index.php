@@ -40,10 +40,10 @@ canvas{
 		<div class="main paddingleft paddingright" style="min-height: 0; ">
 			<center>
 			<div id="toolbox" style="text-align: left; display: inline-block; ">
-				<button id="fullscreen">フルスクリーン</button><br>
+				　　　　<button id="fullscreen">フルスクリーン</button><br>
 				<button id="save-draft">お絵かきを下書き保存</button>
 				<span id="reply"></span>
-				<form id="imgform" action="../../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send">
+				<form id="imgform" action="../../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send" style="height: 16px; ">
 					<input id="selimg" name="selimg" type="file" accept="image/jpeg">
 				</form>
 				<iframe name="imgform_send" style="width:0px;height:0px;border:0px;"></iframe>

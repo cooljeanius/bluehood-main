@@ -85,7 +85,7 @@
 				<span class="marginleft">Wii U限定！<a href="nfcbattler/">NFC Battler</a>であそぼう！</span>
 			<?php } ?>
 			<?php if ((useragent() == '3ds')||(useragent() == 'new3ds')){ ?>
-				<span class="marginleft" style="font-size: small; ">ゲームメモの<a href="tweet/draw/gamememo/filter_test.php">ミバえ</a>が変わる？</span>
+				<span class="marginleft" style="font-size: small; ">ゲームメモを<a href="tweet/draw/gamememo/">コミック風</a>に！</span>
 			<?php } ?>
 			<div style="clear: both; "></div>
 			<center>

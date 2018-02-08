@@ -18,19 +18,26 @@ $('canvas').attr('height', canvas_height + 'px');
 $('#text').attr('placeholder', placeholder);
 
 var isfullscreen = false;
-
+var isrotate = false;
 $('#fullscreen').click(function(){
-	$('.main')[0].webkitRequestFullScreen();
+	if (isfullscreen){
+		document.webkitCancelFullScreen();
+	}else{
+		$('.main')[0].webkitRequestFullScreen();
+	}
 });
-
 document.onwebkitfullscreenchange = function(e){
 	isfullscreen = !isfullscreen;
 	if (isfullscreen){
-		$('.main').css('-webkit-transform-origin', '50% 50%');
-		$('.main').css('-webkit-transform', 'rotate(90deg)');
+		if (screen.width < screen.height){
+			$('.main').css('-webkit-transform-origin', '50% 50%');
+			$('.main').css('-webkit-transform', 'rotate(90deg)');
+			isrotate = true;
+		}
 	}else{
 		$('.main').css('-webkit-transform-origin', '');
 		$('.main').css('-webkit-transform', '');
+		isrotate = false;
 	}
 };
 
@@ -63,7 +70,7 @@ if (canvas.getContext){
 
 	var fixposition = function(x, y){
 		var fix = {};
-		if (document.webkitFullscreenElement){
+		if (isrotate){
 			fix.x = y;
 			fix.y = canvas_height-x;
 		}else{

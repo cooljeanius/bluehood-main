@@ -30,7 +30,7 @@
 			<img id="draw-preview">
 			<div class="paddingleft paddingright">
 				<form id="filter-form" action="filter.php" method="post" enctype="multipart/form-data" target="filter-send" style="font-size: small; display: none; ">
-					<input id="filter-enable" name="enable" type="checkbox">ミバえフィルターを使う<br>
+					<input id="filter-enable" name="enable" type="checkbox">コミカルフィルターを使う<br>
 					<table id="filter-setting" style="width: 100%; display: none; "><tr>
 					<td style="background-color: #ffc0c0; ">
 					<input name="red" value="0" type="radio"><img src="tone_0.png">

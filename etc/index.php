@@ -21,10 +21,10 @@
 			'en' => 'Your NFC Tags (amiibo, etc) can be measured own combat power by this tool. 
 				Wii U Internet Browser only. ',
 		],
-		'filter' => ['ja' => 'ミバえフィルター', 'en' => 'The filter for Gamememo', ],
+		'filter' => ['ja' => 'コミカルフィルター', 'en' => 'The filter for Gamememo', ],
 		'filter_desc' => [
-			'ja' => '3DSのゲームメモで描いたお絵かきの見栄え(ミバえ)がよくなるかもしれないフィルターです。
-				赤色と青色にトーンが付き、コミック風になります。
+			'ja' => '3DSのゲームメモで描いたお絵かきがコミック風になるフィルターです。
+				赤色と青色にトーンが付き、白黒になります。
 				お絵かき投稿の一部に組み込まれてますので、まずはゲームメモの画像ファイルを選んでください。',
 			'en' => 'A image filter for 3DS Gamememo, it may make your Gamememos more clear. 
 				Red and blue areas are replaced to tones, and your drawings change like comic. 
