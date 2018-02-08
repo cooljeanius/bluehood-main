@@ -12,23 +12,25 @@
 	<?php head(); ?>
 	<head>
 		<meta name="viewport" content="width=854px, initial-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 	</head>
 	<body>
-		<h2 id="title" class="topbar">お絵かきの投稿　安定版</h2>
+		<h2 id="title" class="topbar">お絵かきの投稿</h2>
 		<div class="main paddingleft paddingright" style="min-height: 0; ">
 			<center>
 			<div id="toolbox" style="text-align: left; display: inline-block; ">
 				<br>
 				<button id="save-draft">お絵かきを下書き保存</button>
 				<span id="reply"></span>
-				<a href="latest.php"><button>最新版へ</button></a> <span style="cursor: pointer; border-radius: 50%; background-color: white; " onclick="alert('このお絵かき投稿は安定版です。\nスタンプ機能とアルバム機能を省くことで安定化を図りました。\nこれらの機能を使用する場合は最新版を利用してください。');">？</span>
-				<form id="imgform" action="../../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send" style="padding: 0; margin: 0; ">
+				<form id="imgform" action="../../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send" style="width: 48px; ">
 					<input id="selimg" name="selimg" type="file" accept="image/jpeg">
 				</form>
 				<iframe name="imgform_send" style="width:0px;height:0px;border:0px;"></iframe>
 
 				<button id="clear"><img src="new.png" alt="clear"></button>
 				<button id="prev"><img src="undo.png" alt="preview"></button>
+				<button id="stamp"><img src="stamp.png"></button>
 　
 				<button id="pen_S"><img src="pencil_s.png" alt="draw_S"></button>
 				<button id="pen_M"><img src="pencil_m.png" alt="draw_M"></button>
@@ -51,7 +53,41 @@
 				</form>
 			</center>
 		</div>
+
+		<div id="stamp-dialog" title="スタンプの選択" style="text-align: center; ">
+			<?php
+				try{
+					mysql_start();
+					$res = mysql_query("select image_url from selstamp where screen_name = '".$_SESSION['twitter']['screen_name']."'");
+					mysql_throw();
+					$i = 0;
+					while($image_url = mysql_fetch_assoc($res)['image_url']){
+						?>
+							<div style="display: inline-block; vertical-align: top; ">
+								<input type="radio" name="stamp" value="<?php echo $i; ?>">
+								<div id="stamp-<?php echo $i; ?>" src="<?php echo $image_url; ?>">
+									<img src="<?php echo $image_url; ?>">
+								</div>
+							</div>
+						<?php
+						$i++;
+					}
+					mysql_close();
+				}catch(Exception $e){
+					catch_default($e);
+				}
+			?>
+			<br>大きさ<input id="zoom" type="number" value="1" min="1" max="8">
+		</div>
+		<script>$(function(){
+			$('#stamp-dialog').dialog({
+				autoOpen: false,
+                	        modal: true,
+                	        resizable: false,
+                	        draggable: false,
+                	});
+		});</script>
 		<script type="text/javascript" src="../../common.js"></script>
-		<script type="text/javascript" src="stable.js"></script>
+		<script type="text/javascript" src="twiverse.js"></script>
 	</body>
 </html>
