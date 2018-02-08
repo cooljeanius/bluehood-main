@@ -17,6 +17,23 @@ $('canvas').attr('width', canvas_width + 'px');
 $('canvas').attr('height', canvas_height + 'px');
 $('#text').attr('placeholder', placeholder);
 
+var isfullscreen = false;
+
+$('#fullscreen').click(function(){
+	$('.main')[0].webkitRequestFullScreen();
+});
+
+document.onwebkitfullscreenchange = function(e){
+	isfullscreen = !isfullscreen;
+	if (isfullscreen){
+		$('.main').css('-webkit-transform-origin', '50% 50%');
+		$('.main').css('-webkit-transform', 'rotate(90deg)');
+	}else{
+		$('.main').css('-webkit-transform-origin', '');
+		$('.main').css('-webkit-transform', '');
+	}
+};
+
 if (canvas.getContext){
 	var context = canvas.getContext('2d');
 	var beginX, beginY;
@@ -44,7 +61,22 @@ if (canvas.getContext){
 	}
 	var prevdata = context.getImageData(0, 0, canvas_width, canvas_height);
 
+	var fixposition = function(x, y){
+		var fix = {};
+		if (document.webkitFullscreenElement){
+			fix.x = y;
+			fix.y = canvas_height-x;
+		}else{
+			fix.x = x;
+			fix.y = y;
+		}
+		return fix;
+	};
+
 	function drawstart(x, y){
+		fix = fixposition(x, y);
+		x = fix.x;
+		y = fix.y;
 		if (nowdata) prevdata = nowdata;
 		x = Math.floor((x - width)/2);
 		y = Math.floor((y - width)/2);
@@ -59,6 +91,9 @@ if (canvas.getContext){
 	}
 
 	function drawmove(x, y){
+		fix = fixposition(x, y);
+		x = fix.x;
+		y = fix.y;
 		if (mode == 'draw'){
 			x = Math.floor((x - width)/2);
 			y = Math.floor((y - width)/2);
@@ -110,7 +145,6 @@ if (canvas.getContext){
 				rect = canvas.getBoundingClientRect();
 
 				drawstart(touch.clientX - rect.left, touch.clientY - rect.top);
-				console.log(touch.clientX);
 				e.preventDefault();
 			}
 
@@ -118,7 +152,6 @@ if (canvas.getContext){
 				var touch = e.changedTouches[0];
 
 				drawmove(touch.clientX - rect.left, touch.clientY - rect.top);
-				console.log(touch.clientX);
 				e.preventDefault();
 			};
 
@@ -236,7 +269,7 @@ if (canvas.getContext){
 	setInterval(function(){
 		if (is_autosave) save_draft();
 	}, 60000);
-	
+
 	var save_draft = function(){
 		var url = canvas.toDataURL();
 		$.post(tweet_url+'backup.php', {draw: url}, function(res){

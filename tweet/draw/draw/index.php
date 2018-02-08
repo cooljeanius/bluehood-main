@@ -7,7 +7,27 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel = "stylesheet" type = "text/css" href = "draw.css">
+		<style>
+canvas{
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+}
+
+	.topbar{
+		position: absolute !important;
+		top: 0 !important;
+		left: 16px !important;
+		font-size: medium !important;
+		height: 1em !important;
+		padding: 0.25em !important;
+		border-radius: 0.5em !important;
+	}
+
+#toolbox img{
+	width: 24px;
+}
+
+		</style>
 	</head>
 	<?php head(); ?>
 	<head>
@@ -20,10 +40,10 @@
 		<div class="main paddingleft paddingright" style="min-height: 0; ">
 			<center>
 			<div id="toolbox" style="text-align: left; display: inline-block; ">
-				<br>
+				<button id="fullscreen">フルスクリーン</button><br>
 				<button id="save-draft">お絵かきを下書き保存</button>
 				<span id="reply"></span>
-				<form id="imgform" action="../../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send" style="width: 48px; ">
+				<form id="imgform" action="../../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send">
 					<input id="selimg" name="selimg" type="file" accept="image/jpeg">
 				</form>
 				<iframe name="imgform_send" style="width:0px;height:0px;border:0px;"></iframe>
@@ -39,7 +59,7 @@
 				<button id="eraser_M"><img src="eraser_m.png" alt="eraser_M"></button>
 				<button id="eraser_L"><img src="eraser.png" alt="eraser_L"></button>
 			</div>
-			<img id="thumb" height="108px" src="../../noimage.jpg">
+			<img id="thumb" height="96px" src="../../noimage.jpg">
 
 				<canvas id="draw" style="border: 1px solid lightgray; "></canvas>
 				<form id="sendform" action="send.php" method="post" enctype="multipart/form-data">
@@ -61,7 +81,9 @@
 					$res = mysql_query("select image_url from selstamp where screen_name = '".$_SESSION['twitter']['screen_name']."'");
 					mysql_throw();
 					$i = 0;
-					while($image_url = mysql_fetch_assoc($res)['image_url']){
+					if (mysql_num_rows($res) == 0){
+                                        	?>手持ちのスタンプはありません。ツールボックスから追加してみよう！<?php
+                                        }else while($image_url = mysql_fetch_assoc($res)['image_url']){
 						?>
 							<div style="display: inline-block; vertical-align: top; ">
 								<input type="radio" name="stamp" value="<?php echo $i; ?>">

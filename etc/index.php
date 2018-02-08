@@ -37,7 +37,7 @@
 			'en' => "By registering to Twiverse Album, your screenshots can be used to posts anytime. 
 				This doesn't support old 3DS now, sorry! ",
 		],
-		'stamp' => ['ja' => 'スタンプの投稿', 'en' => 'The stamp creator', ],
+		'stamp' => ['ja' => 'スタンプ', 'en' => 'Stamp', ],
 		'stamp_desc' => [
 			'ja' => 'Wii U・PC・スマホ等からのお絵かきで使用できるスタンプを作成できます。
 				しかし、スタンプ機能は動作がまだ安定していません。',
@@ -100,7 +100,7 @@
 					<h3><?php l($s['album']); ?></h3>
 					<div class="card-article tool-desc"><?php l($s['album_desc']); ?></div>
 				</div></a>
-				<a class="a-disabled" href="<?php echo ROOT_URL; ?>tweet/stamp"><div class="card tool">
+				<a class="a-disabled" href="<?php echo ROOT_URL; ?>view/stamp/"><div class="card tool">
 					<h3><?php l($s['stamp']); ?></h3>
 					<div class="card-article tool-desc"><?php l($s['stamp_desc']); ?></div>
 				</div></a>
