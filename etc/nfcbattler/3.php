@@ -19,11 +19,6 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/1.6.0/sha256.js"></script>
 
-                <meta name="twitter:card" content="summary" />
-                <meta name="twitter:site" content="@Twiverse_admin" />
-                <meta name="twitter:title" content="NFC Battler" />
-                <meta name="twitter:description" content="あなたが持っているNFCタグの戦闘力を測定いたします。" />
-                <!--<meta name="twitter:image" content="<?php echo 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>&img=1" />-->
 		<title>NFC Battler</title>
 	</head>
 	<?php head(); ?>

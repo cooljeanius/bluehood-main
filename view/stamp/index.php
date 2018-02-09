@@ -15,11 +15,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:site" content="@Twiverse_admin" />
-		<meta name="twitter:title" content="スタンプ - Twiverse" />
-		<meta name="twitter:description" content="Twitterを活用したUniversalゲームコミュニティ" />
-		<meta name="twitter:image" content="<?php echo DOMAIN.ROOT_URL; ?>twiverse.png" />
 	</head>
 	<?php head(); ?>
 	<body>

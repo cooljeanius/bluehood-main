@@ -34,7 +34,7 @@
 		'album_desc' => [
 			'ja' => 'スクリーンショットをアルバムに登録して、投稿に使用することができます。
 				旧3DSでは現在のところ未対応です。',
-			'en' => "By registering to Twiverse Album, your screenshots can be used to posts anytime. 
+			'en' => "By registering to BlueHood Album, your screenshots can be used to posts anytime. 
 				This doesn't support old 3DS now, sorry! ",
 		],
 		'stamp' => ['ja' => 'スタンプ', 'en' => 'Stamp', ],
@@ -51,12 +51,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="twitter:card" content="summary" />
-                <meta name="twitter:site" content="@Twiverse_admin" />
-                <meta name="twitter:title" content="ツールボックス - Twiverse" />
-                <meta name="twitter:description" content="Twitterを活用したUniversalゲームコミュニティ" />
-                <meta name="twitter:image" content="<?php echo DOMAIN.ROOT_URL; ?>twiverse.png" />
-
 		<style>
 			.tool{
 				vertical-align: top;

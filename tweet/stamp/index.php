@@ -8,12 +8,6 @@
 <html>
 	<?php head(); ?>
 	<head>
-		<meta name="twitter:card" content="summary" />
-                <meta name="twitter:site" content="@Twiverse_admin" />
-                <meta name="twitter:title" content="Twiverse" />
-		<meta name="twitter:description" content="Twitterを活用したUniversalゲームコミュニティ" />
-                <meta name="twitter:image" content="<?php echo DOMAIN.ROOT_URL; ?>twiverse.png" />
-
 		<style>
 			#confirm-preview{
 				background: -webkit-gradient(linear, left top, right bottom,

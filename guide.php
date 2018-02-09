@@ -1,73 +1,73 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
-		'title' => ['ja' => 'Twiverse利用ガイド', 'en' => "Twiverse User's Guide"],
+		'title' => ['ja' => 'BlueHood利用ガイド', 'en' => "BlueHood User's Guide"],
 		'desc' => [
-			'ja' => 'Twiverseを安全に利用するために、このガイドを参考にしてください。<br>
+			'ja' => 'BlueHoodを安全に利用するために、このガイドを参考にしてください。<br>
 			なお、このガイドはTwitter利用に関する制限を規定するものではありません。',
-			'en' => "Please refer this guide to use Twiverse more safely. <br>
+			'en' => "Please refer this guide to use BlueHood more safely. <br>
                 	But, this doesn't regulate your Twitter rules. ",
 		],
 		'responsibility' => ['ja' => '免責事項', 'en' => 'Responsibility'],
 		'res_desc' => [
-			'ja' => 'Twiverseは個人によって現在も開発中であり、不安定な要素を含みます。<br>
+			'ja' => 'BlueHoodは個人によって現在も開発中であり、不安定な要素を含みます。<br>
                         無保証で使用してくださるようお願いします。',
-			'en' => 'Twiverse is now underdevelopng, so has no warranty. ',
+			'en' => 'BlueHood is now underdevelopng, so has no warranty. ',
 		],
 		'env' => ['ja' => '推奨環境', 'en' => 'Enviroment Requirements'],
 		'env_desc' => [
-			'ja' => 'Twiverseは、Wii U・3DS・PS VITAからのアクセスを想定しています。<br>
+			'ja' => 'BlueHoodは、Wii U・3DS・PS VITAからのアクセスを想定しています。<br>
                         PC・タブレット・スマホからは、Chromeでのアクセスを推奨します。<br>
                         パソコンではWii U版、スマホでは3DS版のページが表示されます。<br>
                         3DSからのお絵かき投稿はゲームメモを使用します。',
-			'en' => "Twiverse is a game community for Wii U, 3DS, PS VITA. <br>
+			'en' => "BlueHood is a game community for Wii U, 3DS, PS VITA. <br>
 			Chrome browser is recommended to access from PC, tablet, and smartphone. <br>
 			This site shows Wii U version pages for PC, and 3DS version pages for smartphone. <br>
 			When posts a drawing from 3DS, you'll use gamememo application. ",
 		],
-		'about' => ['ja' => 'TwiverseはTwitterを通じて参加するサービス', 'en' => 'Twiverse, a service through Twitter'],
+		'about' => ['ja' => 'BlueHoodはTwitterを通じて参加するサービス', 'en' => 'BlueHood, a service through Twitter'],
 		'about_desc' => [
-			'ja' => 'Twiverseにはさまざまなコミュニティがあり、コミュニティはツイートによって成り立っています。<br>
-                        よって、Twiverseを通して投稿した内容は、Twitterの世界のたくさんの人にも発信されます。<br>
+			'ja' => 'BlueHoodにはさまざまなコミュニティがあり、コミュニティはツイートによって成り立っています。<br>
+                        よって、BlueHoodを通して投稿した内容は、Twitterの世界のたくさんの人にも発信されます。<br>
                         さらに、ツイートはインターネット上に公開されます。<br>
-                        Twiverseのコミュニティ内でしか発信されないと思ってしまうかもしれませんが、インターネット上の誰でも見られることを注意してください。',
-			'en' => 'Twiverse is made up of some communities, and they are made up of tweets. <br>
-                        So, your posts from Twiverse are released on Twitter. <br>
+                        BlueHoodのコミュニティ内でしか発信されないと思ってしまうかもしれませんが、インターネット上の誰でも見られることを注意してください。',
+			'en' => 'BlueHood is made up of some communities, and they are made up of tweets. <br>
+                        So, your posts from BlueHood are released on Twitter. <br>
                         And tweets are released on internet. <br>
-                        You may think your posts are released on only Twiverse, but your posts are shown to everyone. ',
+                        You may think your posts are released on only BlueHood, but your posts are shown to everyone. ',
 		],
 		'rule' => ['ja' => 'Twitterルールを守る', 'en' => 'Follow Twitter rules'],
 		'rule_desc' => [
-			'ja' => 'Twiverseを利用するには、Twitterのルールを守る必要があります。<br>
+			'ja' => 'BlueHoodを利用するには、Twitterのルールを守る必要があります。<br>
                         ルールでは、いやがらせや個人情報についても明記されています(2017年9月13日現在)。<br>
                         くわしくは、<a href="https://support.twitter.com/articles/253501" target="_top">Twitterルール</a>を確認してください。',
-			'en' => 'To use Twiverse, you need to follow Twitter rules. <br>
+			'en' => 'To use BlueHood, you need to follow Twitter rules. <br>
                         They mention also harassments and personal informations. <br>
                         For more information, please refer <a href="https://support.twitter.com/articles/253501" target="_top">Twitter rules</a>. '
 		],
 		'violation' => ['ja' => '違反投稿かな？と思ったら', 'en' => 'Report violations to Twitter'],
 		'violation_desc' => [
-			'ja' => 'Twiverseは、ツイートに対する管理権および義務を有しません。<br>
+			'ja' => 'BlueHoodは、ツイートに対する管理権および義務を有しません。<br>
 			また、このガイドはTwitter利用に関する制限を規定するものではありません。<br>
 			違反投稿と思われるツイートを見つけたら、<a href="https://support.twitter.com/articles/253501" target="_top">Twitterルール</a>と照らし合わせ、<a href="https://support.twitter.com/articles/486421">Twitterへ報告</a>してください。',
-			'en' => 'Twiverse doesn\'t have rights and responsibilities of tweets. <br>
+			'en' => 'BlueHood doesn\'t have rights and responsibilities of tweets. <br>
 			And this guide doesn\'t regulate your Twitter rules. <br>
 			When you encounter a violation, please check with <a href="https://support.twitter.com/articles/253501" target="_top">Twitter rules</a>, and <a href="https://support.twitter.com/articles/486421">Report to Twitter</a>. ',
 		],
-		'note' => ['ja' => '通知について', 'en' => 'About Twiverse notification'],
+		'note' => ['ja' => '通知について', 'en' => 'About BlueHood notification'],
 		'note_desc' => ['ja' => '<img src="'.ROOT_URL.'img/feed.png" alt="通知" style="width: 1em; ">アイコンによる通知は、次のように機能します。
                         <ul>
                                 <li>ページ移動時に通知を確認します。</li>
-                                <li>Twiverseからの投稿に対するお気に入りおよびリツイートを確認します。</li>
+                                <li>BlueHoodからの投稿に対するお気に入りおよびリツイートを確認します。</li>
                                 <li>通知があるとき、お気に入りおよびリツイートの件数を表示します。</li>
                         </ul>
                         通知機能の動作は無保証とします。',
-			'en' => 'Twiverse notification (<img src="'.ROOT_URL.'img/feed.png" alt="通知" style="width: 1em; "> icon) works through follow rules.
+			'en' => 'BlueHood notification (<img src="'.ROOT_URL.'img/feed.png" alt="通知" style="width: 1em; "> icon) works through follow rules.
                         <ul>
                                 <li>Check favorites and retweets when move pages. </li>
                                 <li>Show the count of favorites and retweets. </li>
                         </ul>
-                        Twiverse notification is especially no warranty. ',
+                        BlueHood notification is especially no warranty. ',
 		],
 		//'' => ['ja' => '', 'en' => ''],
 	];
@@ -76,12 +76,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="twitter:card" content="summary" />
-                <meta name="twitter:site" content="@Twiverse_admin" />
-                <meta name="twitter:title" content="Twiverse" />
-		<meta name="twitter:description" content="Twitterを活用したUniversalゲームコミュニティ" />
-                <meta name="twitter:image" content="<?php echo DOMAIN.ROOT_URL; ?>twiverse.png" />
-
 		<style type="text/css">
 			.section{
 				background-color: white;
@@ -139,9 +133,9 @@
 			</div>
 
 			<!-- <h3>ゲームのネタバレについて</h3>
-			<p>Twiverseでは、ゲームのネタバレ情報を投稿する際に、「ネタバレ指定」をすることができます。<br>
+			<p>BlueHoodでは、ゲームのネタバレ情報を投稿する際に、「ネタバレ指定」をすることができます。<br>
 			これによって、ネタバレ情報を知りたい人、知りたくない人の共存を目指しています。<br>
-			ただし、Twiverseはネタバレ投稿を管理する権利および義務を有しません。<br>
+			ただし、BlueHoodはネタバレ投稿を管理する権利および義務を有しません。<br>
 			また、Twitterの世界ではネタバレの有無に関わらず、すべてのツイートが流通します。</p>
 			※ネタバレ指定は未実装です。
 			-->
@@ -158,7 +152,7 @@
 			</div>
 
 			<!-- <h3 id="tweet">投稿について</h3>
-			<p>Twiverseからの投稿には、ハッシュタグが最大2つ自動的に追加されます。<br>
+			<p>BlueHoodからの投稿には、ハッシュタグが最大2つ自動的に追加されます。<br>
 			さらにハッシュタグを追加する場合は、付け過ぎに注意してください。<br>
 			ハッシュタグは、2つまでの使用が推奨されています(<a href="https://support.twitter.com/articles/243963">ハッシュタグ（「#」記号）とは？</a>)。</p> -->
 

@@ -12,20 +12,19 @@
 	$screen_name = $_GET['screen_name'];
 	$ismypage = ($screen_name == $myname);
 	$user = $twitter->get('users/show', ['screen_name' => $screen_name]);
-	define('THEME_COLOR', '#'.$user->profile_link_color);
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<link rel = "stylesheet" type = "text/css" href = "user.css">
 
-		<meta name="twitter:card" content="summary" />
+		<!--<meta name="twitter:card" content="summary" />
 		<meta name="twitter:site" content="@Twiverse_admin" />
 		<meta name="twitter:title" content="<?php echo $user->name.'(@'.$user->screen_name.')さんのプロフィール'; ?> - Twiverse" />
 		<meta name="twitter:description" content="Twitterを活用したUniversalゲームコミュニティ" />
-		<meta name="twitter:image" content="<?php echo DOMAIN.ROOT_URL; ?>twiverse.png" />
+		<meta name="twitter:image" content="<?php echo DOMAIN.ROOT_URL; ?>twiverse.png" />-->
 	</head>
-	<?php head(); ?>
+	<?php head('#'.$user->profile_link_color); ?>
 	<body>
 		<?php include(ROOT_PATH.'header.php'); ?>
 		<script type="text/javascript" src="user.js"></script>

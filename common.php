@@ -330,7 +330,7 @@
 		echo '</ul>';
 	}
 
-	function head(){
+	function head($theme_color = null){
 		?>
 		<head>
 			<meta charset = "UTF-8">
@@ -377,7 +377,7 @@
 			</script>
 			<style>
 				.topbar{
-			        	background: <?php echo THEME_COLOR; ?>;
+			        	background: <?php if ($theme_color) echo $theme_color; else echo THEME_COLOR; ?>;
 				        color: white;
 				}
 			</style>
