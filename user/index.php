@@ -12,6 +12,7 @@
 	$screen_name = $_GET['screen_name'];
 	$ismypage = ($screen_name == $myname);
 	$user = $twitter->get('users/show', ['screen_name' => $screen_name]);
+	define('THEME_COLOR', '#'.$user->profile_link_color);
 ?>
 <!DOCTYPE html>
 <html>

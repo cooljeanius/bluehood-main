@@ -1,3 +1,5 @@
+var prevdata_max = 11;	// UNDO バッファサイズ
+
 var canvas = document.getElementById('draw');
 
 $(window).on('touchstart.noScroll', function(e) {
@@ -52,21 +54,20 @@ if (canvas.getContext){
 	var zoom = 1;
 	var stamp = new Image();
 	stamp.crossOrigin = '';
-	var nowdata;
 
 	if (draft_draw){
 		var image = new Image();
 		image.src = draft_draw;
 		image.onload = function(){
 			context.drawImage(image, 0, 0);
-			prevdata = context.getImageData(0, 0, canvas_width, canvas_height);
+			prevdata = [context.getImageData(0, 0, canvas_width, canvas_height)];
 			delete image;
 		}
 	}else{
 		context.fillStyle = 'white';
 		context.fillRect(0, 0, canvas_width, canvas_height);
 	}
-	var prevdata = context.getImageData(0, 0, canvas_width, canvas_height);
+	var prevdata = [context.getImageData(0, 0, canvas_width, canvas_height)];
 
 	var fixposition = function(x, y){
 		var fix = {};
@@ -84,7 +85,6 @@ if (canvas.getContext){
 		fix = fixposition(x, y);
 		x = fix.x;
 		y = fix.y;
-		if (nowdata) prevdata = nowdata;
 		x = Math.floor((x - width)/2);
 		y = Math.floor((y - width)/2);
 		beginX = x;
@@ -137,7 +137,8 @@ if (canvas.getContext){
                                         }
 				}else{
 					if (beginX != -1){
-                                                if (isdraw) nowdata = context.getImageData(0, 0, canvas_width, canvas_height);
+                                                if (isdraw) prevdata.push(context.getImageData(0, 0, canvas_width, canvas_height));
+						if (prevdata.length > prevdata_max) prevdata.shift(); 
                                                 //save_draft();
                                         }
 					isdraw = false;
@@ -164,7 +165,8 @@ if (canvas.getContext){
 
 			canvas.ontouchend = function(e){
 				//save_draft();
-				nowdata = context.getImageData(0, 0, canvas_width, canvas_height);
+				prevdata.push(context.getImageData(0, 0, canvas_width, canvas_height));
+				if (prevdata.length > prevdata_max) prevdata.shift(); 
 				e.preventDefault();
 			};
 		}else{
@@ -183,7 +185,8 @@ if (canvas.getContext){
 			});
 
 			$(window).mouseup(function(e){
-				if (isDraw) nowdata = context.getImageData(0, 0, canvas_width, canvas_height);
+				if (isDraw) prevdata.push(context.getImageData(0, 0, canvas_width, canvas_height));
+				if (prevdata.length > prevdata_max) prevdata.shift(); 
 				isDraw = false;
 				//save_draft();
 				//e.preventDefault();
@@ -194,18 +197,19 @@ if (canvas.getContext){
 	var clear = document.getElementById('clear');
 	clear.onclick = function(){
 		if (confirm('全消ししますか？')){
-			prevdata = context.getImageData(0, 0, canvas_width, canvas_height);
-
 			context.fillStyle = 'white';
 			context.fillRect(0, 0, canvas_width, canvas_height);
+                        prevdata.push(context.getImageData(0, 0, canvas_width, canvas_height));
+			if (prevdata.length > prevdata_max) prevdata.shift(); 
 		}
 	};
 
 	var prev = document.getElementById('prev');
 	prev.onclick = function(){
-		var swap = context.getImageData(0, 0, canvas_width, canvas_height);
-		context.putImageData(prevdata, 0, 0);
-		prevdata = swap;
+		if (prevdata.length >= 2){
+        	        prevdata.pop();
+			context.putImageData(prevdata[prevdata.length - 1], 0, 0);
+		}
 	};
 
 	var pen_S = document.getElementById('pen_S');
