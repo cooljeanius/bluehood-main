@@ -372,7 +372,7 @@
 				<?php } ?>
 
 				$(function(){
-					document.title = $('.topbar').text()+' - Twiverse';
+					document.title = $('.topbar').text()+' - BlueHood';
 				});
 			</script>
 			<style>

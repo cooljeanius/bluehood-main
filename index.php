@@ -3,7 +3,8 @@
 	$s = [
 		//'' => ['ja' => '', 'en' => '', ],
 		'title' => ['ja' => 'トップページ', 'en' => 'Top Page', ],
-		'desc' => ['ja' => 'Twitterを活用したUniversalゲームコミュニティです。', 'en' => 'An universal game community on Twitter. ', ],
+		//'desc' => ['ja' => 'Twitterを活用したUniversalゲームコミュニティです。', 'en' => 'An universal game community on Twitter. ', ],
+		'desc' => ['ja' => 'Twitter のイメージをつなげるコミュニティ。', 'en' => 'The community to link images on Twitter. ', ],
 		'guide' => ['ja' => '利用ガイド', 'en' => "User's Guide", ],
 		'contact' => ['ja' => 'お知らせ・お問い合わせ', 'en' => 'News・Contact', ],
 		'allposts' => ['ja' => 'すべての投稿', 'en' => 'All posts', ],
@@ -32,6 +33,9 @@
 					display: inline-block;
 					text-align: left;
 					width: 100%/*774px*/;
+				}
+				#header-left{
+					margin-left: 5%;
 				}
 				#pen{
 					float: right;
@@ -62,16 +66,17 @@
 			<div lang="ja" class="header">
 				<div id="header-wrapper">
 					<img id="pen" src="<?php echo ROOT_URL; ?>img/eyecatch.php" style="drop-shadow: ; ">
-					<!--<img src="<?php echo ROOT_URL; ?>img/banner.php" alt="Twiverse" width="200px" onclick="window.amiibo.playAmiiboSE(); alert('Easter Egg! '); ">-->
-					<table id="banner" onClick = "amiibo.playAmiiboSE(); amiibo.startSearchAmiibo(); alert('Your amiibo please! '); "><tr>
-						<td><img src="<?php echo ROOT_URL; ?>img/twiverse.php" height="64px"></td>
-						<!--<td><img src="<?php echo ROOT_URL; ?>img/banner.php"></td>-->
-						<td><h3>ゲームコミュニティ (仮称)</h3></td>
-					</tr></table>
-					<p><?php l($s['desc']); ?></p>
-					<a href="guide.php"><?php l($s['guide']); ?></a>
-					<a href="https://twitter.com/Twiverse_admin" target="_blank"><?php l($s['contact']); ?></a>
-					<div style="clear: both; "></div>
+					<div id="header-left">
+						<!--<img src="<?php echo ROOT_URL; ?>img/banner.php" alt="Twiverse" width="200px" onclick="window.amiibo.playAmiiboSE(); alert('Easter Egg! '); ">-->
+						<table id="banner" onClick = "amiibo.playAmiiboSE(); amiibo.startSearchAmiibo(); alert('Your amiibo please! '); "><tr>
+							<td><img src="<?php echo ROOT_URL; ?>img/twiverse.php" height="64px"></td>
+							<td><img src="<?php echo ROOT_URL; ?>img/banner.php"></td>
+						</tr></table>
+						<p><?php l($s['desc']); ?></p>
+						<a href="guide.php"><?php l($s['guide']); ?></a>
+						<a href="https://twitter.com/Twiverse_admin" target="_blank"><?php l($s['contact']); ?></a>
+						<div style="clear: both; "></div>
+					</div>
 				</div>
 			</div>
 			<a href="<?php echo ROOT_URL; ?>view/" class="marginright" style="float: right; "><button><?php l($s['allposts']); ?></button></a>
