@@ -8,6 +8,9 @@
 	define('ALL_POSTS', '932243624233979905');
 	define('COLLECTON_STAMP', '945172613063520256');
 
+	if (isset($_SESSION['twitter']['account']['user'])) define('THEME_COLOR', '#'.$_SESSION['twitter']['account']['user']->profile_link_color);
+	else define('THEME_COLOR', '#1B95E0');
+
 	switch(useragent()){
 		case '3ds':
 		define('MAX_TWEETS', 10);
@@ -285,7 +288,7 @@
 			?><div style="display: inline-block; padding: 6px; width: 240px; text-align: left; vertical-align: top; ">
 				<div style="margin: 0; margin-bottom: 0px; "><?php
 					if ($user){
-						echo '<a href="'.ROOT_URL.'user/?'.http_build_query([screen_name => $res['screen_name']]).'" class="a-disabled" style="color: orange; ">★</a>';
+						echo '<a href="'.ROOT_URL.'user/?'.http_build_query([screen_name => $res['screen_name']]).'" class="a-disabled" style="color: #'.$status->user->profile_link_color.'; ">★</a>';
 					}
 					if (($res['comm_id'])&&($subcomm)){
 						$console_id = substr(mysql_fetch_assoc(mysql_query("select soft_id from comm where id = '".$res['comm_id']."'"))['soft_id'], 0, 2);
@@ -337,14 +340,14 @@
 			<link rel = "stylesheet" type = "text/css" href = "<?php echo ROOT_URL; ?>style.css">
 
 			<!-- Global Site Tag (gtag.js) - Google Analytics -->
-			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-106651880-1"></script>
+			<!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-106651880-1"></script>
 			<script>
 			  window.dataLayer = window.dataLayer || [];
 			  function gtag(){dataLayer.push(arguments)};
 			  gtag('js', new Date());
 
 			  gtag('config', 'UA-106651880-1');
-			</script>
+			</script>-->
 
 			<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 			<?php if (useragent() != '3ds'){ ?><script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><?php } ?>
@@ -372,8 +375,12 @@
 					document.title = $('.topbar').text()+' - Twiverse';
 				});
 			</script>
-
-			<title>Twiverse</title>
+			<style>
+				.topbar{
+			        	background: <?php echo THEME_COLOR; ?>;
+				        color: white;
+				}
+			</style>
 		</head>
 		<body>
 			<div class="sidemenu">

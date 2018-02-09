@@ -4,7 +4,7 @@
 		//'' => ['ja' => '', 'en' => '', ],
 		'title' => ['ja' => 'トップページ', 'en' => 'Top Page', ],
 		'desc' => ['ja' => 'Twitterを活用したUniversalゲームコミュニティです。', 'en' => 'An universal game community on Twitter. ', ],
-		'guide' => ['ja' => 'Twiverse利用ガイド', 'en' => "Twiverse User's Guide", ],
+		'guide' => ['ja' => '利用ガイド', 'en' => "User's Guide", ],
 		'contact' => ['ja' => 'お知らせ・お問い合わせ', 'en' => 'News・Contact', ],
 		'allposts' => ['ja' => 'すべての投稿', 'en' => 'All posts', ],
 	];

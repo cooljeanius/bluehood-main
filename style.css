@@ -146,10 +146,10 @@ body{
 
 	.topbar{
 		left: 64px;
-		height: 32px;
-		background: -webkit-gradient(linear, left top, left bottom, from(deepskyblue), to(dodgerblue));
+		height: 24px;
+		/*background: -webkit-gradient(linear, left top, left bottom, from(deepskyblue), to(dodgerblue));
+		color: lemonchiffon;*/
 		border-bottom: 1px solid lightgray;
-		color: lemonchiffon;
 		font-size: large;
 		font-weight: bold;
 		margin-top: 0;
@@ -203,9 +203,9 @@ body{
 	}	
 
 	.topbar{
-		background: -webkit-gradient(linear, left top, left bottom, from(deepskyblue), to(dodgerblue));
+		/*background: -webkit-gradient(linear, left top, left bottom, from(deepskyblue), to(dodgerblue));
+		color: lemonchiffon;*/
 		border-bottom: 1px solid lightgray;
-		color: lemonchiffon;
 		font-size: large;
 		font-weight: bold;
 		margin: 0;
