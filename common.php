@@ -8,8 +8,8 @@
 	define('ALL_POSTS', '932243624233979905');
 	define('COLLECTON_STAMP', '945172613063520256');
 
-	if (isset($_SESSION['twitter']['account']['user'])) define('THEME_COLOR', '#'.$_SESSION['twitter']['account']['user']->profile_link_color);
-	else define('THEME_COLOR', '#1B95E0');
+	/*if (isset($_SESSION['twitter']['account']['user'])) define('THEME_COLOR', '#'.$_SESSION['twitter']['account']['user']->profile_link_color);
+	else */define('THEME_COLOR', '#55acee');
 
 	switch(useragent()){
 		case '3ds':

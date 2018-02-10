@@ -2,12 +2,16 @@ var prevdata_max = 11;	// UNDO バッファサイズ
 
 var canvas = document.getElementById('draw');
 
-$(window).on('touchstart.noScroll', function(e) {
+//Safari 向けに無効
+/*$(window).on('touchstart.noScroll', function(e) {
 	e.preventDefault();
 });
 $(window).on('touchmove.noScroll', function(e) {
 	e.preventDefault();
-});
+});*/
+window.onerror = function(msg, file, line, column, err){
+	alert("エラーが発生しました。\n"+msg);
+};
 
 var ua = navigator.userAgent.toLowerCase();
 
@@ -25,7 +29,11 @@ $('#fullscreen').click(function(){
 	if (isfullscreen){
 		document.webkitCancelFullScreen();
 	}else{
-		$('.main')[0].webkitRequestFullScreen();
+		if ($('.main')[0].webkitRequestFullScreen){
+			$('.main')[0].webkitRequestFullScreen();
+		}else{
+			alert('ご利用の環境ではフルスクリーン表示ができません。');
+		}
 	}
 });
 document.onwebkitfullscreenchange = function(e){

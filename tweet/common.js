@@ -103,7 +103,7 @@ imgform_send.unbind().bind('load', function(){
 });
 
 $(function(){
-	//$('#text').val('#Twiverse ');
+	$('#text').val('#bluehood ');
 	if (comm_name){
 		$('#title').html(comm_name + 'の投稿');
 	}

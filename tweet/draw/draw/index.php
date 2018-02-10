@@ -27,11 +27,17 @@ canvas{
 	width: 24px;
 }
 
+	/*.sidemenu{
+		display: none;
+	}
+        .main{
+                padding-left: 1em !important;
+        }*/
 		</style>
 	</head>
 	<?php head(); ?>
 	<head>
-		<meta name="viewport" content="width=854px, initial-scale=1.0, user-scalable=no">
+		<meta name="viewport" content="width=854px, initial-scale=1.0, user-scalable=no, minimal-ui">
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 	</head>
