@@ -1,4 +1,6 @@
 var prevdata_max = 11;	// UNDO バッファサイズ
+canvas_width *= 2;
+canvas_height *= 2;
 
 var canvas = document.getElementById('draw');
 
@@ -16,8 +18,6 @@ window.onerror = function(msg, file, line, column, err){
 var ua = navigator.userAgent.toLowerCase();
 
 $(window).load(function(){
-var canvas_width = 600;
-var canvas_height = 240;
 var placeholder = '#ハッシュタグ @返信先 100文字までのコメントを追加できます。';
 $('canvas').attr('width', canvas_width + 'px');
 $('canvas').attr('height', canvas_height + 'px');
@@ -63,6 +63,8 @@ if (canvas.getContext){
 	var stamp = new Image();
 	stamp.crossOrigin = '';
 
+	context.fillStyle = 'white';
+	context.fillRect(0, 0, canvas_width, canvas_height);
 	if (draft_draw){
 		var image = new Image();
 		image.src = draft_draw;
@@ -71,10 +73,8 @@ if (canvas.getContext){
 			prevdata = [context.getImageData(0, 0, canvas_width, canvas_height)];
 			delete image;
 		}
-	}else{
-		context.fillStyle = 'white';
-		context.fillRect(0, 0, canvas_width, canvas_height);
 	}
+
 	var prevdata = [context.getImageData(0, 0, canvas_width, canvas_height)];
 
 	var fixposition = function(x, y){
@@ -284,7 +284,7 @@ if (canvas.getContext){
 		save_draft();
 	};*/
 
-	var is_autosave = confirm('お絵かきを1分ごとに自動で下書き保存してもよいですか？\nサーバー通信が発生します。');
+	//var is_autosave = confirm('お絵かきを1分ごとに自動で下書き保存してもよいですか？\nサーバー通信が発生します。');
 	setInterval(function(){
 		if (is_autosave) save_draft();
 	}, 60000);

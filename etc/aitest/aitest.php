@@ -77,7 +77,7 @@
 	?>この画像のハッシュタグは……<ul><?php
 	foreach($res->responses[0]->webDetection->webEntities as $webentity){
 		$hashtag = '#'.twitter_trimhash(strtolower($webentity->description));
-		?><li><a href="https://twitter.com/search?<?php echo http_build_query(['q' => $hashtag]); ?>"><?php echo $hashtag; ?></a> (スコア: <?php echo $webentity->score; ?>)</li><?php
+		?><li><a target="_blank" href="https://twitter.com/search?<?php echo http_build_query(['q' => $hashtag]); ?>"><?php echo $hashtag; ?></a> (スコア: <?php echo $webentity->score; ?>)</li><?php
 	}
 	?></ul>と判定されました。<?php
 

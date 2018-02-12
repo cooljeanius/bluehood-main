@@ -1,6 +1,11 @@
 <?php
 	include('/var/www/twiverse.php');
 	unset($_SESSION['collection_cursor']);
+	$s = [
+		'logout' => ['ja' => 'ログアウト', 'en' => 'Log out'],
+		'setting' => ['ja' => '設定', 'en' => 'Settings'],
+		//'' => ['ja' => '', 'en' => ''],
+	];
 
 	$myname = $_SESSION['twitter']['account']['user']->screen_name;
 	if (!isset($_GET['screen_name'])){
@@ -26,14 +31,16 @@
 	</head>
 	<?php head('#'.$user->profile_link_color); ?>
 	<body>
-		<?php include(ROOT_PATH.'header.php'); ?>
 		<script type="text/javascript" src="user.js"></script>
 		<div class="topbar"><?php
 			if ($ismypage) echo '<span>マイページ</span>';
 			else echo $user->name.'<span>さんのプロフィール</span>';
 		?></div>
 		<div class="main">
-			<?php if ($ismypage) echo '<a class="marginleft" href="'.ROOT_URL.'logout.php"><button lang="ja">ログアウト</button><button lang="en">logout</button></a>'; ?>
+			<?php if ($ismypage){
+				echo '<a class="marginleft" href="'.ROOT_URL.'logout.php"><button>'.s($s['logout']).'</button></a>';
+				echo '<a href="setting.php"><button>'.s($s['setting']).'</button></a>';
+			}?>
 			<header>
 				<div class="marginleft" style="padding-top: 1em; padding-bottom: 1em; ">
 					<div class="marginright" style="width: 25%; float: right; text-align: center; ">

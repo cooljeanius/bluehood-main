@@ -29,5 +29,7 @@
         define('ADMIN_COMSUMER_KEY', '');
         define('ADMIN_COMSUMER_SECRET', '');
 
+	define('GOOGLE_CLOUD_PLATFORM_KEY', ''); // Google Cloud Platform の API キー
+
 	require_once ROOT_PATH.'common.php';
 ?>
