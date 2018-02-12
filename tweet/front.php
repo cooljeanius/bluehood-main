@@ -9,6 +9,8 @@
 		//'' => ['ja' => "", 'en' => ""],
 	];
 
+	unset($_SESSION['post_image']);
+
         echo '<script type="text/javascript"> var comm_id = undefined; var comm_name = undefined; var thumb_data = undefined; </script>';
 	if (isset($_GET['comm_id'])){
                 mysql_start();

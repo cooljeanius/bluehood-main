@@ -75,8 +75,8 @@
 	}
 
 	function twitter_start(){
-
-		if (!isset($_SESSION['access_token'])){
+		try{
+		if (!isset($_SESSION['twitter']['start'])){
 			$conn = new TwitterOAuth(CONSUMER_KEY,CONSUMER_SECRET);
 
 			$req_token = $conn->oauth('oauth/request_token', array('oauth_callback' => OAUTH_CALLBACK));
@@ -124,8 +124,10 @@
 			$_SESSION['twitter']['screen_name'] = $_SESSION['twitter']['account']['user']->screen_name;
 
 			$res = mysql_fetch_assoc(mysql_query("select screen_name, collection_id, album_id from user where screen_name = '".$account['settings']->screen_name."'"));
+			mysql_throw();
                         if (!$res['screen_name']){
 				mysql_query("insert into user (screen_name) values ('".$account['settings']->screen_name."')");
+				mysql_throw();
 				header('location: '.DOMAIN.ROOT_URL.'guide.php');
 	                        mysql_close();
 				exit;
@@ -139,11 +141,13 @@
                         unset($account['collection_id']);
                         if (is_null($res['collection_id'])){
 				mysql_query("update user set collection_id = 0 where screen_name='".$account['user']->screen_name."'");
+				mysql_throw();
 				$list = $twitter->get('collections/list', ['screen_name' => $account['user']->screen_name, 'count' => 200])->objects->timelines;
                         	foreach($list as $id => $collection){
                        	        	if ($collection->name == 'Twiverse'){
                                         	$account['collection_id'] = $id;
 						mysql_query("update user set collection_id = ".str_replace('custom-', '', $id)." where screen_name='".$account['user']->screen_name."'");
+						mysql_throw();
 						break;
                         	        }
                         	}
@@ -154,11 +158,13 @@
                         unset($account['album_id']);
                         if (is_null($res['album_id'])){
 				mysql_query("update user set album_id = 0 where screen_name='".$account['user']->screen_name."'");
+				mysql_throw();
 				$list = $twitter->get('collections/list', ['screen_name' => $account['user']->screen_name, 'count' => 200])->objects->timelines;
                         	foreach($list as $id => $collection){
                        	        	if ($collection->name == 'Twiverse_album'){
                                         	$account['album_id'] = $id;
 						mysql_query("update user set album_id = ".str_replace('custom-', '', $id)." where screen_name='".$account['user']->screen_name."'");
+						mysql_throw();
 						break;
                         	        }
                         	}
@@ -178,10 +184,13 @@
 			exit;
 		}
 		return $twitter;
+		}catch(Exception $e){
+			catch_default($e);
+		}
 	}
 
 	function twitter_reader(){
-		if (!isset($_SESSION['access_token'])){
+		if (!isset($_SESSION['twitter']['start'])){
 			if (isset($_SESSION['twitter']['reader'])){
 				$twitter = unserialize($_SESSION['twitter']['reader']);
 			}else{

@@ -32,6 +32,7 @@
 					<input name="draw_autosave" type="checkbox" <?php if ($set['draw_autosave']) echo 'checked'; ?>>1 分ごとに自動で下書き保存する<br>
 					キャンバスの横サイズ <input name="draw_width" type="number" value="<?php echo $set['draw_width']; ?>" style="width: 4em; "> px<br>
 					キャンバスの縦サイズ <input name="draw_height" type="number" value="<?php echo $set['draw_height']; ?>"  style="width: 4em; "> px<br>
+					キャンバスの大きさを変更すると、下書きの一部情報が失われる場合があります。
 				</fieldset>
 				<input type="submit">
 			</from>
