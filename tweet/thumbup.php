@@ -52,7 +52,7 @@
 
 		$image = file_get_contents($_FILES['selimg']['tmp_name']);
 		$_SESSION['post_image'] = base64_encode($image);
-	} if (isset($_POST['selalbum'])){
+	}else if (isset($_POST['selalbum'])){
 		$twitter = twitter_start();
 		$status = $twitter->get('statuses/show', ['id' => $_POST['selalbum']]);
 		$texts = explode(' ', str_replace('@home ', '', $status->text));

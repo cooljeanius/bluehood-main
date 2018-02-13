@@ -10,6 +10,7 @@
 
 			case 2:
 			if (($day == 3)) $basename = 'setsubun.png';
+			else if (($day == 14)) $basename = 'valen.png';
 			break;
 
 			case 12:

@@ -76,7 +76,7 @@
 
 	function twitter_start(){
 		try{
-		if (!isset($_SESSION['twitter']['start'])){
+		if (!isset($_SESSION['access_token'])){
 			$conn = new TwitterOAuth(CONSUMER_KEY,CONSUMER_SECRET);
 
 			$req_token = $conn->oauth('oauth/request_token', array('oauth_callback' => OAUTH_CALLBACK));
@@ -190,7 +190,7 @@
 	}
 
 	function twitter_reader(){
-		if (!isset($_SESSION['twitter']['start'])){
+		if (!isset($_SESSION['access_token'])){
 			if (isset($_SESSION['twitter']['reader'])){
 				$twitter = unserialize($_SESSION['twitter']['reader']);
 			}else{

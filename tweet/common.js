@@ -32,7 +32,6 @@ $(function(){
 
 		send.setAttribute('disabled', 'disabled');
 		selimg.setAttribute('disabled', 'disabled');	
-		$('#sc-dialog').dialog('close');
 	};
 });
 
@@ -114,6 +113,7 @@ $(function(){
 });
 
 var updateText = function(){
+	$('#suggest').html('');
 	$.post(tweet_url + 'getopt.php', {comm_id: comm_id}, function(res){
 		/*$('#suggest').html('');
 		res.option.forEach(function(option, i){
@@ -126,7 +126,7 @@ var updateText = function(){
 		res.option.forEach(function(option, i){
 			var color = '#55acee';
 
-			if (i < 6) color = 'deeppink';
+			//if (i < 6) color = 'deeppink';
 			$('#suggest-sel').append('<option value="'+option+'" style="color: '+color+'; ">'+option+'</option>');
 		});
 		$('#suggest-sel').change(function(){
