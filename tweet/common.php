@@ -2,24 +2,32 @@
 	include('/var/www/twiverse.php');
 
 	function dropTweet($status, $twitter, $hide, $comm_id){
-		//$emb_def = $twitter->get('statuses/oembed', ['id' => $status->id_str, 'maxwidth' => '240'])->html;
-		//$emb_3ds = emb_3ds($status);
-		$hide = $hide?'true':'false';
+		try{
+			mysql_start();
+			$res = mysql_query("select post_register from user where screen_name='".$_SESSION['twitter']['screen_name']."'"); mysql_throw();
+			$set = mysql_fetch_assoc($res); mysql_throw();
+			if ($set['post_register']){
+				//$emb_def = $twitter->get('statuses/oembed', ['id' => $status->id_str, 'maxwidth' => '240'])->html;
+				//$emb_3ds = emb_3ds($status);
+				$hide = $hide?'true':'false';
 
-		mysql_start();
-		//mysql_query("insert into tweet (id, emb_def, emb_3ds, screen_name, hide, time, comm_id, object) values (".$status->id.", '".$emb_def."', '".$emb_3ds."', '".$status->user->screen_name."', ".$hide.", now(), '".$comm_id."', '".json_encode($status)."')");
-		mysql_query("insert into tweet (id, screen_name, hide, time, comm_id) values (".$status->id.", '".$status->user->screen_name."', ".$hide.", now(), '".$comm_id."')");
-		mysql_query("update comm set post_n=post_n+1 where id='".$comm_id."'");
-		$res = mysql_fetch_assoc(mysql_query("select collection_id from comm where id = '".$comm_id."'"));
-		$collection_id = $res['collection_id'];
-		mysql_close();
+				//mysql_query("insert into tweet (id, emb_def, emb_3ds, screen_name, hide, time, comm_id, object) values (".$status->id.", '".$emb_def."', '".$emb_3ds."', '".$status->user->screen_name."', ".$hide.", now(), '".$comm_id."', '".json_encode($status)."')");
+				mysql_query("insert into tweet (id, screen_name, hide, time, comm_id) values (".$status->id.", '".$status->user->screen_name."', ".$hide.", now(), '".$comm_id."')"); mysql_throw();
+				mysql_query("update comm set post_n=post_n+1 where id='".$comm_id."'"); mysql_throw();
+				$res = mysql_fetch_assoc(mysql_query("select collection_id from comm where id = '".$comm_id."'")); mysql_throw();
+				$collection_id = $res['collection_id'];
 
-		$twitter_admin = twitter_admin();
-		$twitter_admin->post('collections/entries/add', ['id' => 'custom-'.$collection_id, 'tweet_id' => $status->id_str]);
-		// All Posts
-		$twitter_admin->post('collections/entries/add', ['id' => 'custom-932243624233979905', 'tweet_id' => $status->id_str]);
-		// マイページ
-		if (isset($_SESSION['twitter']['account']['collection_id'])) $twitter->post('collections/entries/add', ['id' => $_SESSION['twitter']['account']['collection_id'], 'tweet_id' => $status->id_str]);
+				$twitter_admin = twitter_admin();
+				$twitter_admin->post('collections/entries/add', ['id' => 'custom-'.$collection_id, 'tweet_id' => $status->id_str]);
+				// All Posts
+				$twitter_admin->post('collections/entries/add', ['id' => 'custom-932243624233979905', 'tweet_id' => $status->id_str]);
+				// マイページ
+				if (isset($_SESSION['twitter']['account']['collection_id'])) $twitter->post('collections/entries/add', ['id' => $_SESSION['twitter']['account']['collection_id'], 'tweet_id' => $status->id_str]);
+			}
+			mysql_close();
+		}catch(Exception $e){
+			catch_default($e);
+		}
 	}
 
 	function complete_page($comm_id){
