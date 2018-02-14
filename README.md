@@ -7,7 +7,7 @@ An universal game community on Twitter. <br>
 BlueHood は次の環境を利用して動作します。
 <ul>
   <li>Apache 2</li>
-  <li>PHP 5 (旧バージョンです)</li>
+  <li>PHP 5.6 (旧バージョンです)</li>
   <li>MySQL</li>
   <li>メールクライアント (Postfix など)</li>
   <li>運営用 Twitter アカウント (鍵アカウントの秘密保護のため、だれもフォローしてはならない)</li>
