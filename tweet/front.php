@@ -38,6 +38,7 @@
 		$soft_id = $texts[0];
 		if (strtotime($status->created_at) < 1516037892) $soft_id = 'WU'.$soft_id;
 		$image = base64_encode(file_get_contents($status->entities->media[0]->media_url_https));
+		$_SESSION['post_image'] = $image;
 
                 mysql_start();
                 $res = mysql_fetch_assoc(mysql_query("select name, id from comm where soft_id = '".$soft_id."'"));

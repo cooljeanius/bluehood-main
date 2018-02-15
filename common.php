@@ -235,9 +235,10 @@
 		return $db;
 	}
 
-	function mysql_throw(){	// MySQL のエラーがあったとき throw する
+	function mysql_throw($thru = null){	// MySQL のエラーがあったとき throw する
 		$err = mysql_error();
 		if (!empty($err)) throw new Exception($err);
+		return $thru;
 	}
 
 				function twitter_text($status){
@@ -297,23 +298,16 @@
 			?><div style="display: inline-block; padding: 6px; width: 240px; text-align: left; vertical-align: top; ">
 				<div style="margin: 0; margin-bottom: 0px; "><?php
 					if ($user){
-						echo '<a href="'.ROOT_URL.'user/?'.http_build_query([screen_name => $res['screen_name']]).'" class="a-disabled" style="color: #'.$status->user->profile_link_color.'; ">★</a>';
+						echo '<a href="'.ROOT_URL.'user/?'.http_build_query([screen_name => $status->user->screen_name]).'" class="a-disabled" style="color: #'.$status->user->profile_link_color.'; ">★</a>';
 					}
-					if (($res['comm_id'])&&($subcomm)){
-						$console_id = substr(mysql_fetch_assoc(mysql_query("select soft_id from comm where id = '".$res['comm_id']."'"))['soft_id'], 0, 2);
-						echo '<a class="tweet-sub" style="text-decoration: none; " href="'.ROOT_URL.'view/?comm_id='.$res['comm_id'].'">';
-						if ($console_id == 'PV') echo '<span style="color: red; ">'.'PS VITA　'.'</span>';
-						if ($console_id == '3D') echo '<span style="color: red; ">'.'3DS　'.'</span>';
-						if ($console_id == 'WU') echo '<span style="color: red; ">'.'Wii U　'.'</span>';
-						if ($console_id == 'DS') echo '<span style="color: red; ">'.'DS　'.'</span>';
-						if ($console_id == 'P4') echo '<span style="color: red; ">'.'PS4　'.'</span>';
-						$comm_name = mysql_fetch_assoc(mysql_query("select name from comm where id = '".$res['comm_id']."'"))['name'];
-						echo '<span style="color: orange; ">'.$comm_name.'</span>';
-						echo '</a>';
+					if ($res['comm_id'] && $subcomm){
+						$comm = mysql_fetch_assoc(mysql_throw(mysql_query("select * from comm where id = '".$res['comm_id']."'")));
+						$detector = detector($comm['soft_id']);
+						?><a class="tweet-sub" style="text-decoration: none; " href="<?php echo ROOT_URL; ?>view/?<?php echo http_build_query(['comm_id' => $res['comm_id']]); ?>">
+							<?php if ($detector){ ?><span style="color: red; "><?php echo $detector['name']; ?></span><?php } ?>
+							<span style="color: orange; "><?php echo $comm['name']; ?></span>
+						</a><?php
 					}
-					foreach(['情報交換', 'コンテスト', '対戦' ,'大会' ,'協力', '質問'] as $topic)
-						if (strpos($status->text, '#'.$topic) !== false)
-							echo '<span class="tweet-sub" style="color: deeppink; ">#'.$topic.'</span>';
 				?></div>
 				<?php if ((useragent() == '3ds')/*||(useragent() == 'new3ds')*/) echo emb_3ds($status); else{ ?>
 					<div id="tweet-<?php echo $id; ?>"></div>
@@ -421,6 +415,12 @@
 		<?php } ?>-->
 		</body>
 		<?php
+	}
+
+	function detector($soft_id){	// mysql がオープンであること。
+		$prefix = substr($soft_id, 0, 2);
+		$detector = mysql_fetch_assoc(mysql_throw(mysql_query("select * from detector where prefix='".$prefix."'")));	// null もあり得る
+		return $detector;
 	}
 
 	function make_comm($soft_id, $name){

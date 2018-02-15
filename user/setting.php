@@ -12,20 +12,6 @@
 ?>
 <!DOCTYPE html>
 <html>
-	<head>
-		<style>
-			fieldset, legend{
-				background-color: white;
-			}
-			fieldset{
-				border: 1px solid lightgray;
-				font-size: small;
-			}
-			legend{
-				font-size: medium;
-			}
-		</style>
-	</head>
 	<?php head('#'.$_SESSION['twitter']['account']['user']->profile_link_color); ?>
 	<body>
 		<div class="topbar"><?php l($s['title']); ?></div>

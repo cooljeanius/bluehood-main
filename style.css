@@ -124,6 +124,17 @@ body{
                                 border-bottom: 2px solid gold;
                         }
 
+                        fieldset, legend{
+                                background-color: white;
+                        }
+                        fieldset{
+                                border: 1px solid lightgray;
+                                font-size: small;
+                        }
+                        legend{
+                                font-size: medium;
+                        }
+
 @media screen and (min-width: 766px) {	/* Wii U, PC, タブレット */
 	.sidemenu{
 		position: fixed;

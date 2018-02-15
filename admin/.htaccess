@@ -1,0 +1,5 @@
+AuthUserfile /var/www/.htpasswd
+AuthName "BlueHood Admin only. "
+AuthType Basic
+require valid-user
+

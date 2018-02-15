@@ -6,7 +6,7 @@
 		//'desc' => ['ja' => 'Twitterを活用したUniversalゲームコミュニティです。', 'en' => 'An universal game community on Twitter. ', ],
 		'desc' => ['ja' => 'Twitter のイメージをつなげるコミュニティ。', 'en' => 'The community to link images on Twitter. ', ],
 		'guide' => ['ja' => '利用ガイド', 'en' => "User's Guide", ],
-		'contact' => ['ja' => 'ニュース・お問い合わせ', 'en' => 'News・Contact', ],
+		'contact' => ['ja' => '公式 Twitter', 'en' => "Admin's Twitter", ],
 		'allposts' => ['ja' => 'すべての投稿', 'en' => 'All posts', ],
 		'Q&A' => ['ja' => 'Ｑ＆Ａ', 'en' => 'Q &amp; A', ],
 	];

@@ -20,6 +20,7 @@
         $set = mysql_fetch_assoc($res); mysql_throw();
 	mysql_close();
 	if ($set['draw_sc'] == 'vertical'){
+		if (!$thumb_path) $thumb_path = tempnam('/tmp', 'php').'.jpg';
 
 		if (isset($_POST['thumb'])){
 			$width = max(getimagesize($thumb_path)[0], getimagesize($draw_path)[0]);

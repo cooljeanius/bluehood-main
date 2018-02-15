@@ -1,5 +1,10 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		'title' => ['ja' => "コミュニティ", 'en' => "Communities"],
+		//'' => ['ja' => "", 'en' => ""],
+		//'' => ['ja' => "", 'en' => ""],
+	];
 
 	mysql_start();
 	$res = mysql_query("select * from comm order by name");
@@ -47,8 +52,7 @@
 	</head>
 	<?php head(); ?>
 	<body>
-		<div lang="ja" class="topbar">コミュニティを探す</div>
-		<div lang="en" class="topbar">Search Communities</div>
+		<div class="topbar"><?php l($s['title']); ?></div>
 		<div class="main">
 			<div lang="ja" class="header">
 				現在、<?php echo count($comm_list); ?>個のコミュニティが設立されています。<br>
@@ -57,14 +61,15 @@
 				コミュニティに関するご報告、バナー画像については<a href="https://twitter.com/Twiverse_admin">@Twiverse_admin</a>まで。<br>
 				<br>
 			</div>
-			<div lang="en" class="header">
+			<!--<div lang="en" class="header">
 				<?php echo count($comm_list); ?> communities are established now. <br>
 				<a href="estcomm.php">How do I establish more communities?</a><br>
 				To change or report the community name, or ask about banner image, please contact to <a href="https://twitter.com/Twiverse_admin">@Twiverse_admin</a>. <br>
 				<br>
-			</div>
+			</div>-->
 			<div style="text-align: center; ">
 				<?php
+					mysql_start();
 					$i = 0;
 					foreach($comm_list as $comm){?>
 						<a href="<?php echo ROOT_URL; ?>view/?comm_id=<?php echo $comm['id']; ?>" style="text-decoration: none; color: inherit; "><div class="card comm" style="text-align: left; ">
@@ -72,15 +77,15 @@
 							<div class="card-article">
 								<h3 class="underline" style="margin: 0; font-size: medium; word-wrap: break-word; "><?php echo $comm['name']; ?></h3>
 								<p class="disabled" style="font-size: small; "><?php
-									$console_id = substr($comm['soft_id'], 0, 2);
-									$console_name = ['WU' => 'Wii U', '3D' => '3DS', 'PV' => 'PS VITA'];
-									echo $console_name[$console_id].' ';
+									$detector = detector($comm['soft_id']);
+									echo $detector['name'].' ';
 									if ($comm['post_n']) echo '投稿 '.$comm['post_n'].' ';
 									if ($comm['list_n']) echo 'リスト '.$comm['list_n'].' ';
 								?></p>
 							</div>
 						</div></a>
 					<?php }
+					mysql_close();
 				?>
 			</div>
 		</div>
