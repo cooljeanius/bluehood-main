@@ -44,7 +44,8 @@
                         $res = mysql_fetch_assoc(mysql_query("select name from soft_id2name where id = '".$soft_id."'"));
                         mysql_close();
                         if (!$res['name']) make_comm($soft_id, $name);
-                }else{
+                }else if (0){	// AI ディテクタ
+		}else{
 			/*die('<div id="err">Wii U、3DS以外の端末からはスクリーンショットを投稿できません。</div>');*/
 			$comm_id = 'default0';
 			$name = '未分類';

@@ -2,15 +2,14 @@
 	include('/var/www/twiverse.php');
 	$s = [
 		'title' => ['ja' => "コミュニティ", 'en' => "Communities"],
-		//'' => ['ja' => "", 'en' => ""],
+		'detector' => ['ja' => "ディテクター", 'en' => "detector"],
 		//'' => ['ja' => "", 'en' => ""],
 	];
+	if (isset($_GET['detector'])) $detector_prefix = mysql_escape_string($_GET['detector']);
 
-	mysql_start();
-	$res = mysql_query("select * from comm order by name");
-	$comm_list = [];
-	while($row = mysql_fetch_assoc($res)) array_push($comm_list, $row);
-	mysql_close();
+	function helpbutton($desc){ ?>
+		<img src="<?php echo ROOT_URL; ?>img/help.png" style="width: 1em; cursor: pointer; " onclick="alert('<?php echo $desc; ?>'); ">
+	<?php }
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,13 +34,6 @@
 				.comm{
 					width: 45%;
 				}
-				/*.banner{
-					float: right;
-					max-height: 7em;
-					border-radius-upright: 0.25em;
-					border-radius-bottomright: 0.25em;
-					border-left: 1px solid lightgray;
-				}*/
 			}
 			@media screen and (max-width: 767px) {
 				.comm{
@@ -52,41 +44,53 @@
 	</head>
 	<?php head(); ?>
 	<body>
-		<div class="topbar"><?php l($s['title']); ?></div>
+		<div class="topbar"><?php
+			if (isset($detector_prefix)){
+			}
+			l($s['title']);
+		?></div>
 		<div class="main">
 			<div lang="ja" class="header">
-				現在、<?php echo count($comm_list); ?>個のコミュニティが設立されています。<br>
-                        	Wii U、3DS、PS VITAの端末から、スクリーンショット付きの投稿をしてコミュニティを設立できます。<br>
 				<a href="<?php echo ROOT_URL; ?>view/report/">コミュニティ設立・変更依頼フォーム</a><br>
 				コミュニティに関するご報告、バナー画像については<a href="https://twitter.com/Twiverse_admin">@Twiverse_admin</a>まで。<br>
+				ディテクターとは<?php helpbutton('添付画像を自動認識し、コミュニティに振り分けるプログラムです。\nたとえば、3DS ディテクターは 3DS のスクリーンショットを認識し、3DS ディテクター内のコミュニティに振り分けます。'); ?>
 				<br>
 			</div>
-			<!--<div lang="en" class="header">
-				<?php echo count($comm_list); ?> communities are established now. <br>
-				<a href="estcomm.php">How do I establish more communities?</a><br>
-				To change or report the community name, or ask about banner image, please contact to <a href="https://twitter.com/Twiverse_admin">@Twiverse_admin</a>. <br>
-				<br>
-			</div>-->
 			<div style="text-align: center; ">
-				<?php
+				<?php try{
 					mysql_start();
-					$i = 0;
-					foreach($comm_list as $comm){?>
-						<a href="<?php echo ROOT_URL; ?>view/?comm_id=<?php echo $comm['id']; ?>" style="text-decoration: none; color: inherit; "><div class="card comm" style="text-align: left; ">
-							<?php if ($comm['banner']) echo '<div class="banner-wrapper"><img src="'.$comm[banner].'" class="banner"></div>'; ?>
-							<div class="card-article">
-								<h3 class="underline" style="margin: 0; font-size: medium; word-wrap: break-word; "><?php echo $comm['name']; ?></h3>
-								<p class="disabled" style="font-size: small; "><?php
-									$detector = detector($comm['soft_id']);
-									echo $detector['name'].' ';
-									if ($comm['post_n']) echo '投稿 '.$comm['post_n'].' ';
-									if ($comm['list_n']) echo 'リスト '.$comm['list_n'].' ';
-								?></p>
-							</div>
-						</div></a>
-					<?php }
+					if (isset($detector_prefix)){
+					        $comms = mysql_throw(mysql_query("select * from comm where soft_id like '".$detector_prefix."%' order by name"));
+						while($comm = mysql_fetch_assoc($comms)){ ?>
+						        <a href="<?php echo ROOT_URL; ?>view/?comm_id=<?php echo $comm['id']; ?>" style="text-decoration: none; color: inherit; "><div class="card comm" style="text-align: left; ">
+						                <?php if ($comm['banner']) echo '<div class="banner-wrapper"><img src="'.$comm[banner].'" class="banner"></div>'; ?>
+						        <div class="card-article">
+						                        <h3 class="underline" style="margin: 0; font-size: medium; word-wrap: break-word; "><?php echo $comm['name']; ?></h3>
+						                        <p class="disabled" style="font-size: small; "><?php
+						                                //$detector = detector($comm['soft_id']);
+						                                //echo $detector['name'].' ';
+						                                if ($comm['post_n']) echo '投稿 '.$comm['post_n'].' ';
+						                                if ($comm['list_n']) echo 'リスト '.$comm['list_n'].' ';
+						                        ?></p>
+						                </div>
+						        </div></a>
+						<?php }
+					}else{
+						$detectors = mysql_throw(mysql_query("select * from detector order by name"));
+						while($detector = mysql_fetch_assoc($detectors)){
+							$comm_count = mysql_num_rows(mysql_throw(mysql_query("select * from comm where soft_id like '".$detector['prefix']."%'")));
+							?>
+							<a href="<?php echo ROOT_URL; ?>view/search/?detector=<?php echo $detector['prefix']; ?>" class="a-disabled"><div class="card card-article comm" style="text-align: left; ">
+								<h3 class="underline" style="margin: 0; font-size: medium; word-wrap: break-word; "><?php echo $detector['name']; ?> <?php l($s['detector']); ?></h3>
+								<p class="disabled" style="font-size: small; ">
+									コミュニティ <?php echo $comm_count; ?><br>
+									<?php echo nl2br(htmlspecialchars($detector['description'])); ?>
+								</p>
+							</div></a>
+						<?php }
+					}
 					mysql_close();
-				?>
+				}catch(Exception $e){ catch_default($e); }?>
 			</div>
 		</div>
 	</body>
