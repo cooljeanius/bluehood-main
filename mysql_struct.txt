@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.58, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.21, for Linux (i686)
 --
 -- Host: localhost    Database: twiverse
 -- ------------------------------------------------------
--- Server version	5.5.58-log
+-- Server version	5.7.21-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -33,6 +33,34 @@ CREATE TABLE `comm` (
   `post_n` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `detector`
+--
+
+DROP TABLE IF EXISTS `detector`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `detector` (
+  `prefix` varchar(2) CHARACTER SET latin1 NOT NULL,
+  `name` varchar(25) CHARACTER SET latin1 NOT NULL,
+  `description` text CHARACTER SET latin1,
+  PRIMARY KEY (`prefix`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `selstamp`
+--
+
+DROP TABLE IF EXISTS `selstamp`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `selstamp` (
+  `screen_name` text NOT NULL,
+  `image_url` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -82,6 +110,11 @@ CREATE TABLE `user` (
   `draft_draw` text,
   `collection_id` bigint(20) unsigned DEFAULT NULL,
   `album_id` bigint(20) unsigned DEFAULT NULL,
+  `draw_autosave` tinyint(1) DEFAULT '0',
+  `draw_height` int(10) unsigned DEFAULT '120',
+  `draw_width` int(10) unsigned DEFAULT '320',
+  `post_register` tinyint(1) DEFAULT '1',
+  `draw_sc` varchar(8) DEFAULT 'vertical',
   PRIMARY KEY (`screen_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -95,4 +128,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-04 20:52:46
+-- Dump completed on 2018-02-16  0:26:24
