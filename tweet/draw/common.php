@@ -5,16 +5,6 @@
 	function post_draw($thumb_path, $draw_path){
 	$twitter = twitter_start();
 
-        unset($comm_name);
-        unset($comm_id);
-        if (isset($_POST['comm_id'])){
-                $comm_id = $_POST['comm_id'];
-                mysql_start();
-                $res = mysql_fetch_assoc(mysql_query("select name from comm where id = '".$comm_id."'")); mysql_throw();
-                $comm_name = $res['name'];
-                mysql_close();
-        }
-
 	mysql_start();
 	$res = mysql_query("select draw_sc from user where screen_name='".$_SESSION['twitter']['screen_name']."'"); mysql_throw();
         $set = mysql_fetch_assoc($res); mysql_throw();
@@ -59,8 +49,9 @@
 
 	$status = $twitter->post('statuses/update', $tweet);
 	twitter_throw($status);
-	dropTweet($status, $twitter, isset($_POST['hide']), $comm_id);
+	$comm_ids = json_decode($_POST['comm_ids']);
+	dropTweet($status, $twitter, isset($_POST['hide']), $comm_ids);
 
-	complete_page($comm_id);
+	complete_page($comm_ids);
 	}
 ?>

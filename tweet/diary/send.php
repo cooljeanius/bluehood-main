@@ -3,17 +3,6 @@
         include('../common.php');
 
 	try{
-	unset($comm_name);
-	unset($comm_id);
-	if (isset($_POST['comm_id'])){
-		$comm_id = $_POST['comm_id'];
-		mysql_start();
-
-		$res = mysql_fetch_assoc(mysql_query("select name from comm where id = '".$comm_id."'"));
-		$comm_name = $res['name'];
-
-		mysql_close();
-	}
 
 	$thumb_path = tempnam('/tmp', 'php').'.jpg';
 	file_put_contents($thumb_path, base64_decode($_SESSION['post_image']));
@@ -32,15 +21,18 @@
 	$status = $conn->post('statuses/update', $tweet);
 	if (isset($status->errors)) throw new Exception(print_r($status->errors, true));
 
-	dropTweet($status, $conn, isset($_POST['hide']), $comm_id);
+	$comm_ids = json_decode($_POST['comm_ids']);
+	dropTweet($status, $conn, isset($_POST['hide']), $comm_ids));
 
-	if (isset($comm_id)&&isset($status->entities->media[0]->media_url_https)){
+	if (isset($status->entities->media[0]->media_url_https)){
 		mysql_start();
-		mysql_query("update comm set banner='".$status->entities->media[0]->media_url_https."' where id='".$comm_id."'");
+		foreach($comm_ids as $comm_id){
+			mysql_query("update comm set banner='".$status->entities->media[0]->media_url_https."' where id='".$comm_id."'");
+		}
 		mysql_close();
 	}
 
-	complete_page($comm_id);
+	complete_page($comm_ids);
 
 	}catch(Exception $e){
 		die('エラーが発生しました。<br>'.nl2br($e->getMessage()));

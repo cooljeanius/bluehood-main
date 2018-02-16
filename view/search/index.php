@@ -80,13 +80,13 @@
 						while($detector = mysql_fetch_assoc($detectors)){
 							$comm_count = mysql_num_rows(mysql_throw(mysql_query("select * from comm where soft_id like '".$detector['prefix']."%'")));
 							?>
-							<a href="<?php echo ROOT_URL; ?>view/search/?detector=<?php echo $detector['prefix']; ?>" class="a-disabled"><div class="card card-article comm" style="text-align: left; ">
+							<a href="<?php echo ROOT_URL; ?>view/search/?detector=<?php echo $detector['prefix']; ?>" class="a-disabled"><div class="card comm" style="text-align: left; "><div class="card-article">
 								<h3 class="underline" style="margin: 0; font-size: medium; word-wrap: break-word; "><?php echo $detector['name']; ?> <?php l($s['detector']); ?></h3>
 								<p class="disabled" style="font-size: small; ">
 									コミュニティ <?php echo $comm_count; ?><br>
 									<?php echo nl2br(htmlspecialchars($detector['description'])); ?>
 								</p>
-							</div></a>
+							</div></div></a>
 						<?php }
 					}
 					mysql_close();

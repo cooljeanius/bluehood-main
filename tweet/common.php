@@ -1,26 +1,24 @@
 <?php
 	include('/var/www/twiverse.php');
 
-	function dropTweet($status, $twitter, $hide, $comm_id){
+	function dropTweet($status, $twitter, $hide, $comm_ids){
 		try{
 			mysql_start();
 			$res = mysql_query("select post_register from user where screen_name='".$_SESSION['twitter']['screen_name']."'"); mysql_throw();
 			$set = mysql_fetch_assoc($res); mysql_throw();
 			if ($set['post_register']){
-				//$emb_def = $twitter->get('statuses/oembed', ['id' => $status->id_str, 'maxwidth' => '240'])->html;
-				//$emb_3ds = emb_3ds($status);
 				$hide = $hide?'true':'false';
-
-				//mysql_query("insert into tweet (id, emb_def, emb_3ds, screen_name, hide, time, comm_id, object) values (".$status->id.", '".$emb_def."', '".$emb_3ds."', '".$status->user->screen_name."', ".$hide.", now(), '".$comm_id."', '".json_encode($status)."')");
 				mysql_query("insert into tweet (id, screen_name, hide, time, comm_id) values (".$status->id.", '".$status->user->screen_name."', ".$hide.", now(), '".$comm_id."')"); mysql_throw();
-				mysql_query("update comm set post_n=post_n+1 where id='".$comm_id."'"); mysql_throw();
-				$res = mysql_fetch_assoc(mysql_query("select collection_id from comm where id = '".$comm_id."'")); mysql_throw();
-				$collection_id = $res['collection_id'];
-
 				$twitter_admin = twitter_admin();
-				$twitter_admin->post('collections/entries/add', ['id' => 'custom-'.$collection_id, 'tweet_id' => $status->id_str]);
+				//Communities
+				foreach($comm_ids as $comm_id){
+					$res = mysql_fetch_assoc(mysql_throw(mysql_query("select collection_id from comm where id = '".$comm_id."'")));
+					$collection_id = $res['collection_id'];
+					$twitter_admin->post('collections/entries/add', ['id' => 'custom-'.$collection_id, 'tweet_id' => $status->id_str]);
+					mysql_query("update comm set post_n=post_n+1 where id='".$comm_id."'"); mysql_throw();
+				}
 				// All Posts
-				$twitter_admin->post('collections/entries/add', ['id' => 'custom-932243624233979905', 'tweet_id' => $status->id_str]);
+				$twitter_admin->post('collections/entries/add', ['id' => 'custom-'.ALL_POSTS, 'tweet_id' => $status->id_str]);
 				// マイページ
 				if (isset($_SESSION['twitter']['account']['collection_id'])) $twitter->post('collections/entries/add', ['id' => $_SESSION['twitter']['account']['collection_id'], 'tweet_id' => $status->id_str]);
 			}
@@ -30,8 +28,8 @@
 		}
 	}
 
-	function complete_page($comm_id){
-
+	function complete_page($comm_ids){
+		header('Location: '.DOMAIN.ROOT_URL);
 		if (!isset($comm_id)) header('Location: '.DOMAIN.ROOT_URL.'view/');
 
 		mysql_start();
@@ -95,10 +93,10 @@
 
 	function detect($filename, $selalbum = null){
 	$twitter = twitter_start();
-	$image = file_get_contents('noimage.jpg');
+
+	/* 画像 -> soft_id, $_SESSION['post_image'], $vision_res */
 	if ($filename){
-		$image = file_get_contents($filename);
-		$_SESSION['post_image'] = base64_encode($image);
+		$_SESSION['post_image'] = base64_encode(file_get_contents($filename));
 	// リクエスト用のJSONを作成
 		$json = json_encode( array(
 			"requests" => array(
@@ -134,60 +132,75 @@
 		$header = substr( $res1, 0, $res2["header_size"] ) ;		// レスポンスヘッダー
 		$vision_res = json_decode($json);
 
-		unset($name);
-		unset($comm_id);
-		unset($soft_id);
-		$exif = exif_read_data($filename);
-		if (useragent() == 'wiiu'){
-			$soft_id = 'WU'.substr($filename, -9, 5);
-		}else if ($exif['Model'] == 'Nintendo 3DS') do{
-			if (strlen($exif['Software']) != 5){
-				//die('<div id="err">この画像は使用できません。</div>');
-				$comm_id = 'default0';
-				$name = '未分類';
-				break;
+		function detector_wiiu($filename){
+			$soft_ids = [];
+			if (useragent() == 'wiiu'){
+				$soft_ids []= 'WU'.substr($filename, -9, 5);
 			}
-			$soft_id = '3D'.$exif['Software'];
-		}while(0); else if ($exif['Model'] == 'PlayStation(R)Vita'){
-			$soft_id = 'PV'.substr(strstr($exif['MakerNote'], 'GPNM'), 5, 9);
-			$name = mb_substr(twitter_trimhash(mysql_escape_string(substr(strstr($exif['MakerNote'], 'ALBM'), 5, -1))), 0, 25);
-
-			mysql_start();
-                        $res = mysql_fetch_assoc(mysql_query("select name from soft_id2name where id = '".mysql_escape_string($soft_id)."'"));
-			mysql_close();
-                        if (!$res['name']) make_comm($soft_id, $name);
-		}else if ($exif['Model'] == 'NintendoDS'){
-			if (strlen($exif['Software']) != 4){
-                                //die('<div id="err">この画像は使用できません。</div>');
-                                $comm_id = 'default0';
-                                $name = '未分類';
-                                break;
-                        }
-                        $soft_id = 'DS'.$exif['Software'];
-		}else if ($exif['Model'] == 'PlayStation(R)4'){
-                        $soft_id = 'P4'.substr(strstr($exif['MakerNote'], 'GPNM'), 5, 9);
-                        $name = mb_substr(twitter_trimhash(mysql_escape_string(substr(strstr($exif['MakerNote'], 'ALBM'), 5, -1))), 0, 25);
-
-                        mysql_start();
-                        $res = mysql_fetch_assoc(mysql_query("select name from soft_id2name where id = '".mysql_escape_string($soft_id)."'"));
-                        mysql_close();
-                        if (!$res['name']) make_comm($soft_id, $name);
-                }else if (1){	// AI ディテクタ
-			$comm_id = 'default0';
-			$name = '未分類';
-
-                        mysql_start();
-			foreach($vision_res->responses[0]->webDetection->webEntities as $webentity){
-	                        $res = mysql_fetch_assoc(mysql_query("select id, name from soft_id2name where id = '".mysql_escape_string('AI'.$webentity->entityId)."'"));
-				if ($res['name']){
-					unset($comm_id);
-					$soft_id = $res['id'];
-					$name = $res['name'];
-					break;
+			return $soft_ids;
+		}
+		function detector_3ds($exif){
+			$soft_ids = [];
+			if ($exif['Model'] == 'Nintendo 3DS'){
+				if (strlen($exif['Software']) == 5){
+					$soft_ids []= '3D'.$exif['Software'];
 				}
 			}
-                        mysql_close();
+			return $soft_ids;
 		}
+		function detector_psvita($exif){
+			$soft_ids = [];
+			if ($exif['Model'] == 'PlayStation(R)Vita'){
+				$soft_ids []= 'PV'.substr(strstr($exif['MakerNote'], 'GPNM'), 5, 9);
+				$name = mb_substr(twitter_trimhash(mysql_escape_string(substr(strstr($exif['MakerNote'], 'ALBM'), 5, -1))), 0, 25);
+
+	                        $res = mysql_fetch_assoc(mysql_query("select name from soft_id2name where id = '".mysql_escape_string($soft_id)."'"));
+	                        if (!$res['name']) make_comm($soft_id, $name);
+			}
+			return $soft_ids;
+		}
+		function detector_ds($exif){
+			$soft_ids = [];
+			if ($exif['Model'] == 'NintendoDS'){
+				if (strlen($exif['Software']) == 4){
+		                        $soft_ids []= 'DS'.$exif['Software'];
+	                        }
+			}
+			return $soft_ids;
+		}
+		function detector_ps4($exif){
+			$soft_ids = [];
+			if ($exif['Model'] == 'PlayStation(R)4'){
+        	                $soft_ids []= 'P4'.substr(strstr($exif['MakerNote'], 'GPNM'), 5, 9);
+        	                $name = mb_substr(twitter_trimhash(mysql_escape_string(substr(strstr($exif['MakerNote'], 'ALBM'), 5, -1))), 0, 25);
+
+	                        $res = mysql_fetch_assoc(mysql_query("select name from soft_id2name where id = '".mysql_escape_string($soft_id)."'"));
+	                        if (!$res['name']) make_comm($soft_id, $name);
+	                }
+			return $soft_ids;
+		}
+		function detector_ai($vision_res){
+			$soft_ids = [];
+			foreach($vision_res->responses[0]->webDetection->webEntities as $webentity){
+				$soft_id = 'AI'.$webentity->entityId;
+				$soft_ids []= $soft_id;
+				mysql_query("insert into soft_id2name (id, name) values ('$soft_id', '".mysql_escape_string(twitter_trimhash($webentity->description))."')");
+			}
+			return $soft_ids;
+		}
+
+		$soft_ids = [];
+		$exif = exif_read_data($filename);
+
+		mysql_start();
+		$soft_ids = $soft_ids + detector_wiiu($filename);
+		$soft_ids = $soft_ids + detector_3ds($exif);
+		$soft_ids = $soft_ids + detector_psvita($exif);
+		$soft_ids = $soft_ids + detector_ds($exif);
+		$soft_ids = $soft_ids + detector_ps4($exif);
+		$soft_ids = $soft_ids + detector_ai($vision_res);
+		mysql_close();
+
 	}else if (isset($selalbum)){
 		$twitter = twitter_start();
 		$status = $twitter->get('statuses/show', ['id' => $selalbum]);
@@ -195,92 +208,66 @@
 		if (hash('crc32b', $texts[0]) != $texts[1]) die('<div id="err">ソフト情報を認識できないため、このアルバムは使用できません。</div>');
 		$soft_id = $texts[0];
 		if (strtotime($status->created_at) < 1516037892) $soft_id = 'WU'.$soft_id;
-		$image = file_get_contents($status->entities->media[0]->media_url_https);
 		$_SESSION['post_image'] = base64_encode($image);
 	}else{	// 画像を外す
 		unset($_SESSION['post_image']);
 	}
 
-	if ((!isset($comm_id))&&(isset($soft_id))){
-		mysql_start();
-               	$res = mysql_fetch_assoc(mysql_query("select name from soft_id2name where id = '".$soft_id."'"));
-		if ($res['name']){	/* ゲームが登録済み */
-			//die('<div id="err">'.$soft_id.'登録あり</div>');
-        	        $res = mysql_fetch_assoc(mysql_query("select id from comm where soft_id = '".$soft_id."'"));
-			$comm_id = $res['id'];
-
-			$res = mysql_fetch_assoc(mysql_query("select name from comm where id = '".$comm_id."'"));
-		        $name = $res['name'];
-		}else{	/* ゲームが未登録 */
-			//die('<div id="err">'.$soft_id.'登録なし</div>');
-			unset($comm_id);
-
-	                $res = mysql_fetch_assoc(mysql_query("select default_name from soft_id2name where id = '".$soft_id."'"));
-	                if ($res['default_name']) $name = $res['default_name'];
-			else $name = '';
+	/* soft_ids -> comms */
+	$comms = [];
+	mysql_start();
+	foreach($soft_ids as $soft_id){
+		$res = mysql_throw(mysql_query("select id, name from comm where soft_id='$soft_id'"));
+		while($comm = mysql_fetch_assoc($res)){
+			$comms []= $comm;
 		}
-       	        mysql_close();
 	}
+	mysql_close();
 
-	try{
+	/* $_SESSION['post_image'], $comms -> option */
 	$option = [];
-
-	foreach($vision_res->responses[0]->webDetection->webEntities as $webentity){
-		$hashtag = '#'.twitter_trimhash(/*strtolower(*/$webentity->description/*)*/);
+	foreach($vision_res->responses[0]->webDetection->webEntities as $webentity){	// Vision API
+		$hashtag = '#'.twitter_trimhash($webentity->description);
 		array_push($option, $hashtag.' ');
 	}
+        mysql_start();
+	foreach($comms as $comm){
+	       	$res = mysql_fetch_assoc(mysql_throw(mysql_query("select collection_id from comm where id = '".$comm['id']."'")));
+	       	$collection_id = $res['collection_id'];
 
-	if (isset($comm_id)){
-		if ($comm_id == 'default0'){	// 未分類コミュニティ
-			$collection_id = ALL_POSTS;
-		}else{
-                	mysql_start();
-       	        	$res = mysql_fetch_assoc(mysql_query("select collection_id from comm where id = '".$comm_id."'"));
-			mysql_throw();
-       	        	$collection_id = $res['collection_id'];
-       	        	mysql_close();
-		}
-	}else $collection_id = ALL_POSTS;
-	$res = $twitter->get('collections/entries', ['id' => 'custom-'.$collection_id, 'count' => '200']);
-	twitter_throw();
-	$search = $res->objects->tweets;
-	$hashcnts = [];
-	$topstatus = [];
-	foreach($search as $status){
-		foreach($status->entities->hashtags as $hashtag){
-			if (!$hashcnts[$hashtag->text]){
-				$hashcnts[$hashtag->text] = 0;
-				$topstatus[$hashtag->text] = $status;
+		$res = $twitter->get('collections/entries', ['id' => 'custom-'.$collection_id, 'count' => '200']);
+		twitter_throw();
+		$search = $res->objects->tweets;
+		$hashcnts = [];
+		$topstatus = [];
+		foreach($search as $status){
+			foreach($status->entities->hashtags as $hashtag){
+				if (!$hashcnts[$hashtag->text]){
+					$hashcnts[$hashtag->text] = 0;
+					$topstatus[$hashtag->text] = $status;
+				}
+				$hashcnts[$hashtag->text]++;
 			}
-			$hashcnts[$hashtag->text]++;
+		}
+		arsort($hashcnts);
+		foreach($hashcnts as $text => $cnt){
+			array_push($option, '#'.$text.' ');
 		}
 	}
-	arsort($hashcnts);
-	foreach($hashcnts as $text => $cnt){
-		array_push($option, '#'.$text.' ');
-	}
-
+      	mysql_close();
 	/*$follows = $twitter->get('friends/list', ['screen_name' => $_SESSION['twitter']['account']['user']->screen_name, 'count' => 200])->users;
         foreach($follows as $user){
 		array_push($option, '@'.$user->screen_name.' ');
         }*/
 
-	}catch(Exception $e){
-		die('<div id="err">エラーが発生しました。'.$e->getMessage().'</div>');
-	}
-
 	$ret = [];
-	$ret['data'] = base64_encode($image);
+	if (isset($_SESSION['post_image'])){
+		$ret['image'] = $_SESSION['post_image'];
+	}else{
+		$ret['image'] = base64_encode(file_get_contents('noimage.jpg'));
+	}
 	$ret['option'] = $option;
-	if (isset($soft_id)) $ret['soft_id'] = $soft_id;
-	if (isset($comm_id)) $ret['comm_id'] = $comm_id;
-	if (isset($name)) $ret['name'] = $name;
-	/* レスポンス
-	1. err -> エラー出力
-	2. comm_idあり、コミュニティ名、image -> コミュニティ選択済み
-	3. ソフト名、image -> コミュニティ作成
-	4. image -> 画像を外す
-	*/
+	$ret['comms'] = $comms;
 
 	return $ret;
 	}

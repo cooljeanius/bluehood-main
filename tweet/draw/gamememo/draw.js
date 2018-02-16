@@ -43,24 +43,12 @@ $('#filter-enable').change(function(){
 var sendform = document.getElementById('sendform');
 var send = document.getElementById('send');
 send.onclick = function(){
-        var confirm_comm = '';
-        if (comm_id !== undefined) confirm_comm = comm_name+' コミュニティ\n';
-        var confirm_text = '';
-        if ($('#text').val() != '') confirm_text = '「'+$('#text').val()+'」';
-        if (confirm('投稿してもよろしいですか？\n\n'+confirm_comm+confirm_text)){
-		if (comm_id !== undefined){
-			/*var thumb = document.createElement('input');
-			thumb.setAttribute('name', 'thumb');
-			thumb.setAttribute('type', 'hidden');
-			thumb.setAttribute('value', thumb_data);
-			sendform.appendChild(thumb);*/
-
-			var id = document.createElement('input');
-			id.setAttribute('name', 'comm_id');
-			id.setAttribute('type', 'hidden');
-			id.setAttribute('value', comm_id);
-			sendform.appendChild(id);
-		}
+        if (confirm('投稿してもよろしいですか？')){
+                var id = document.createElement('input');
+                id.setAttribute('name', 'comm_ids');
+                id.setAttribute('type', 'hidden');
+                id.setAttribute('value', JSON.stringify(comm_ids));
+                sendform.appendChild(id);
 
 		sendform.submit();
 		send.setAttribute('disabled', 'disabled');	

@@ -34,7 +34,7 @@
 
 	if (isset($_GET['album'])){
 		$detect = detect('', $_GET['album']);
-		$image = $detect['data'];
+		$image = $detect['image'];
 		if (isset($detect['name'])) $comm_name = $detect['name'];
 		if (isset($detect['comm_id'])) $comm_id = $detect['comm_id'];
 		?><script>option = JSON.parse('<?php echo json_encode($detect['option']); ?>'); </script><?php
