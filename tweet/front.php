@@ -13,7 +13,7 @@
 
 	unset($_SESSION['post_image']);
 
-        echo '<script type="text/javascript"> var comm_id = undefined; var comm_name = undefined; var thumb_data = undefined; </script>';
+        echo '<script type="text/javascript"> var comm_id = undefined; var comm_name = undefined; var thumb_data = undefined; var option = undefined; </script>';
 	if (isset($_GET['comm_id'])){
                 mysql_start();
                 $res = mysql_fetch_assoc(mysql_query("select name, list_id from comm where id = '".$_GET['comm_id']."'"));
@@ -35,9 +35,9 @@
 	if (isset($_GET['album'])){
 		$detect = detect('', $_GET['album']);
 		$image = $detect['data'];
-		if (isset($detect['comm_name'])) $comm_name = $detect['name'];
+		if (isset($detect['name'])) $comm_name = $detect['name'];
 		if (isset($detect['comm_id'])) $comm_id = $detect['comm_id'];
-		?><script>var option = JSON.parse('<?php echo json_encode($detect['option']); ?>'); </script><?php
+		?><script>option = JSON.parse('<?php echo json_encode($detect['option']); ?>'); </script><?php
 	}
 
         if (isset($comm_id)) echo '<script>comm_id = "'.$comm_id.'"; </script>';

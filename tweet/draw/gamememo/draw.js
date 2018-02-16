@@ -49,11 +49,11 @@ send.onclick = function(){
         if ($('#text').val() != '') confirm_text = '「'+$('#text').val()+'」';
         if (confirm('投稿してもよろしいですか？\n\n'+confirm_comm+confirm_text)){
 		if (comm_id !== undefined){
-			var thumb = document.createElement('input');
+			/*var thumb = document.createElement('input');
 			thumb.setAttribute('name', 'thumb');
 			thumb.setAttribute('type', 'hidden');
 			thumb.setAttribute('value', thumb_data);
-			sendform.appendChild(thumb);
+			sendform.appendChild(thumb);*/
 
 			var id = document.createElement('input');
 			id.setAttribute('name', 'comm_id');

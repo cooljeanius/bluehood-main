@@ -16,7 +16,7 @@
 	}
 
 	$thumb_path = tempnam('/tmp', 'php').'.jpg';
-	file_put_contents($thumb_path, base64_decode($_POST['thumb']));
+	file_put_contents($thumb_path, base64_decode($_SESSION['post_image']));
 	exec('sync');
 
         $conn = twitter_start();
