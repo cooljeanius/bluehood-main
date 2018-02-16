@@ -19,7 +19,7 @@
 				<br>
 				<div id="reply"></div>
 				<form id="imgform" action="../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send">
-					<input id="selimg" name="selimg" type="file" accept="image/jpeg">
+					<input id="selimg" name="selimg" type="file" accept="image/*">
 				</form>
                         </div>
                         <img id="thumb" width="192px" src="../noimage.jpg">

@@ -97,6 +97,43 @@
 	$twitter = twitter_start();
 	$image = file_get_contents('noimage.jpg');
 	if ($filename){
+		$image = file_get_contents($filename);
+		$_SESSION['post_image'] = base64_encode($image);
+	// リクエスト用のJSONを作成
+		$json = json_encode( array(
+			"requests" => array(
+				array(
+					"image" => array(
+						"content" => $_SESSION['post_image'],
+					) ,
+					"features" => array(
+						array(
+							"type" => "WEB_DETECTION" ,
+							"maxResults" => 3 ,
+						) ,
+					) ,
+				) ,
+			) ,
+		) ) ;
+		// リクエストを実行
+		$curl = curl_init() ;
+		curl_setopt( $curl, CURLOPT_URL, "https://vision.googleapis.com/v1/images:annotate?key=".GOOGLE_CLOUD_PLATFORM_KEY) ;
+		curl_setopt( $curl, CURLOPT_HEADER, true ) ; 
+		curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, "POST" ) ;
+		curl_setopt( $curl, CURLOPT_HTTPHEADER, array( "Content-Type: application/json" ) ) ;
+		curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false ) ;
+		curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true ) ;
+		if( isset($referer) && !empty($referer) ) curl_setopt( $curl, CURLOPT_REFERER, $referer ) ;
+		curl_setopt( $curl, CURLOPT_TIMEOUT, 15 ) ;
+		curl_setopt( $curl, CURLOPT_POSTFIELDS, $json ) ;
+		$res1 = curl_exec( $curl ) ;
+		$res2 = curl_getinfo( $curl ) ;
+		curl_close( $curl ) ;
+		// 取得したデータ
+		$json = substr( $res1, $res2["header_size"] ) ;				// 取得したJSON
+		$header = substr( $res1, 0, $res2["header_size"] ) ;		// レスポンスヘッダー
+		$vision_res = json_decode($json);
+
 		unset($name);
 		unset($comm_id);
 		unset($soft_id);
@@ -116,7 +153,7 @@
 			$name = mb_substr(twitter_trimhash(mysql_escape_string(substr(strstr($exif['MakerNote'], 'ALBM'), 5, -1))), 0, 25);
 
 			mysql_start();
-                        $res = mysql_fetch_assoc(mysql_query("select name from soft_id2name where id = '".$soft_id."'"));
+                        $res = mysql_fetch_assoc(mysql_query("select name from soft_id2name where id = '".mysql_escape_string($soft_id)."'"));
 			mysql_close();
                         if (!$res['name']) make_comm($soft_id, $name);
 		}else if ($exif['Model'] == 'NintendoDS'){
@@ -132,18 +169,25 @@
                         $name = mb_substr(twitter_trimhash(mysql_escape_string(substr(strstr($exif['MakerNote'], 'ALBM'), 5, -1))), 0, 25);
 
                         mysql_start();
-                        $res = mysql_fetch_assoc(mysql_query("select name from soft_id2name where id = '".$soft_id."'"));
+                        $res = mysql_fetch_assoc(mysql_query("select name from soft_id2name where id = '".mysql_escape_string($soft_id)."'"));
                         mysql_close();
                         if (!$res['name']) make_comm($soft_id, $name);
-                }else if (0){	// AI ディテクタ
-		}else{
-			/*die('<div id="err">Wii U、3DS以外の端末からはスクリーンショットを投稿できません。</div>');*/
+                }else if (1){	// AI ディテクタ
 			$comm_id = 'default0';
 			$name = '未分類';
-		}
 
-		$image = file_get_contents($filename);
-		$_SESSION['post_image'] = base64_encode($image);
+                        mysql_start();
+			foreach($vision_res->responses[0]->webDetection->webEntities as $webentity){
+	                        $res = mysql_fetch_assoc(mysql_query("select id, name from soft_id2name where id = '".mysql_escape_string('AI'.$webentity->entityId)."'"));
+				if ($res['name']){
+					unset($comm_id);
+					$soft_id = $res['id'];
+					$name = $res['name'];
+					break;
+				}
+			}
+                        mysql_close();
+		}
 	}else if (isset($selalbum)){
 		$twitter = twitter_start();
 		$status = $twitter->get('statuses/show', ['id' => $selalbum]);
@@ -181,45 +225,9 @@
 	try{
 	$option = [];
 
-	// リクエスト用のJSONを作成
-	if (isset($_SESSION['post_image'])){
-		$json = json_encode( array(
-			"requests" => array(
-				array(
-					"image" => array(
-						"content" => $_SESSION['post_image'],
-					) ,
-					"features" => array(
-						array(
-							"type" => "WEB_DETECTION" ,
-							"maxResults" => 5 ,
-						) ,
-					) ,
-				) ,
-			) ,
-		) ) ;
-		// リクエストを実行
-		$curl = curl_init() ;
-		curl_setopt( $curl, CURLOPT_URL, "https://vision.googleapis.com/v1/images:annotate?key=".GOOGLE_CLOUD_PLATFORM_KEY) ;
-		curl_setopt( $curl, CURLOPT_HEADER, true ) ; 
-		curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, "POST" ) ;
-		curl_setopt( $curl, CURLOPT_HTTPHEADER, array( "Content-Type: application/json" ) ) ;
-		curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false ) ;
-		curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true ) ;
-		if( isset($referer) && !empty($referer) ) curl_setopt( $curl, CURLOPT_REFERER, $referer ) ;
-		curl_setopt( $curl, CURLOPT_TIMEOUT, 15 ) ;
-		curl_setopt( $curl, CURLOPT_POSTFIELDS, $json ) ;
-		$res1 = curl_exec( $curl ) ;
-		$res2 = curl_getinfo( $curl ) ;
-		curl_close( $curl ) ;
-		// 取得したデータ
-		$json = substr( $res1, $res2["header_size"] ) ;				// 取得したJSON
-		$header = substr( $res1, 0, $res2["header_size"] ) ;		// レスポンスヘッダー
-		$res = json_decode($json);
-		foreach($res->responses[0]->webDetection->webEntities as $webentity){
-			$hashtag = '#'.twitter_trimhash(/*strtolower(*/$webentity->description/*)*/);
-			array_push($option, $hashtag.' ');
-		}
+	foreach($vision_res->responses[0]->webDetection->webEntities as $webentity){
+		$hashtag = '#'.twitter_trimhash(/*strtolower(*/$webentity->description/*)*/);
+		array_push($option, $hashtag.' ');
 	}
 
 	if (isset($comm_id)){

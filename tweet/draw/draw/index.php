@@ -54,7 +54,7 @@ canvas{
 				<button id="save-draft">お絵かきを下書き保存</button>
 				<span id="reply"></span>
 				<form id="imgform" action="../../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send" style="height: 16px; ">
-					<input id="selimg" name="selimg" type="file" accept="image/jpeg">
+					<input id="selimg" name="selimg" type="file" accept="image/*">
 				</form>
 				<iframe name="imgform_send" style="width:0px;height:0px;border:0px;"></iframe>
 
