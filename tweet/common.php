@@ -109,7 +109,7 @@
 					"features" => array(
 						array(
 							"type" => "WEB_DETECTION" ,
-							"maxResults" => 3 ,
+							"maxResults" => 10 ,
 						) ,
 					) ,
 				) ,
