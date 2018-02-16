@@ -1,5 +1,7 @@
 <?php
 	include('/var/www/twiverse.php');
+	include('common.php');
+
 	$s = [
 		'notfound' => ['ja' => "コミュニティが存在しません。", 'en' => "The community was not found. ", ],
 		'requirement' => [
@@ -31,27 +33,14 @@
         mysql_close();
 
 	if (isset($_GET['album'])){
-		$twitter = twitter_start();
-		$status = $twitter->get('statuses/show', ['id' => $_GET['album']]);
-		$texts = explode(' ', str_replace('@home ', '', $status->text));
-		if (hash('crc32b', $texts[0]) != $texts[1]) die('ソフト情報を認識できないため、このアルバムは使用できません。');
-		$soft_id = $texts[0];
-		if (strtotime($status->created_at) < 1516037892) $soft_id = 'WU'.$soft_id;
-		$image = base64_encode(file_get_contents($status->entities->media[0]->media_url_https));
-		$_SESSION['post_image'] = $image;
-
-                mysql_start();
-                $res = mysql_fetch_assoc(mysql_query("select name, id from comm where soft_id = '".$soft_id."'"));
-                if ($res['name']){      /* ゲームが登録済み */
-                        $comm_id = $res['id'];
-                        $comm_name = $res['name'];
-                }else{  /* ゲームが未登録 */
-			die('このゲームはコミュニティが登録されていません。');
-                }
-                mysql_close();
+		$detect = detect('', $_GET['album']);
+		$image = $detect['data'];
+		if (isset($detect['comm_name'])) $comm_name = $detect['name'];
+		if (isset($detect['comm_id'])) $comm_id = $detect['comm_id'];
+		?><script>var option = JSON.parse('<?php echo json_encode($detect['option']); ?>'); </script><?php
 	}
+
         if (isset($comm_id)) echo '<script>comm_id = "'.$comm_id.'"; </script>';
         if (isset($comm_name)) echo '<script>comm_name = "'.$comm_name.'"; </script>';
         if (isset($image)) echo '<script>thumb_data = "'.$image.'"; </script>';
 ?>
-

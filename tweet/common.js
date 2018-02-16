@@ -29,6 +29,7 @@ $(function(){
 		imgform.submit();
 		prev_image = $('#thumb').attr('src');
 		thumb.setAttribute('src', tweet_url + 'loader.gif');
+		$('#suggest').html('');
 
 		send.setAttribute('disabled', 'disabled');
 		selimg.setAttribute('disabled', 'disabled');	
@@ -45,6 +46,8 @@ imgform_send.unbind().bind('load', function(){
 		thumb.setAttribute('src', prev_image);
 		alert(err);
 	}else{
+		updateText(JSON.parse(imgform_send.contents().find('#option').html()));
+
 		var name = imgform_send.contents().find('#name').html();
 		if (name === undefined){	// 画像を外す
 			send.disabled = false;
@@ -54,7 +57,6 @@ imgform_send.unbind().bind('load', function(){
 			thumb_data = imgform_send.contents().find('#data').html();
 			thumb.setAttribute('src', 'data:image/jpeg;base64,' + thumb_data);
 			$('#title').html('投稿');
-			updateText();
 		}else{
 			var id = imgform_send.contents().find('#id').html();
 			if (id !== undefined){	// コミュニティ選択済み
@@ -65,7 +67,6 @@ imgform_send.unbind().bind('load', function(){
 				thumb_data = imgform_send.contents().find('#data').html();
 				thumb.setAttribute('src', 'data:image/jpeg;base64,' + thumb_data);
 				$('#title').html(comm_name + 'の投稿');
-				updateText();
 				if (comm_id == 'default0') alert('この画像は「未分類 コミュニティ」に投稿されます。\n画像の権利・プライバシー等についてご確認のうえ、ツイートしてください。\n\nWii U・3DS・PS VITAのスクリーンショットは、それぞれのブラウザから投稿するとコミュニティに登録できます。');
 			}else{
 				var soft_id = imgform_send.contents().find('#soft_id').html();
@@ -82,7 +83,6 @@ imgform_send.unbind().bind('load', function(){
 							thumb_data = imgform_send.contents().find('#data').html();
 							thumb.setAttribute('src', 'data:image/jpeg;base64,' + thumb_data);
 							$('#title').html(comm_name + 'の投稿');
-							updateText();
 							alert('祝！新コミュニティ設立！\n\n「'+res.name+' コミュニティ」');
 						}else{
 							send.disabled = false;
@@ -106,53 +106,24 @@ $(function(){
 	if (comm_name){
 		$('#title').html(comm_name + 'の投稿');
 	}
-	updateText();
 	if (thumb_data){
 		thumb.setAttribute('src', 'data:image/jpeg;base64,'+thumb_data);
 	}
+	if (option){
+		updateText(option);
+	}
 });
 
-var updateText = function(){
-	$('#suggest').html('');
-	$.post(tweet_url + 'getopt.php', {comm_id: comm_id}, function(res){
-		/*$('#suggest').html('');
-		res.option.forEach(function(option, i){
-			var color = '#55acee';
-
-			if (i < 6) color = 'deeppink';
-			$('#suggest').append('<span class="option" onclick="var pos=$(\'#text\').get(0).selectionStart; var val=$(\'#text\').val(); $(\'#text\').val(val.substr(0,pos)+$(this).html()+val.substr(pos)); " style="color: '+color+'; ">' + option + '</span>');
-		});*/
-		$('#suggest').html('<select id="suggest-sel"><option value="">クイック入力</option></select>');
-		res.option.forEach(function(option, i){
-			var color = '#55acee';
-
-			//if (i < 6) color = 'deeppink';
-			$('#suggest-sel').append('<option value="'+option+'" style="color: '+color+'; ">'+option+'</option>');
-		});
-		$('#suggest-sel').change(function(){
-			var pos=$('#text').get(0).selectionStart;
-			var val=$('#text').val();
-			$('#text').val(val.substr(0,pos)+$(this).val()+val.substr(pos));
-			$('#text').keyup();
-		});
-	}, 'json');
-	//if (comm_name) $('#text').val('#'+comm_name+' '+$('#text').val());
+var updateText = function(option){
+	$('#suggest').html('<select id="suggest-sel"><option value="">クイック入力</option></select>');
+	option.forEach(function(option, i){
+		var color = '#55acee';
+		$('#suggest-sel').append('<option value="'+option+'" style="color: '+color+'; ">'+option+'</option>');
+	});
+	$('#suggest-sel').change(function(){
+		var pos=$('#text').get(0).selectionStart;
+		var val=$('#text').val();
+		$('#text').val(val.substr(0,pos)+$(this).val()+val.substr(pos));
+		$('#text').keyup();
+	});
 };
-
-/*console.log(window);
-window.onbeforeunload = function(){
-	console.log('test');
-	alert('');
-	return 'ページを移動・再読込すると投稿内容が失われます。';
-};
-console.log(window.onbeforeunload);
-$(window).on('blur', function(){
-	if (confirm('タブを移動すると、投稿内容が失われることがあります。\nよろしいですか？')){
-		$(window).off('blur');
-	}else{
-		$(window).off('blur');
-		$(window).on('blur', function(){
-			return ;
-		});
-	}
-});*/
