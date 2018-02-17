@@ -51,8 +51,7 @@
 		?></div>
 		<div class="main">
 			<div lang="ja" class="header">
-				<a href="<?php echo ROOT_URL; ?>view/report/">コミュニティ設立・変更依頼フォーム</a><br>
-				コミュニティに関するご報告、バナー画像については<a href="https://twitter.com/Twiverse_admin">@Twiverse_admin</a>まで。<br>
+				<a class="linkbutton" href="../makecomm/">コミュニティを設立する</a>
 				ディテクターとは<?php helpbutton('添付画像を自動認識し、コミュニティに振り分けるプログラムです。\nたとえば、3DS ディテクターは 3DS のスクリーンショットを認識し、3DS ディテクター内のコミュニティに振り分けます。'); ?>
 				<br>
 			</div>

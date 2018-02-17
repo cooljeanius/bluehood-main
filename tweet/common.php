@@ -107,7 +107,7 @@
 					"features" => array(
 						array(
 							"type" => "WEB_DETECTION" ,
-							"maxResults" => 10 ,
+							"maxResults" => 5 ,
 						) ,
 					) ,
 				) ,
@@ -205,9 +205,11 @@
 		$twitter = twitter_start();
 		$status = $twitter->get('statuses/show', ['id' => $selalbum]);
 		$texts = explode(' ', str_replace('@home ', '', $status->text));
-		if (hash('crc32b', $texts[0]) != $texts[1]) die('<div id="err">ソフト情報を認識できないため、このアルバムは使用できません。</div>');
-		$soft_id = $texts[0];
-		if (strtotime($status->created_at) < 1516037892) $soft_id = 'WU'.$soft_id;
+		if (hash('crc32b', $texts[0]) == $texts[1]){
+			$soft_ids = [$texts[0]];
+			if (strtotime($status->created_at) < 1516037892) $soft_ids[0] = 'WU'.$soft_ids[0];
+		}
+		$image = file_get_contents($status->entities->media[0]->media_url_https);
 		$_SESSION['post_image'] = base64_encode($image);
 	}else{	// 画像を外す
 		unset($_SESSION['post_image']);

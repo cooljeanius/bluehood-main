@@ -35,36 +35,40 @@ $(function(){
 	};
 });
 
-var imgform_send = $('iframe[name="imgform_send"]');
-imgform_send.unbind().bind('load', function(){
-	var res = JSON.parse(imgform_send.contents().find('body').html());
+var update = function(res){
 	thumb.setAttribute('src', 'data:image/jpeg;base64,' + res.image);
 	updateText(res.option);
 
 	comm_ids = [];
 	var title = '';
+	var notice = "この画像は\n「";
 	res.comms.forEach(function(comm){
 		comm_ids.push(comm.id);
 		title += comm.name+' ';
+		notice += comm.name+' ';
 	});
-	if (title == '') title = '投稿';
+	if (title == ''){
+		title = '投稿';
+		notice = 'この画像が属するコミュニティが見つかりませんでした。\n投稿は可能です。';
+	}else{
+		notice += "」\nコミュニティに投稿されます。";
+	}
 	$('#title').html(title);
+	alert(notice);
 
 	send.disabled = false;
 	selimg.disabled = false;
+}
+
+var imgform_send = $('iframe[name="imgform_send"]');
+imgform_send.unbind().bind('load', function(){
+	var res = JSON.parse(imgform_send.contents().find('body').html());
+	update(res);
 });
 
 $(function(){
 	$('#text').val('#bluehood ');
-	if (comm_name){
-		$('#title').html(comm_name + 'の投稿');
-	}
-	if (thumb_data){
-		thumb.setAttribute('src', 'data:image/jpeg;base64,'+thumb_data);
-	}
-	if (option){
-		updateText(option);
-	}
+	if (detect) update(detect);
 });
 
 var updateText = function(option){
