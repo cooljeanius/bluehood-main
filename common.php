@@ -301,12 +301,15 @@
 						echo '<a href="'.ROOT_URL.'user/?'.http_build_query([screen_name => $status->user->screen_name]).'" class="a-disabled" style="color: #'.$status->user->profile_link_color.'; ">★</a>';
 					}
 					if ($res['comm_id'] && $subcomm){
-						$comm = mysql_fetch_assoc(mysql_throw(mysql_query("select * from comm where id = '".$res['comm_id']."'")));
-						$detector = detector($comm['soft_id']);
-						?><a class="tweet-sub" style="text-decoration: none; " href="<?php echo ROOT_URL; ?>view/?<?php echo http_build_query(['comm_id' => $res['comm_id']]); ?>">
-							<?php if ($detector){ ?><span style="color: red; "><?php echo $detector['name']; ?></span><?php } ?>
-							<span style="color: orange; "><?php echo $comm['name']; ?></span>
-						</a><?php
+						$comm_ids = explode(',',$res['comm_id']);
+						foreach($comm_ids as $comm_id){
+							$comm = mysql_fetch_assoc(mysql_throw(mysql_query("select * from comm where id = '".$comm_id."'")));
+							$detector = detector($comm['soft_id']);
+							?><a class="tweet-sub" style="text-decoration: none; " href="<?php echo ROOT_URL; ?>view/?<?php echo http_build_query(['comm_id' => $comm_id]); ?>">
+								<?php if ($detector){ ?><span style="color: red; "><?php echo $detector['name']; ?></span><?php } ?>
+								<span style="color: orange; "><?php echo $comm['name']; ?></span>
+							</a><?php
+						}
 					}
 				?></div>
 				<?php if ((useragent() == '3ds')/*||(useragent() == 'new3ds')*/) echo emb_3ds($status); else{ ?>

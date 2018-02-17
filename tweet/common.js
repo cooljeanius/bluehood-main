@@ -41,17 +41,17 @@ var update = function(res){
 
 	comm_ids = [];
 	var title = '';
-	var notice = "この画像は\n「";
+	var notice = "この画像は\n";
 	res.comms.forEach(function(comm){
 		comm_ids.push(comm.id);
-		title += comm.name+' ';
-		notice += comm.name+' ';
+		title += '「'+comm.name+'」';
+		notice += '「'+comm.name+'」';
 	});
 	if (title == ''){
 		title = '投稿';
 		notice = 'この画像が属するコミュニティが見つかりませんでした。\n投稿は可能です。';
 	}else{
-		notice += "」\nコミュニティに投稿されます。";
+		notice += "\nコミュニティに投稿されます。";
 	}
 	$('#title').html(title);
 	alert(notice);

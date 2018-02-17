@@ -22,7 +22,7 @@
 	if (isset($status->errors)) throw new Exception(print_r($status->errors, true));
 
 	$comm_ids = json_decode($_POST['comm_ids']);
-	dropTweet($status, $conn, isset($_POST['hide']), $comm_ids));
+	dropTweet($status, $conn, isset($_POST['hide']), $comm_ids);
 
 	if (isset($status->entities->media[0]->media_url_https)){
 		mysql_start();

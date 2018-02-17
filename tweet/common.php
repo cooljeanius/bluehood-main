@@ -8,7 +8,12 @@
 			$set = mysql_fetch_assoc($res); mysql_throw();
 			if ($set['post_register']){
 				$hide = $hide?'true':'false';
-				mysql_query("insert into tweet (id, screen_name, hide, time, comm_id) values (".$status->id.", '".$status->user->screen_name."', ".$hide.", now(), '".$comm_id."')"); mysql_throw();
+				$comm_id_string = '';
+				foreach($comm_ids as $comm_id){
+					$comm_id_string .= $comm_id.',';
+				}
+				$comm_id_string = rtrim($comm_id_string, ',');
+				mysql_query("insert into tweet (id, screen_name, hide, time, comm_id) values (".$status->id.", '".$status->user->screen_name."', ".$hide.", now(), '".$comm_id_string."')"); mysql_throw();
 				$twitter_admin = twitter_admin();
 				//Communities
 				foreach($comm_ids as $comm_id){
