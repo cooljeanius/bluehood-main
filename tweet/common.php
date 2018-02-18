@@ -286,6 +286,16 @@
 	}else{
 		$ret['image'] = base64_encode(file_get_contents('noimage.jpg'));
 	}
+	$src = imagecreatefromstring(base64_decode($ret['image']));
+	$width = imagesx($src);
+	$height = imagesy($src);
+	$dst_width = (int)$width*(96.0/$height);
+	$dst = imagecreatetruecolor($dst_width, 96);
+	imagecopyresampled($dst, $src, 0, 0, 0, 0, $dst_width, 96, $width, $height);
+	ob_start();
+	imagejpeg($dst, null);
+	$ret['image'] = base64_encode(ob_get_contents());
+	ob_end_clean();
 	$ret['option'] = $option;
 	$ret['comms'] = $comms;
 

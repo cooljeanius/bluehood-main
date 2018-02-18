@@ -22,7 +22,7 @@
 					<input id="selimg" name="selimg" type="file" accept="image/*">
 				</form>
                         </div>
-                        <img id="thumb" width="192px" src="../noimage.jpg">
+                        <img id="thumb" height="96px" src="../noimage.jpg">
 			<div style="clear: both; "></div>
 			<form id="sendform" action="send.php" method="post">
 				<input type="text" name="dummy" style="position:absolute;visibility:hidden">

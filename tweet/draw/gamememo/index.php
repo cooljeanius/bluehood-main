@@ -21,7 +21,7 @@
 				<form id="imgform" action="../../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send">
 					<input id="selimg" name="selimg" type="file" accept="image/*">
 				</form>
-				<center><img id="thumb" width="192px" src="../../noimage.jpg"></center>
+				<center><img id="thumb" height="96px" src="../../noimage.jpg"></center>
 				<form id="gamememo-form" action="memoup.php" method="post" enctype="multipart/form-data" target="gamememo-send">
 					<span style="font-size: small; ">お絵かき ※権利等を確認し選択してください。</span>
 					<input id="gamememo" name="gamememo" type="file" accept="image/*"><br>
