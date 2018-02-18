@@ -11,9 +11,6 @@ var canvas = document.getElementById('draw');
 $(window).on('touchmove.noScroll', function(e) {
 	e.preventDefault();
 });*/
-window.onerror = function(msg, file, line, column, err){
-	alert("エラーが発生しました。\n"+msg);
-};
 
 var ua = navigator.userAgent.toLowerCase();
 

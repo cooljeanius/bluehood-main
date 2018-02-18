@@ -35,6 +35,20 @@
 						<input type="radio" name="draw_sc" value="separate" <?php if ($set['draw_sc'] == 'separate') echo 'checked'; ?>>別々にする<br>
 					</fieldset>
 				</fieldset>
+				<fieldset>
+					<legend>ディテクター<?php helpbutton("ディテクターは、添付画像を自動認識してコミュニティに振り分けるプログラムです。たとえば、3DS ディテクターは 3DS のスクリーンショットを認識します。"); ?></legend>
+					<table style="text-align: center; ">
+						<tr><td></td> <td>有効</td> <td>リスト登録<?php helpbutton("チェックをつけると、投稿先コミュニティの Twitter リストに自動的に登録されます。"); ?></td></tr>
+						<?php try{
+							mysql_start();
+							$detectors = mysql_throw(mysql_query("select prefix, name from detector"));
+							mysql_close();
+							while($detector = mysql_fetch_assoc($detectors)){
+								?><tr><td><?php echo $detector['name']; ?></td> <td><input name="en_<?php echo $detector['prefix']; ?>" type="checkbox" <?php if ($set['en_'.$detector['prefix']]) echo 'checked'; ?>></td> <td><input name="list_<?php echo $detector['prefix']; ?>" type="checkbox" <?php if ($set['list_'.$detector['prefix']]) echo 'checked'; ?>></td></tr><?php
+							}
+						}catch(Exception $e){catch_default($e); } ?>
+					</table>
+				</fieldset>
 				<input type="submit">
 			</from>
 		</div>

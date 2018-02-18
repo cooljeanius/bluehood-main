@@ -14,7 +14,7 @@
 		'soft_name' => ['ja' => "ソフト名", 'en' => "Software name", ],
 		'3ds' => ['ja' => "3DS ディテクター", 'en' => "3DS detector", ],
 
-		'report' => ['ja' => "他のコミュニティを設立する　コミュニティ情報を変更する", 'en' => "Report to establish more communities, or edit communities data", ],
+		'report' => ['ja' => "その他のコミュニティ操作", 'en' => "Report to establish more communities, or edit communities data", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 ?>
@@ -35,7 +35,7 @@
 					<?php l($s['sc']); ?>: <input name="img" type="file" accept="image/jpeg"><br>
 					<?php l($s['sc_note']); ?><br>
 					<?php l($s['soft_name']); ?>: <input name="name" type="text"><br>
-					<input type="submit" onclick="$(this).value('送信中…'); ">
+					<input class="submit" type="submit" onclick="$('.submit').prop('disabled', true); $('.submit').attr('value', '処理中…'); submit(); ">
 				</fieldset>
 			</form>
 			<form action="3D.php" method="post" enctype="multipart/form-data" class="marginleft marginright">
@@ -43,7 +43,7 @@
 					<legend><?php l($s['3ds']); ?></legend>
 					<?php l($s['sc']); ?>: <input name="img" type="file" accept="image/jpeg"><br>
 					<?php l($s['soft_name']); ?>: <input name="name" type="text"><br>
-					<input type="submit" onclick="$(this).value('送信中…'); ">
+					<input class="submit" type="submit" onclick="$('.submit').prop('disabled', true); $('.submit').attr('value', '処理中…'); submit(); ">
 				</fieldset>
 			</form>
 		</div>

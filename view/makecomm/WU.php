@@ -16,10 +16,10 @@
 		$_POST['name'] = twitter_trimhash($_POST['name']);
 
 		if ($_POST['name'] == ''){
-			die(json_encode(['err' => s($s['err_name'])]));
+			throw new Exception(s($s['err_name']));
 		}
 		if (mb_strlen($_POST['name']) > 25){
-			die(json_encode(['err' => s($s['err_length'])]));
+			throw new Exception(s($s['err_length']));
 		}
 
 		mysql_start();
@@ -33,6 +33,6 @@
 
 		header('location: '.DOMAIN.ROOT_URL.'view/?'.http_build_query(['comm_id' => $id]));
 	}catch(Exception $e){
-		die(json_encode(['err' => s($s['err'])."\n".$e->getMessage()]));
+		catch_default($e);
 	}
 ?>

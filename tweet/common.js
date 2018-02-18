@@ -1,6 +1,10 @@
 var thumb = document.getElementById('thumb');
 var comm_ids = [];
 
+window.onerror = function(msg, file, line, column, err){
+        alert("エラーが発生しました。\n"+msg);
+};
+
 $(function(){
 	$('#reply').html('\n\
 		<span style="font-size: small; ">リプライ</span><input id="reply-id" type="text" placeholder="ツイートのURLorID">\n\
@@ -44,12 +48,12 @@ var update = function(res){
 	var notice = "この画像は\n";
 	res.comms.forEach(function(comm){
 		comm_ids.push(comm.id);
-		title += '「'+comm.name+'」';
-		notice += '「'+comm.name+'」';
+		title += comm.detector+'-'+comm.name+'　';
+		notice += '「'+comm.detector+'-'+comm.name+'」';
 	});
 	if (title == ''){
 		title = '投稿';
-		notice = 'この画像が属するコミュニティが見つかりませんでした。\n投稿は可能です。';
+		notice = 'コミュニティが見つかりませんでした。\n投稿は可能です。';
 	}else{
 		notice += "\nコミュニティに投稿されます。";
 	}
@@ -62,7 +66,7 @@ var update = function(res){
 
 var imgform_send = $('iframe[name="imgform_send"]');
 imgform_send.unbind().bind('load', function(){
-	var res = JSON.parse(imgform_send.contents().find('body').html());
+	var res = JSON.parse(imgform_send.contents().find('body').text());
 	update(res);
 });
 

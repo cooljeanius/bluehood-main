@@ -4,7 +4,7 @@
 	function dropTweet($status, $twitter, $hide, $comm_ids){
 		try{
 			mysql_start();
-			$res = mysql_query("select post_register from user where screen_name='".$_SESSION['twitter']['screen_name']."'"); mysql_throw();
+			$res = mysql_query("select * from user where screen_name='".$_SESSION['twitter']['screen_name']."'"); mysql_throw();
 			$set = mysql_fetch_assoc($res); mysql_throw();
 			if ($set['post_register']){
 				$hide = $hide?'true':'false';
@@ -17,10 +17,17 @@
 				$twitter_admin = twitter_admin();
 				//Communities
 				foreach($comm_ids as $comm_id){
-					$res = mysql_fetch_assoc(mysql_throw(mysql_query("select collection_id from comm where id = '".$comm_id."'")));
+					$res = mysql_fetch_assoc(mysql_throw(mysql_query("select soft_id, list_id, collection_id from comm where id = '".$comm_id."'")));
 					$collection_id = $res['collection_id'];
 					$twitter_admin->post('collections/entries/add', ['id' => 'custom-'.$collection_id, 'tweet_id' => $status->id_str]);
 					mysql_query("update comm set post_n=post_n+1 where id='".$comm_id."'"); mysql_throw();
+
+					$detector = detector($res['soft_id']);	/* Twitter List */
+					if ($set['list_'.$detector['prefix']]){
+						$twitter_admin->post('lists/members/create', ['list_id' => $res['list_id'], 'screen_name' => $_SESSION['twitter']['screen_name']]);
+						//twitter_throw();	/* 既に登録済みの可能性 */
+						mysql_throw(mysql_query("update comm set list_n=list_n+1 where list_id='".$res['list_id']."'"));
+					}
 				}
 				// All Posts
 				$twitter_admin->post('collections/entries/add', ['id' => 'custom-'.ALL_POSTS, 'tweet_id' => $status->id_str]);
@@ -35,6 +42,7 @@
 
 	function complete_page($comm_ids){
 		header('Location: '.DOMAIN.ROOT_URL);
+
 		if (!isset($comm_id)) header('Location: '.DOMAIN.ROOT_URL.'view/');
 
 		mysql_start();
@@ -96,7 +104,8 @@
 		<?php
 	}
 
-	function detect($filename, $selalbum = null){
+	function detect($file, $selalbum = null){
+	$filename = $file['tmp_name'];
 	$twitter = twitter_start();
 
 	/* 画像 -> soft_id, $_SESSION['post_image'], $vision_res */
@@ -112,7 +121,7 @@
 					"features" => array(
 						array(
 							"type" => "WEB_DETECTION" ,
-							"maxResults" => 5 ,
+							"maxResults" => 1,
 						) ,
 					) ,
 				) ,
@@ -189,7 +198,9 @@
 			foreach($vision_res->responses[0]->webDetection->webEntities as $webentity){
 				$soft_id = 'AI'.$webentity->entityId;
 				$soft_ids []= $soft_id;
-				mysql_query("insert into soft_id2name (id, name) values ('$soft_id', '".mysql_escape_string(twitter_trimhash($webentity->description))."')");
+
+	                        $res = mysql_fetch_assoc(mysql_query("select name from comm where soft_id = '".mysql_escape_string($soft_id)."'"));
+	                        if (!$res['name']) make_comm($soft_id, mb_substr(twitter_trimhash(mysql_escape_string($webentity->description)), 0, 25) );
 			}
 			return $soft_ids;
 		}
@@ -198,12 +209,13 @@
 		$exif = exif_read_data($filename);
 
 		mysql_start();
-		$soft_ids = $soft_ids + detector_wiiu($filename);
-		$soft_ids = $soft_ids + detector_3ds($exif);
-		$soft_ids = $soft_ids + detector_psvita($exif);
-		$soft_ids = $soft_ids + detector_ds($exif);
-		$soft_ids = $soft_ids + detector_ps4($exif);
-		$soft_ids = $soft_ids + detector_ai($vision_res);
+		$set = mysql_fetch_assoc(mysql_throw(mysql_query("select * from user where screen_name='".$_SESSION['twitter']['screen_name']."'")));
+		if ($set['en_WU']) $soft_ids = $soft_ids + detector_wiiu($file['name']);
+		if ($set['en_3D']) $soft_ids = $soft_ids + detector_3ds($exif);
+		if ($set['en_PV']) $soft_ids = $soft_ids + detector_psvita($exif);
+		if ($set['en_DS']) $soft_ids = $soft_ids + detector_ds($exif);
+		if ($set['en_P4']) $soft_ids = $soft_ids + detector_ps4($exif);
+		if ($set['en_AI']) $soft_ids = $soft_ids + detector_ai($vision_res);
 		mysql_close();
 
 	}else if (isset($selalbum)){
@@ -226,6 +238,7 @@
 	foreach($soft_ids as $soft_id){
 		$res = mysql_throw(mysql_query("select id, name from comm where soft_id='$soft_id'"));
 		while($comm = mysql_fetch_assoc($res)){
+			$comm['detector'] = detector($soft_id)['name'];
 			$comms []= $comm;
 		}
 	}

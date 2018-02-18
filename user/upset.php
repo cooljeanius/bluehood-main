@@ -17,6 +17,14 @@
 		mysql_query("update user set draw_sc='".$_POST['draw_sc']."' where screen_name='".$_SESSION['twitter']['screen_name']."'");
 		mysql_throw();
 
+		$detectors = mysql_throw(mysql_query("select prefix, name from detector"));
+		while($detector = mysql_fetch_assoc($detectors)){
+			mysql_query("update user set en_".$detector['prefix']." = ".var_export(isset($_POST['en_'.$detector['prefix']]), true)." where screen_name='".$_SESSION['twitter']['screen_name']."'");
+			mysql_throw();
+			mysql_query("update user set list_".$detector['prefix']." = ".var_export(isset($_POST['list_'.$detector['prefix']]), true)." where screen_name='".$_SESSION['twitter']['screen_name']."'");
+			mysql_throw();
+		}
+
 		mysql_close();
 
 		header('location: '.DOMAIN.ROOT_URL.'user/');

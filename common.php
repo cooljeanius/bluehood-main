@@ -302,12 +302,11 @@
 					}
 					if ($res['comm_id'] && $subcomm){
 						$comm_ids = explode(',',$res['comm_id']);
+						if ($comm_ids != [])?> <img src="<?php echo ROOT_URL; ?>img/tag.png" style="width: 0.75em; "><?php
 						foreach($comm_ids as $comm_id){
 							$comm = mysql_fetch_assoc(mysql_throw(mysql_query("select * from comm where id = '".$comm_id."'")));
-							$detector = detector($comm['soft_id']);
-							?><a class="tweet-sub" style="text-decoration: none; " href="<?php echo ROOT_URL; ?>view/?<?php echo http_build_query(['comm_id' => $comm_id]); ?>">
-								<?php if ($detector){ ?><span style="color: red; "><?php echo $detector['name']; ?></span><?php } ?>
-								<span style="color: orange; "><?php echo $comm['name']; ?></span>
+							?><a class="tweet-sub a-disabled" target="_blank" href="<?php echo ROOT_URL; ?>view/?<?php echo http_build_query(['comm_id' => $comm_id]); ?>">
+								<span style="color: gray; "><?php echo $comm['name']; ?> </span>
 							</a><?php
 						}
 					}
@@ -403,6 +402,7 @@
 						echo '<p id="notification_number">'.$_SESSION['notification'].'</p>';
 					}
 				?></a></span>
+				<a href="<?php echo ROOT_URL; ?>user/setting.php"><img src="<?php echo ROOT_URL; ?>img/settings.png"></a>
 				<a href="<?php echo ROOT_URL; ?>etc/"><img src="<?php echo ROOT_URL; ?>img/etc.png"></a>
 			</div>
 		<!--<?php if (useragent() != '3ds'){ ?>
@@ -430,9 +430,9 @@
 		$id = substr(uniqid(), 0, 8);
 
 		$twitter_admin = twitter_admin();
-		$list = $twitter_admin->post('lists/create', ['name' => 'Twiverse '.$name, 'mode' => 'public', 'description' => $name.' コミュニティ']);
+		$list = $twitter_admin->post('lists/create', ['name' => $name, 'mode' => 'public', 'description' => $name]);
 		twitter_throw($list);
-		$collection = $twitter_admin->post('collections/create', ['name' => 'Twiverse '.$name, 'description' => $name.' コミュニティ', url => 'https://twiverse.net/view?comm_id='.$id, timeline_order => 'tweet_reverse_chron']);
+		$collection = $twitter_admin->post('collections/create', ['name' => $name, 'description' => $name, url => 'https://twiverse.net/view?comm_id='.$id, timeline_order => 'tweet_reverse_chron']);
 		twitter_throw($collection);
 		$collection_id = str_replace('custom-', '', $collection->response->timeline_id);
 
@@ -475,6 +475,10 @@
 
 		mysql_close();
 	}
+
+        function helpbutton($desc){ ?>
+                <img src="<?php echo ROOT_URL; ?>img/help.png" style="width: 1em; cursor: pointer; " onclick="alert('<?php echo $desc; ?>'); ">
+        <?php }
 
         function catch_default($e){
                 die('エラーが発生しました。<br>'.nl2br($e->getMessage()));

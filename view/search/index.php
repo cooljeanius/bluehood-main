@@ -6,10 +6,6 @@
 		//'' => ['ja' => "", 'en' => ""],
 	];
 	if (isset($_GET['detector'])) $detector_prefix = mysql_escape_string($_GET['detector']);
-
-	function helpbutton($desc){ ?>
-		<img src="<?php echo ROOT_URL; ?>img/help.png" style="width: 1em; cursor: pointer; " onclick="alert('<?php echo $desc; ?>'); ">
-	<?php }
 ?>
 <!DOCTYPE html>
 <html>

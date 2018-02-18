@@ -63,12 +63,12 @@ body{
 }
 
 .tweet-sub{
-	background-color: white;
 	font-size: small;
+	/*background-color: white;
 	border-radius: 0.5em;
 	padding: 0 0.5em;
 	margin: 0;
-	margin-right: 0.5em;
+	margin-right: 0.5em;*/
 }
 
 .avatar{
