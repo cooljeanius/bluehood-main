@@ -89,16 +89,8 @@
 					</ul>-->
 				</div>
 				<?php
-                        $list = $twitter->get('collections/list', ['screen_name' => $user->screen_name, 'count' => 200])->objects->timelines;
-                        unset($collection_id);
-                        foreach($list as $id => $collection){
-                                if ($collection->name == 'Twiverse'){
-                                        $collection_id = $id;
-                                        break;
-                                }
-                        }
-                        if (isset($collection_id)){
-				collection($collection_id, $_GET['i'], true, false);
+                        if (isset($_SESSION['twitter']['account']['collection_id'])){
+				collection($_SESSION['twitter']['account']['collection_id'], $_GET['i'], true, false);
 			}else{
 				if ($ismypage){
 					echo '<br><div class="whitebox marginleft marginright"><p>あなたのTwitterアカウントに「Twiverse」コレクションを作成しませんか？<br>作成すると、「自分の投稿」がここに表示されます！<br><br>※「自分の投稿」は公開されます。</p>';

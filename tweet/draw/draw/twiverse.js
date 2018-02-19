@@ -4,14 +4,6 @@ canvas_height *= 2;
 
 var canvas = document.getElementById('draw');
 
-//Safari 向けに無効
-/*$(window).on('touchstart.noScroll', function(e) {
-	e.preventDefault();
-});
-$(window).on('touchmove.noScroll', function(e) {
-	e.preventDefault();
-});*/
-
 var ua = navigator.userAgent.toLowerCase();
 
 $(window).load(function(){
@@ -151,6 +143,15 @@ if (canvas.getContext){
 				}
 			}
 		}, 1);
+		/*canvas.ontouchstart = function(e){
+			e.preventDefault();
+		}
+		canvas.ontouchmove = function(e){
+			e.preventDefault();
+		};
+		canvas.ontouchend = function(e){
+			e.preventDefault();
+		};*/
 	}else{
 		if (isTouch){
 			canvas.ontouchstart = function(e){

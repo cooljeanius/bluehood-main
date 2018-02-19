@@ -6,7 +6,7 @@
 	$twitter = twitter_start();
 
 	mysql_start();
-	$res = mysql_query("select draw_sc from user where screen_name='".$_SESSION['twitter']['screen_name']."'"); mysql_throw();
+	$res = mysql_query("select draw_sc from user where id=".$_SESSION['twitter']['id']); mysql_throw();
         $set = mysql_fetch_assoc($res); mysql_throw();
 	mysql_close();
 	if ($set['draw_sc'] == 'vertical'){

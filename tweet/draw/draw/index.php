@@ -4,7 +4,7 @@
 
 	include('../../front.php');
 	mysql_start();
-	$res = mysql_fetch_assoc(mysql_query("select draw_width, draw_height, draw_autosave from user where screen_name='".$_SESSION['twitter']['screen_name']."'"));
+	$res = mysql_fetch_assoc(mysql_query("select draw_width, draw_height, draw_autosave from user where id=".$_SESSION['twitter']['id']));
 	?><script>var canvas_width = <?php echo $res['draw_width']; ?>; var canvas_height = <?php echo $res['draw_height']; ?>; var is_autosave = <?php echo $res['draw_autosave']; ?>; </script><?php
 	mysql_close();
 ?>

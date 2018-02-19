@@ -7,7 +7,7 @@
 	];
 	$twitter = twitter_start();
 	mysql_start();
-	$set = mysql_fetch_assoc(mysql_query("select * from user where screen_name='".$_SESSION['twitter']['screen_name']."'"));
+	$set = mysql_fetch_assoc(mysql_query("select * from user where id=".$_SESSION['twitter']['id']));
 	mysql_close();
 ?>
 <!DOCTYPE html>
@@ -26,8 +26,8 @@
 						<legend>お絵かき</legend>
 						<input name="draw_autosave" type="checkbox" <?php if ($set['draw_autosave']) echo 'checked'; ?>>1 分ごとに自動で下書き保存する (サーバー通信が発生します)<br>
 						<br>
-						キャンバスの横サイズ <input name="draw_width" type="number" value="<?php echo $set['draw_width']; ?>" style="width: 4em; "> px<br>
-						キャンバスの縦サイズ <input name="draw_height" type="number" value="<?php echo $set['draw_height']; ?>"  style="width: 4em; "> px<br>
+						キャンバスの横サイズ <input name="draw_width" type="number" value="<?php echo $set['draw_width']; ?>" min="0" max="440" style="width: 4em; "> px (0~440 デフォルト: 320)<br>
+						キャンバスの縦サイズ <input name="draw_height" type="number" value="<?php echo $set['draw_height']; ?>" min="0" max="440" style="width: 4em; "> px (0~440 デフォルト: 120)<br>
 						キャンバスの大きさを変更すると、下書きの一部情報が失われる場合があります。<br>
 						<br>
 						添付画像とお絵かきを<br>

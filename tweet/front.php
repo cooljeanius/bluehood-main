@@ -34,7 +34,7 @@
 	/* 下書き */
         echo '<script>var draft_draw = undefined; </script>';
 	mysql_start();
-        $res = mysql_fetch_assoc(mysql_query("select draft_draw from user where screen_name = '".$_SESSION['twitter']['screen_name']."'"));
+        $res = mysql_fetch_assoc(mysql_query("select draft_draw from user where id=".$_SESSION['twitter']['id']));
         if (!empty($res['draft_draw'])) echo '<script>draft_draw = "'.$res['draft_draw'].'"; </script>';
         mysql_close();
 ?>

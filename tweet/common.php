@@ -4,7 +4,7 @@
 	function dropTweet($status, $twitter, $hide, $comm_ids){
 		try{
 			mysql_start();
-			$res = mysql_query("select * from user where screen_name='".$_SESSION['twitter']['screen_name']."'"); mysql_throw();
+			$res = mysql_query("select * from user where id=".$_SESSION['twitter']['id']); mysql_throw();
 			$set = mysql_fetch_assoc($res); mysql_throw();
 			if ($set['post_register']){
 				$hide = $hide?'true':'false';
@@ -210,7 +210,7 @@
 		$exif = exif_read_data($filename);
 
 		mysql_start();
-		$set = mysql_fetch_assoc(mysql_throw(mysql_query("select * from user where screen_name='".$_SESSION['twitter']['screen_name']."'")));
+		$set = mysql_fetch_assoc(mysql_throw(mysql_query("select * from user where id=".$_SESSION['twitter']['id'])));
 		if ($set['en_WU']) $soft_ids = array_merge_recursive($soft_ids, detector_wiiu($file['name']));
 		if ($set['en_3D']) $soft_ids = array_merge_recursive($soft_ids, detector_3ds($exif));
 		if ($set['en_PV']) $soft_ids = array_merge_recursive($soft_ids, detector_psvita($exif));
