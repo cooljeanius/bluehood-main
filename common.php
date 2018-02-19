@@ -296,21 +296,24 @@
 		$res = mysql_fetch_assoc(mysql_query("select comm_id, screen_name from tweet where id = ".$status->id));
 		if ($res){
 			?><div style="display: inline-block; padding: 6px; width: 240px; text-align: left; vertical-align: top; ">
-				<div style="margin: 0; margin-bottom: 0px; "><?php
+				<table><tr style="vertical-align: top; "><?php
 					if ($user){
-						echo '<a href="'.ROOT_URL.'user/?'.http_build_query([screen_name => $status->user->screen_name]).'" class="a-disabled" style="color: #'.$status->user->profile_link_color.'; ">★</a>';
+						echo '<td><a href="'.ROOT_URL.'user/?'.http_build_query([screen_name => $status->user->screen_name]).'" class="a-disabled" style="color: #'.$status->user->profile_link_color.'; ">★</a></td>';
 					}
 					if ($res['comm_id'] && $subcomm){
 						$comm_ids = explode(',',$res['comm_id']);
-						if ($comm_ids != [])?> <img src="<?php echo ROOT_URL; ?>img/tag.png" style="width: 0.75em; "><?php
-						foreach($comm_ids as $comm_id){
-							$comm = mysql_fetch_assoc(mysql_throw(mysql_query("select * from comm where id = '".$comm_id."'")));
-							?><a class="tweet-sub a-disabled" target="_blank" href="<?php echo ROOT_URL; ?>view/?<?php echo http_build_query(['comm_id' => $comm_id]); ?>">
-								<span style="color: gray; "><?php echo $comm['name']; ?> </span>
-							</a><?php
+						if ($comm_ids != []){
+							?><td><img src="<?php echo ROOT_URL; ?>img/tag.png" style="width: 0.75em; "></td><td style="word-break: break-all; "><?php
+							foreach($comm_ids as $comm_id){
+								$comm = mysql_fetch_assoc(mysql_throw(mysql_query("select * from comm where id = '".$comm_id."'")));
+								?><a class="tweet-sub a-disabled" target="_blank" href="<?php echo ROOT_URL; ?>view/?<?php echo http_build_query(['comm_id' => $comm_id]); ?>">
+									<span style="color: gray; "><?php echo $comm['name']; ?> </span>
+								</a><?php
+							}
+							?></td><?php
 						}
 					}
-				?></div>
+				?></tr></table>
 				<?php if ((useragent() == '3ds')/*||(useragent() == 'new3ds')*/) echo emb_3ds($status); else{ ?>
 					<div id="tweet-<?php echo $id; ?>"></div>
 					<script>$(function(){ twttr.widgets.createTweet('<?php echo $status->id; ?>', document.getElementById('tweet-<?php echo $id++; ?>'), {lang: lang, }); }); </script>
@@ -378,6 +381,12 @@
 
 				$(function(){
 					document.title = $('.topbar').text()+' - BlueHood';
+					/*var card = '<meta name="twitter:card" content="summary" />\
+						<meta name="twitter:site" content="@bluehood_admin" />\
+						<meta name="twitter:title" content="'+$('.topbar').text()+' - BlueHood" />\
+						<meta name="twitter:description" content="Twitter のイメージをつなげるコミュニティ。The community to link images on Twitter. " />\
+						<meta name="twitter:image" content="<?php echo DOMAIN.ROOT_URL; ?>img/twiverse/default.png" />';
+					$(card).appendTo('head');*/
 				});
 			</script>
 			<style>
@@ -386,6 +395,11 @@
 				        color: white;
 				}
 			</style>
+			<meta name="twitter:card" content="summary" />
+			<meta name="twitter:site" content="@bluehood_admin" />
+			<meta name="twitter:title" content="<?php ?>BlueHood" />
+			<meta name="twitter:description" content="Twitter のイメージをつなげるコミュニティ。The community to link images on Twitter. " />
+			<meta name="twitter:image" content="<?php echo DOMAIN.ROOT_URL; ?>img/twiverse/default.png" />
 		</head>
 		<body>
 			<div class="sidemenu">

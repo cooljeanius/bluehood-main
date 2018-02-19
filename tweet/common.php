@@ -107,6 +107,7 @@
 	function detect($file, $selalbum = null){
 	$filename = $file['tmp_name'];
 	$twitter = twitter_start();
+	$msg = '';
 
 	/* 画像 -> soft_id, $_SESSION['post_image'], $vision_res */
 	if ($filename){
@@ -210,12 +211,12 @@
 
 		mysql_start();
 		$set = mysql_fetch_assoc(mysql_throw(mysql_query("select * from user where screen_name='".$_SESSION['twitter']['screen_name']."'")));
-		if ($set['en_WU']) $soft_ids = $soft_ids + detector_wiiu($file['name']);
-		if ($set['en_3D']) $soft_ids = $soft_ids + detector_3ds($exif);
-		if ($set['en_PV']) $soft_ids = $soft_ids + detector_psvita($exif);
-		if ($set['en_DS']) $soft_ids = $soft_ids + detector_ds($exif);
-		if ($set['en_P4']) $soft_ids = $soft_ids + detector_ps4($exif);
-		if ($set['en_AI']) $soft_ids = $soft_ids + detector_ai($vision_res);
+		if ($set['en_WU']) $soft_ids = array_merge_recursive($soft_ids, detector_wiiu($file['name']));
+		if ($set['en_3D']) $soft_ids = array_merge_recursive($soft_ids, detector_3ds($exif));
+		if ($set['en_PV']) $soft_ids = array_merge_recursive($soft_ids, detector_psvita($exif));
+		if ($set['en_DS']) $soft_ids = array_merge_recursive($soft_ids, detector_ds($exif));
+		if ($set['en_P4']) $soft_ids = array_merge_recursive($soft_ids, detector_ps4($exif));
+		if ($set['en_AI']) $soft_ids = array_merge_recursive($soft_ids, detector_ai($vision_res));
 		mysql_close();
 
 	}else if (isset($selalbum)){
@@ -237,19 +238,24 @@
 	mysql_start();
 	foreach($soft_ids as $soft_id){
 		$res = mysql_throw(mysql_query("select id, name from comm where soft_id='$soft_id'"));
-		while($comm = mysql_fetch_assoc($res)){
-			$comm['detector'] = detector($soft_id)['name'];
-			$comms []= $comm;
+		$detector = detector($soft_id);
+		if (mysql_num_rows($res)){
+			while($comm = mysql_fetch_assoc($res)){
+				$comm['detector'] = $detector['name'];
+				$comms []= $comm;
+			}
+		}else{
+			$msg .= $detector['name']." ディテクターのコミュニティが見つかりませんでした。\n専用ページよりコミュニティを設立する必要があります。\nソフトID: ".$soft_id."\n";
 		}
 	}
 	mysql_close();
 
 	/* $_SESSION['post_image'], $comms -> option */
 	$option = [];
-	foreach($vision_res->responses[0]->webDetection->webEntities as $webentity){	// Vision API
+	/*foreach($vision_res->responses[0]->webDetection->webEntities as $webentity){	// Vision API
 		$hashtag = '#'.twitter_trimhash($webentity->description);
 		array_push($option, $hashtag.' ');
-	}
+	}*/
         mysql_start();
 	foreach($comms as $comm){
 	       	$res = mysql_fetch_assoc(mysql_throw(mysql_query("select collection_id from comm where id = '".$comm['id']."'")));
@@ -282,22 +288,23 @@
 
 	$ret = [];
 	if (isset($_SESSION['post_image'])){
-		$ret['image'] = $_SESSION['post_image'];
+		$ret['image'] = base64_decode($_SESSION['post_image']);
 	}else{
-		$ret['image'] = base64_encode(file_get_contents('noimage.jpg'));
+		$ret['image'] = file_get_contents('noimage.jpg');
 	}
-	$src = imagecreatefromstring(base64_decode($ret['image']));
+	$src = imagecreatefromstring($ret['image']);
 	$width = imagesx($src);
 	$height = imagesy($src);
 	$dst_width = (int)$width*(96.0/$height);
 	$dst = imagecreatetruecolor($dst_width, 96);
 	imagecopyresampled($dst, $src, 0, 0, 0, 0, $dst_width, 96, $width, $height);
 	ob_start();
-	imagejpeg($dst, null);
+	imagejpeg($dst, null, 90);
 	$ret['image'] = base64_encode(ob_get_contents());
 	ob_end_clean();
 	$ret['option'] = $option;
 	$ret['comms'] = $comms;
+	if ($msg != '') $ret['msg'] = $msg;
 
 	return $ret;
 	}

@@ -24,7 +24,7 @@
 					<br>
 					<fieldset>
 						<legend>お絵かき</legend>
-						<input name="draw_autosave" type="checkbox" <?php if ($set['draw_autosave']) echo 'checked'; ?>>1 分ごとに自動で下書き保存する<br>
+						<input name="draw_autosave" type="checkbox" <?php if ($set['draw_autosave']) echo 'checked'; ?>>1 分ごとに自動で下書き保存する (サーバー通信が発生します)<br>
 						<br>
 						キャンバスの横サイズ <input name="draw_width" type="number" value="<?php echo $set['draw_width']; ?>" style="width: 4em; "> px<br>
 						キャンバスの縦サイズ <input name="draw_height" type="number" value="<?php echo $set['draw_height']; ?>"  style="width: 4em; "> px<br>

@@ -35,7 +35,7 @@ $(function(){
 		$('#suggest').html('');
 
 		send.setAttribute('disabled', 'disabled');
-		selimg.setAttribute('disabled', 'disabled');	
+		selimg.setAttribute('disabled', 'disabled');
 	};
 });
 
@@ -53,11 +53,12 @@ var update = function(res){
 	});
 	if (title == ''){
 		title = '投稿';
-		notice = 'コミュニティが見つかりませんでした。\n投稿は可能です。';
+		notice = 'コミュニティが見つかりませんでした。\n投稿は可能です。\n';
 	}else{
-		notice += "\nコミュニティに投稿されます。";
+		notice += "\nコミュニティに投稿されます。\n";
 	}
 	$('#title').html(title);
+	if (res.msg) notice += res.msg;
 	alert(notice);
 
 	send.disabled = false;
@@ -76,7 +77,7 @@ $(function(){
 });
 
 var updateText = function(option){
-	$('#suggest').html('<select id="suggest-sel"><option value="">クイック入力</option></select>');
+	$('#suggest').html('<select id="suggest-sel"><option value="">BlueHood トレンド</option></select>');
 	option.forEach(function(option, i){
 		var color = '#55acee';
 		$('#suggest-sel').append('<option value="'+option+'" style="color: '+color+'; ">'+option+'</option>');

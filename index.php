@@ -16,16 +16,6 @@
 <html>
 	<head>
 		<style type="text/css">
-			.header a{
-				display: inline-block;
-				color: white;
-				background-color: orange;
-				border-radius: 1em;
-				padding: 0.5em 1em;
-				margin: 0.25em;
-				text-decoration: none;
-			}
-
 			@media screen and (min-width: 766px){
 				.header{
 					text-align: center;
@@ -74,10 +64,11 @@
 							<td><img src="<?php echo ROOT_URL; ?>img/banner.php"></td>
 						</tr></table>
 						<p><?php l($s['desc']); ?></p>
-						<a href="guide.php"><?php l($s['guide']); ?></a>
-						<a href="https://peing.net/bluehood_admin" target="_blank"><?php l($s['Q&A']); ?></a>
-						<a href="https://twitter.com/bluehood_admin" target="_blank"><?php l($s['contact']); ?></a>
+						<a href="guide.php" class="linkbutton"><?php l($s['guide']); ?></a>
+						<a href="https://peing.net/bluehood_admin" target="_blank" class="linkbutton"><?php l($s['Q&A']); ?></a>
+						<a href="https://twitter.com/bluehood_admin" target="_blank" class="linkbutton"><?php l($s['contact']); ?></a>
 						<div style="clear: both; "></div>
+						お知らせ <a href="<?php echo ROOT_URL; ?>user/setting.php" class="linkbutton">ユーザー設定</a> の確認をお願いします。
 					</div>
 				</div>
 			</div>

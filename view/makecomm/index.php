@@ -26,7 +26,7 @@
 		<div class="main">
 			<div class="header">
 			<?php l($s['header']); ?><br>
-			<a href="<?php echo ROOT_URL; ?>view/report/"><?php l($s['report']); ?></a><br>
+			<a href="<?php echo ROOT_URL; ?>view/report/" class="linkbutton"><?php l($s['report']); ?></a><br>
 			</div>
 			<br>
 			<form action="WU.php" method="post" enctype="multipart/form-data" class="marginleft marginright">
