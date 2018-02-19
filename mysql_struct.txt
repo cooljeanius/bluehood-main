@@ -32,7 +32,8 @@ CREATE TABLE `comm` (
   `list_n` int(10) unsigned DEFAULT NULL,
   `post_n` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `soft_id` (`soft_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -44,9 +45,9 @@ DROP TABLE IF EXISTS `detector`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `detector` (
-  `prefix` varchar(2) CHARACTER SET latin1 NOT NULL,
-  `name` varchar(25) CHARACTER SET latin1 NOT NULL,
-  `description` text CHARACTER SET latin1,
+  `prefix` varchar(2) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `description` text,
   PRIMARY KEY (`prefix`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -93,7 +94,7 @@ CREATE TABLE `tweet` (
   `screen_name` text,
   `hide` tinyint(1) DEFAULT NULL,
   `time` datetime DEFAULT NULL,
-  `comm_id` varchar(8) DEFAULT NULL,
+  `comm_id` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -106,7 +107,6 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `screen_name` varchar(16) NOT NULL,
   `draft_draw` text,
   `collection_id` bigint(20) unsigned DEFAULT NULL,
   `album_id` bigint(20) unsigned DEFAULT NULL,
@@ -115,7 +115,20 @@ CREATE TABLE `user` (
   `draw_width` int(10) unsigned DEFAULT '320',
   `post_register` tinyint(1) DEFAULT '1',
   `draw_sc` varchar(8) DEFAULT 'vertical',
-  PRIMARY KEY (`screen_name`)
+  `list_WU` tinyint(1) DEFAULT '1',
+  `list_3D` tinyint(1) DEFAULT '1',
+  `list_AI` tinyint(1) DEFAULT '1',
+  `list_DS` tinyint(1) DEFAULT '1',
+  `list_P4` tinyint(1) DEFAULT '1',
+  `list_PV` tinyint(1) DEFAULT '1',
+  `en_3D` tinyint(1) DEFAULT '1',
+  `en_AI` tinyint(1) DEFAULT '1',
+  `en_DS` tinyint(1) DEFAULT '1',
+  `en_P4` tinyint(1) DEFAULT '1',
+  `en_PV` tinyint(1) DEFAULT '1',
+  `en_WU` tinyint(1) DEFAULT '1',
+  `id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -128,4 +141,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-16  0:26:24
+-- Dump completed on 2018-02-20  0:17:22
