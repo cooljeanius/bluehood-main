@@ -1,13 +1,15 @@
+var profile = function(){
+	$('.profile').css('min-height', $('.profile').width()/3.0);
+	if ($(window).width() >= 766){
+		$('.profile').css('padding-top', '');
+	}else{
+		$('.profile').css('padding-top', $('.profile').width()/3.0);
+	}
+};
 $(function(){
-	
-	$('#bannarimg').change(function(){
-		$('#bannarform').submit();
-	});
-
-	$('#userstat > .clickable').click(function(){
-		$('#userstat > li').css('border-bottom', 'none');
-		$(this).css('border-bottom', '4px solid gold');
-
-		//$('article').html('<img src="' + root_url + 'loader.gif" alt="読込中…">');
+	profile();
+	$(window).resize(profile);
+	$('.profile').click(function(){
+		$('.profile-article').toggle();
 	});
 });
