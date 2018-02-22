@@ -9,6 +9,7 @@ var profile = function(){
 $(function(){
 	profile();
 	$(window).resize(profile);
+	$(window).load(profile);
 	$('.profile').click(function(){
 		$('.profile-article').toggle();
 	});

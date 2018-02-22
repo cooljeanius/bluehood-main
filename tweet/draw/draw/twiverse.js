@@ -155,7 +155,7 @@ if (canvas.getContext){
 	}else{
 		if (isTouch){
 			canvas.ontouchstart = function(e){
-				var touch = e.changedTouches[0];
+				var touch = e.targetTouches[0];
 				rect = canvas.getBoundingClientRect();
 
 				drawstart(touch.clientX - rect.left, touch.clientY - rect.top);
@@ -163,7 +163,7 @@ if (canvas.getContext){
 			}
 
 			canvas.ontouchmove = function(e){
-				var touch = e.changedTouches[0];
+				var touch = e.targetTouches[0];
 
 				drawmove(touch.clientX - rect.left, touch.clientY - rect.top);
 				e.preventDefault();
