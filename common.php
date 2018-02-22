@@ -497,7 +497,17 @@
         <?php }
 
         function catch_default($e){
-                die('エラーが発生しました。<br>'.nl2br($e->getMessage()));
+                ?>エラーが発生しました。
+		<form action="<?php echo ROOT_URL; ?>senderr.php" method="post">
+			このエラーを @bluehood_admin に報告できます。<br>
+			<textarea name="msg" rows="10" cols="50" readonly><?php
+				echo "URL: ".$_SERVER['REQUEST_URI']."\n";
+				echo "Error: ".$e->getMessage()."\n";
+			?></textarea><br>
+			<input type="submit">
+		<form>
+		<?php
+		die();
         }
 
 	function s($sentence){
