@@ -163,52 +163,71 @@
 	                }
 			return $soft_ids;
 		}
+		function detector_model($exif){
+			$soft_ids = [];
+			if ($exif['Model']){
+        	                $name = mb_substr(twitter_trimhash(mysql_escape_string($exif['Model'])), 0, 25);
+				$res = mysql_fetch_assoc(mysql_throw(mysql_query("select * from soft_id2name where name='$name' and id like 'MD%'")));
+				if ($res['id']){
+					$soft_id = $res['id'];
+				}else{
+					$soft_id = 'MD'.substr(uniqid(), 0, 8);
+					make_comm($soft_id, $name);
+				}
+				$soft_ids []= $soft_id;
+
+	                }
+			return $soft_ids;
+		}
 		function detector_ai($other_ids){
 			$soft_ids = [];
 
-			if ($other_ids == []){
-				// リクエスト用のJSONを作成
-				$json = json_encode( array(
-					"requests" => array(
-						array(
-							"image" => array(
-								"content" => $_SESSION['post_image'],
-							) ,
-							"features" => array(
-								array(
-									"type" => "WEB_DETECTION" ,
-									"maxResults" => 1,
-								) ,
+			foreach($other_ids as $other_id){
+				$detector = detector($other_id);
+				if (($detector['prefix']=='3D')||($detector['prefix']=='DS')||($detector['prefix']=='PV')||($detector['prefix']=='P4')||($detector['prefix']=='WU')) return [];
+			}
+
+			// リクエスト用のJSONを作成
+			$json = json_encode( array(
+				"requests" => array(
+					array(
+						"image" => array(
+							"content" => $_SESSION['post_image'],
+						) ,
+						"features" => array(
+							array(
+								"type" => "WEB_DETECTION" ,
+								"maxResults" => 1,
 							) ,
 						) ,
 					) ,
-				) ) ;
-				// リクエストを実行
-				$curl = curl_init() ;
-				curl_setopt( $curl, CURLOPT_URL, "https://vision.googleapis.com/v1/images:annotate?key=".GOOGLE_CLOUD_PLATFORM_KEY) ;
-				curl_setopt( $curl, CURLOPT_HEADER, true ) ; 
-				curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, "POST" ) ;
-				curl_setopt( $curl, CURLOPT_HTTPHEADER, array( "Content-Type: application/json" ) ) ;
-				curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false ) ;
-				curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true ) ;
-				if( isset($referer) && !empty($referer) ) curl_setopt( $curl, CURLOPT_REFERER, $referer ) ;
-				curl_setopt( $curl, CURLOPT_TIMEOUT, 15 ) ;
-				curl_setopt( $curl, CURLOPT_POSTFIELDS, $json ) ;
-				$res1 = curl_exec( $curl ) ;
-				$res2 = curl_getinfo( $curl ) ;
-				curl_close( $curl ) ;
-				// 取得したデータ
-				$json = substr( $res1, $res2["header_size"] ) ;				// 取得したJSON
-				$header = substr( $res1, 0, $res2["header_size"] ) ;		// レスポンスヘッダー
-				$vision_res = json_decode($json);
+				) ,
+			) ) ;
+			// リクエストを実行
+			$curl = curl_init() ;
+			curl_setopt( $curl, CURLOPT_URL, "https://vision.googleapis.com/v1/images:annotate?key=".GOOGLE_CLOUD_PLATFORM_KEY) ;
+			curl_setopt( $curl, CURLOPT_HEADER, true ) ; 
+			curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, "POST" ) ;
+			curl_setopt( $curl, CURLOPT_HTTPHEADER, array( "Content-Type: application/json" ) ) ;
+			curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false ) ;
+			curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true ) ;
+			if( isset($referer) && !empty($referer) ) curl_setopt( $curl, CURLOPT_REFERER, $referer ) ;
+			curl_setopt( $curl, CURLOPT_TIMEOUT, 15 ) ;
+			curl_setopt( $curl, CURLOPT_POSTFIELDS, $json ) ;
+			$res1 = curl_exec( $curl ) ;
+			$res2 = curl_getinfo( $curl ) ;
+			curl_close( $curl ) ;
+			// 取得したデータ
+			$json = substr( $res1, $res2["header_size"] ) ;				// 取得したJSON
+			$header = substr( $res1, 0, $res2["header_size"] ) ;		// レスポンスヘッダー
+			$vision_res = json_decode($json);
 
-				foreach($vision_res->responses[0]->webDetection->webEntities as $webentity){
-					$soft_id = 'AI'.$webentity->entityId;
-					$soft_ids []= $soft_id;
+			foreach($vision_res->responses[0]->webDetection->webEntities as $webentity){
+				$soft_id = 'AI'.$webentity->entityId;
+				$soft_ids []= $soft_id;
 
-	                	        $res = mysql_fetch_assoc(mysql_query("select name from comm where soft_id = '".mysql_escape_string($soft_id)."'"));
-	                	        if (!$res['name']) make_comm($soft_id, mb_substr(twitter_trimhash(mysql_escape_string($webentity->description)), 0, 25) );
-				}
+                	        $res = mysql_fetch_assoc(mysql_query("select name from comm where soft_id = '".mysql_escape_string($soft_id)."'"));
+                	        if (!$res['name']) make_comm($soft_id, mb_substr(twitter_trimhash(mysql_escape_string($webentity->description)), 0, 25) );
 			}
 			return $soft_ids;
 		}
@@ -223,6 +242,7 @@
 		if ($set['en_PV']) $soft_ids = array_merge_recursive($soft_ids, detector_psvita($exif));
 		if ($set['en_DS']) $soft_ids = array_merge_recursive($soft_ids, detector_ds($exif));
 		if ($set['en_P4']) $soft_ids = array_merge_recursive($soft_ids, detector_ps4($exif));
+		if ($set['en_MD']) $soft_ids = array_merge_recursive($soft_ids, detector_model($exif));
 		if ($set['en_AI']) $soft_ids = array_merge_recursive($soft_ids, detector_ai($soft_ids));	/* AI ディテクタは最後に行う*/
 		mysql_close();
 
