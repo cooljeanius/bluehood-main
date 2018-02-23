@@ -75,22 +75,11 @@ body{
 	border-radius: 50%;
 }
 
-.userlist{
-	list-style:none;
-	margin: 0;
-	padding: 0;
-}
-
-.userlist > li{
-	border-bottom: thin dashed lightgray;
-	padding: 1em 0;
-}
-
-.description{
+/*.description{
         margin-top: 0.5em;
         color: gray;
         font-size: small;
-}
+}*/
 
 .a-disabled{
 	text-decoration: none;

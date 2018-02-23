@@ -74,6 +74,7 @@
 				.profile-user .avatar{
 					width: 40%;
 					float: left;
+					margin-right: 0.5em;
 				}
 				.profile-user-pc{
 					display: inline;

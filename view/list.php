@@ -6,7 +6,7 @@
 
         if (!isset($_GET['comm_id'])) die('コミュニティが指定されていません。');
         mysql_start();
-        $res = mysql_fetch_assoc(mysql_query("select name, list_id from comm where id = '".$_GET['comm_id']."'"));
+        $res = mysql_fetch_assoc(mysql_query("select name, list_id from comm where id = '".mysql_escape_string($_GET['comm_id'])."'"));
         if (empty($res)) die('コミュニティが存在しません。');
         $comm_name = $res['name'];
         $list_id = $res['list_id'];
@@ -26,8 +26,6 @@
 	<body>
 		<h2 class="topbar"><?php echo $comm_name; ?> リスト</h2>
 		<div class="main paddingleft paddingright">
-		<?php echo $comm_name; ?> のスクリーンショットを投稿することで、Twitter リストに登録できます。
-		<br>
 		<?php userlist($twitter->get('lists/members', ['list_id' => $list_id, 'count' => 5000])->users); ?>
 	</body>
 </html>

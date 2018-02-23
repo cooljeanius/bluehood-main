@@ -78,10 +78,10 @@
 				<?php l($s['desc']); ?><br>
 			</div>
 			<div style="text-align: center; ">
-				<a class="a-disabled" href="splitter.php"><div class="card tool">
+				<!--<a class="a-disabled" href="splitter.php"><div class="card tool">
 					<h3><?php l($s['splitter']); ?></h3>
 					<div class="card-article tool-desc"><?php l($s['splitter_desc']); ?></div>
-				</div></a>
+				</div></a>-->
 				<a class="a-disabled" href="nfcbattler/"><div class="card tool">
 					<h3><?php l($s['nfcbattler']); ?></h3>
 					<div class="card-article tool-desc"><?php l($s['nfcbattler_desc']); ?></div>

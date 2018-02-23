@@ -327,17 +327,20 @@
 	}
 
 	function userlist($list){
-		echo '<ul class="userlist">';
+		?><div style="text-align: center; "><?php
 		foreach($list as $user){ ?>
-			<li>
-			<a href="<?php echo ROOT_URL; ?>user/?<?php echo http_build_query(['screen_name' => $user->screen_name]); ?>" style="color: inherit; text-decoration: none; "><img src="<?php echo $user->profile_image_url_https ?>" alt="avatar" style="float: left; margin-right: 0.5em; " class="avatar">
-			<?php echo $user->name ?> <font color="#66757f">@<?php echo $user->screen_name ?></font>
-			<?php if(isset($user->profile_banner_url)){ ?><img src="<?php echo $user->profile_banner_url ?>" alt="bannar" width="25%" style="float: right;"><?php } ?>
-			<div class="description"><?php echo $user->description; ?></div>
-			<div style="clear: both; "></div></a>
-			</li>
+			<a class="a-disabled" href="<?php echo ROOT_URL; ?>user/?<?php echo http_build_query(['screen_name' => $user->screen_name]); ?>"><div class="card" style="width: 240px; display: inline-block; vertical-align: top; text-align: left; ">
+				<?php if(isset($user->profile_banner_url)){ ?><img src="<?php echo $user->profile_banner_url ?>" style="width: 100%; "><?php } ?>
+				<div class="card-article" style="padding-top: 0; ">
+					<table><tr>
+						<td><img src="<?php echo $user->profile_image_url_https ?>" alt="avatar" class="avatar"></td>
+						<td><?php echo $user->name ?><br><span class="disabled" style="">@<?php echo $user->screen_name ?></span></td>
+					</tr></table>
+					<div class="disabled" style="font-size: small; "><?php echo $user->description; ?></div>
+				</div>
+			</div></a>
 		<?php }
-		echo '</ul>';
+		?></div><?php
 	}
 
 	function head($theme_color = null){
