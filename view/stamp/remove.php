@@ -9,7 +9,7 @@
 
 		mysql_start();
 
-		mysql_query("delete from selstamp where screen_name='".$_SESSION['twitter']['screen_name']."' and image_url='".$_GET['image_url']."'");
+		mysql_query("delete from selstamp where screen_name='".$_SESSION['twitter']['screen_name']."' and image_url='".mysql_escape_string($_GET['image_url'])."'");
 		mysql_throw();
 
 		mysql_close();

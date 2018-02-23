@@ -446,9 +446,9 @@
 		$id = substr(uniqid(), 0, 8);
 
 		$twitter_admin = twitter_admin();
-		$list = $twitter_admin->post('lists/create', ['name' => $name, 'mode' => 'public', 'description' => $name]);
+		$list = $twitter_admin->post('lists/create', ['name' => 'BH'.$name, 'mode' => 'public', 'description' => $name]);
 		twitter_throw($list);
-		$collection = $twitter_admin->post('collections/create', ['name' => $name, 'description' => $name, url => 'https://twiverse.net/view?comm_id='.$id, timeline_order => 'tweet_reverse_chron']);
+		$collection = $twitter_admin->post('collections/create', ['name' => 'BH'.$name, 'description' => $name, url => 'https://twiverse.net/view?comm_id='.$id, timeline_order => 'tweet_reverse_chron']);
 		twitter_throw($collection);
 		$collection_id = str_replace('custom-', '', $collection->response->timeline_id);
 

@@ -24,7 +24,7 @@
 
 					$detector = detector($res['soft_id']);	/* Twitter List */
 					if ($set['list_'.$detector['prefix']]){
-						$registered = isset(twitter_throw($twitter->get('lists/members/show', ['list_id' => $res['list_id'], 'screen_name' => $_SESSION['twitter']['screen_name'], 'include_entities' => 'false', 'skip_status' => 'true']))->id);
+						$registered = isset(/*twitter_throw(*/$twitter->get('lists/members/show', ['list_id' => $res['list_id'], 'screen_name' => $_SESSION['twitter']['screen_name'], 'include_entities' => 'false', 'skip_status' => 'true'])/*)*/->id);
 						if (!$registered){
 							$twitter_admin->post('lists/members/create', ['list_id' => $res['list_id'], 'screen_name' => $_SESSION['twitter']['screen_name']]);
 							twitter_throw();
@@ -136,8 +136,7 @@
 			$soft_ids = [];
 			if ($exif['Model'] == 'PlayStation(R)Vita'){
 				$soft_ids []= 'PV'.substr(strstr($exif['MakerNote'], 'GPNM'), 5, 9);
-				$name = mb_substr(twitter_trimhash(mysql_escape_string(substr(strstr($exif['MakerNote'], 'ALBM'), 5, -1))), 0, 25);
-
+				$name = mb_substr(twitter_trimhash(mysql_escape_string(substr(strstr($exif['MakerNote'], 'ALBM'), 5, -1))), 0, 23);
 	                        $res = mysql_fetch_assoc(mysql_query("select name from soft_id2name where id = '".mysql_escape_string($soft_id)."'"));
 	                        if (!$res['name']) make_comm($soft_id, $name);
 			}
@@ -155,18 +154,18 @@
 		function detector_ps4($exif){
 			$soft_ids = [];
 			if ($exif['Model'] == 'PlayStation(R)4'){
-        	                $soft_ids []= 'P4'.substr(strstr($exif['MakerNote'], 'GPNM'), 5, 9);
-        	                $name = mb_substr(twitter_trimhash(mysql_escape_string(substr(strstr($exif['MakerNote'], 'ALBM'), 5, -1))), 0, 25);
-
+        	                $soft_id = 'P4'.substr(strstr($exif['MakerNote'], 'GPNM'), 5, 9);
+        	                $name = mb_substr(twitter_trimhash(mysql_escape_string(substr(strstr($exif['MakerNote'], 'ALBM'), 5, -1))), 0, 23);
 	                        $res = mysql_fetch_assoc(mysql_query("select name from soft_id2name where id = '".mysql_escape_string($soft_id)."'"));
 	                        if (!$res['name']) make_comm($soft_id, $name);
+				$soft_ids []= $soft_id;
 	                }
 			return $soft_ids;
 		}
 		function detector_model($exif){
 			$soft_ids = [];
 			if ($exif['Model']){
-        	                $name = mb_substr(twitter_trimhash(mysql_escape_string($exif['Model'])), 0, 25);
+        	                $name = mb_substr(twitter_trimhash(mysql_escape_string($exif['Model'])), 0, 23);
 				$res = mysql_fetch_assoc(mysql_throw(mysql_query("select * from soft_id2name where name='$name' and id like 'MD%'")));
 				if ($res['id']){
 					$soft_id = $res['id'];
@@ -183,8 +182,8 @@
 			$soft_ids = [];
 
 			foreach($other_ids as $other_id){
-				$detector = detector($other_id);
-				if (($detector['prefix']=='3D')||($detector['prefix']=='DS')||($detector['prefix']=='PV')||($detector['prefix']=='P4')||($detector['prefix']=='WU')) return [];
+				$detector = substr($other_id, 0, 2);
+				if (($detector=='3D')||($detector=='DS')||($detector=='PV')||($detector=='P4')||($detector=='WU')) return [];
 			}
 
 			// リクエスト用のJSONを作成
@@ -227,7 +226,7 @@
 				$soft_ids []= $soft_id;
 
                 	        $res = mysql_fetch_assoc(mysql_query("select name from comm where soft_id = '".mysql_escape_string($soft_id)."'"));
-                	        if (!$res['name']) make_comm($soft_id, mb_substr(twitter_trimhash(mysql_escape_string($webentity->description)), 0, 25) );
+                	        if (!$res['name']) make_comm($soft_id, mb_substr(twitter_trimhash(mysql_escape_string($webentity->description)), 0, 23) );
 			}
 			return $soft_ids;
 		}

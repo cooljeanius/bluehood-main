@@ -13,7 +13,7 @@
 		mysql_throw();
                 if (mysql_num_rows($res) >= 10) throw new Exception('手持ちは 10 個以上追加できません。');
 
-		mysql_query("insert into selstamp (screen_name, image_url) values('".$_SESSION['twitter']['screen_name']."', '".$_GET['image_url']."')");
+		mysql_query("insert into selstamp (screen_name, image_url) values('".$_SESSION['twitter']['screen_name']."', '".mysql_escape_string($_GET['image_url'])."')");
 		mysql_throw();
 
 		mysql_close();

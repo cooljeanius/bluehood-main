@@ -7,7 +7,8 @@
 	$s = [
 		'community' => ['ja' => "コミュニティ", 'en' => "community", ],
 		'allposts' => ['ja' => "すべての投稿", 'en' => "All posts", ],
-		'twitterlist' => ['ja' => "Twitter リスト", 'en' => "Twitter list", ],
+		'twitterlist' => ['ja' => "Twitter リスト", 'en' => "Twitter List", ],
+		'twittercollection' => ['ja' => "Twitter コレクション", 'en' => "Twitter Collection", ],
 		'postdraw' => ['ja' => "お絵かきを投稿する", 'en' => "Draw to this community", ],
 		'postdiary' => ['ja' => "つぶやきを投稿する", 'en' => "Tweet to this community", ],
 		//'' => ['ja' => "", 'en' => "", ],
@@ -44,12 +45,10 @@
 		?></div>
 		<div class="main">
 			<div class="header">
-			<?php if (isset($list_id)){ ?>
-				<a href="list.php?<?php echo http_build_query(['comm_id' => $comm_id]); ?>"><?php l($s['twitterlist']); ?></a>
-			<?php } ?>
-			<!--<input type="button" onclick="location.href=tweet_url+'diary/?<?php echo http_build_query(['comm_id' => $comm_id]); ?>'" value="<?php l($s['postdiary']); ?>" style="float: right; ">
-			<input type="button" onclick="location.href=tweet_url+'draw/?<?php echo http_build_query(['comm_id' => $comm_id]); ?>'" value="<?php l($s['postdraw']); ?>" style="float: right; ">
-			<div style="clear: both; "></div>-->
+				<?php if (isset($list_id)){ ?>
+					<a class="linkbutton" href="list.php?<?php echo http_build_query(['comm_id' => $comm_id]); ?>"><?php l($s['twitterlist']); ?></a>
+				<?php } ?>
+				<a class="linkbutton" target="_blank" href="https://twitter.com/bluehood_admin/timelines/<?php echo $collection_id; ?>"><?php l($s['twittercollection']); ?></a>
 			</div>
 
 			<?php collection('custom-'.$collection_id, $_GET['i'], !isset($comm_id), true); ?>
