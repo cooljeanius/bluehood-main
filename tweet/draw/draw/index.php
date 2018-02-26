@@ -7,6 +7,16 @@
 	$res = mysql_fetch_assoc(mysql_query("select draw_width, draw_height, draw_autosave from user where id=".$_SESSION['twitter']['id']));
 	?><script>var canvas_width = <?php echo $res['draw_width']; ?>; var canvas_height = <?php echo $res['draw_height']; ?>; var is_autosave = <?php echo $res['draw_autosave']; ?>; </script><?php
 	mysql_close();
+
+	$s = [
+		'title' => ['ja' => "お絵かきの投稿", 'en' => "Post Drawing"],
+		'save' => ['ja' => "お絵かきを下書き保存", 'en' => "Save drawing draftSave drawing draft"],
+		'fullscreen' => ['ja' => "フルスクリーン", 'en' => "Fullscreen"],
+		'tweet' => ['ja' => "ツイート", 'en' => "Tweet"],
+		'stamp' => ['ja' => "スタンプの選択", 'en' => "Select stamp"],
+		'stamp-nothing' => ['ja' => "手持ちのスタンプがありません。", 'en' => "Your stamps not found. "],
+		//'' => ['ja' => "", 'en' => ""],
+	];
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,12 +56,12 @@ canvas{
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 	</head>
 	<body>
-		<h2 id="title" class="topbar">お絵かきの投稿</h2>
+		<h2 id="title" class="topbar"><?php l($s['title']); ?></h2>
 		<div class="main paddingleft paddingright" style="min-height: 0; ">
 			<center>
 			<div id="toolbox" style="text-align: left; display: inline-block; ">
-				　　　　<button id="fullscreen">フルスクリーン</button><br>
-				<button id="save-draft">お絵かきを下書き保存</button>
+				　　　　<button id="fullscreen"><?php l($s['fullscreen']); ?></button><br>
+				<button id="save-draft"><?php l($s['save']); ?></button>
 				<span id="reply"></span>
 				<form id="imgform" action="../../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send" style="height: 16px; ">
 					<input id="selimg" name="selimg" type="file" accept="image/*">
@@ -62,29 +72,28 @@ canvas{
 				<button id="prev"><img src="undo.png" alt="preview"></button>
 				<button id="stamp"><img src="stamp.png"></button>
 　
-				<button id="pen_S"><img src="pencil_s.png" alt="draw_S"></button>
-				<button id="pen_M"><img src="pencil_m.png" alt="draw_M"></button>
-				<button id="pen_L"><img src="pencil.png" alt="draw_L"></button>
-				<button id="eraser_S"><img src="eraser_s.png" alt="eraser_S"></button>
-				<button id="eraser_M"><img src="eraser_m.png" alt="eraser_M"></button>
-				<button id="eraser_L"><img src="eraser.png" alt="eraser_L"></button>
+				<button id="pen_S" class="pen-button"><img src="pencil_s.png" alt="draw_S"></button>
+				<button id="pen_M" class="pen-button"><img src="pencil_m.png" alt="draw_M"></button>
+				<button id="pen_L" class="pen-button"><img src="pencil.png" alt="draw_L"></button>
+				<button id="eraser_S" class="pen-button"><img src="eraser_s.png" alt="eraser_S"></button>
+				<button id="eraser_M" class="pen-button"><img src="eraser_m.png" alt="eraser_M"></button>
+				<button id="eraser_L" class="pen-button"><img src="eraser.png" alt="eraser_L"></button>
 			</div>
 			<img id="thumb" height="96px" src="../../noimage.jpg">
 
 				<canvas id="draw" style="border: 1px solid lightgray; "></canvas>
 				<form id="sendform" action="send.php" method="post" enctype="multipart/form-data">
 					<input type="text" name="dummy" style="position:absolute;visibility:hidden">
-					<!--<input name="hide" type="checkbox">ネタバレ-->
 					<table style="width: 600px; "><tr>
-						<td><input id="send" type="button" value="ツイート"></td>
 						<!--<td id="suggest"></td>-->
 						<td><input id="text" name="comment" type="text" maxlength="100" style="width: 100%; "></td>
+						<td><input id="send" type="button" value="<?php l($s['tweet']); ?>"></td>
 					</tr></table>
 				</form>
 			</center>
 		</div>
 
-		<div id="stamp-dialog" title="スタンプの選択" style="text-align: center; ">
+		<div id="stamp-dialog" title="<?php l($s['stamp']); ?>" style="text-align: center; ">
 			<?php
 				try{
 					mysql_start();
@@ -92,7 +101,7 @@ canvas{
 					mysql_throw();
 					$i = 0;
 					if (mysql_num_rows($res) == 0){
-                                        	?>手持ちのスタンプはありません。ツールボックスから追加してみよう！<?php
+						l($s['stamp-nothing']);
                                         }else while($image_url = mysql_fetch_assoc($res)['image_url']){
 						?>
 							<div style="display: inline-block; vertical-align: top; ">

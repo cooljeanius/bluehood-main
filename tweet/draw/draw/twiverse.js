@@ -218,41 +218,52 @@ if (canvas.getContext){
 		}
 	};
 
+	var toggle_penbutton = function(selected){
+		$('.pen-button').css('border-color', '');
+		$(selected).css('border-color', '#55acee');
+	}
+
 	var pen_S = document.getElementById('pen_S');
 	pen_S.onclick = function(){
 		color = 'black';
 		width = 1;
 		mode = 'draw';
+		toggle_penbutton(this);
 	};
 	var pen_M = document.getElementById('pen_M');
 	pen_M.onclick = function(){
 		color = 'black';
 		width = 2;
 		mode = 'draw';
+		toggle_penbutton(this);
 	};
 	var pen_L = document.getElementById('pen_L');
 	pen_L.onclick = function(){
 		color = 'black';
 		width = 4;
 		mode = 'draw';
+		toggle_penbutton(this);
 	};
 	var eraser_S = document.getElementById('eraser_S');
 	eraser_S.onclick = function(){
 		color = 'white';
 		width = 1;
 		mode = 'draw';
+		toggle_penbutton(this);
 	};
 	var eraser_M = document.getElementById('eraser_M');
 	eraser_M.onclick = function(){
 		color = 'white';
 		width = 2;
 		mode = 'draw';
+		toggle_penbutton(this);
 	};
 	var eraser_L = document.getElementById('eraser_L');
 	eraser_L.onclick = function(){
 		color = 'white';
 		width = 4;
 		mode = 'draw';
+		toggle_penbutton(this);
 	};
 
 	$('#stamp').click(function(){

@@ -68,7 +68,6 @@
 						<a href="https://peing.net/bluehood_admin" target="_blank" class="linkbutton"><?php l($s['Q&A']); ?></a>
 						<a href="https://twitter.com/bluehood_admin" target="_blank" class="linkbutton"><?php l($s['contact']); ?></a>
 						<div style="clear: both; "></div>
-						お知らせ <a href="<?php echo ROOT_URL; ?>user/setting.php" class="linkbutton">ユーザー設定</a> の確認をお願いします。
 					</div>
 				</div>
 			</div>

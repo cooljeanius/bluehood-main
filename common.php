@@ -8,8 +8,9 @@
 	define('ALL_POSTS', '932243624233979905');
 	define('COLLECTON_STAMP', '945172613063520256');
 
-	/*if (isset($_SESSION['twitter']['account']['user'])) define('THEME_COLOR', '#'.$_SESSION['twitter']['account']['user']->profile_link_color);
-	else */define('THEME_COLOR', '#55acee');
+	define('THEME_COLOR', '#55acee');
+	if ((getdate()['hours']>=6) && (getdate()['hours']<18)) define('THEME', 'light');
+	else define('THEME', 'dark');
 
 	switch(useragent()){
 		case '3ds':
@@ -95,7 +96,7 @@
 		<h2 class="topbar">ログイン</h2>
 		<div class="main">
 			<br>
-			<div class="whitebox marginleft marginright">
+			<div class="card card-article marginleft marginright">
 				<p>これより先はTwitterアカウントによるログインが必要です。</p>
 				<a href="<?php echo $verify_url; ?>"><img src="<?php echo ROOT_URL; ?>img/sign-in-with-twitter-gray.png" alt="Sign in with Twitter" style="cursor: pointer; "></a>
 			</div>
@@ -318,7 +319,7 @@
 				?></tr></table>
 				<?php if ((useragent() == '3ds')/*||(useragent() == 'new3ds')*/) echo emb_3ds($status); else{ ?>
 					<div id="tweet-<?php echo $id; ?>"></div>
-					<script>$(function(){ twttr.widgets.createTweet('<?php echo $status->id; ?>', document.getElementById('tweet-<?php echo $id++; ?>'), {lang: lang, }); }); </script>
+					<script>$(function(){ twttr.widgets.createTweet('<?php echo $status->id; ?>', document.getElementById('tweet-<?php echo $id++; ?>'), {lang: lang, theme: '<?php echo THEME; ?>'}); }); </script>
 				<?php } ?>
 			</div><?php
 			return true;
@@ -329,8 +330,8 @@
 	function userlist($list){
 		?><div style="text-align: center; "><?php
 		foreach($list as $user){ ?>
-			<a class="a-disabled" href="<?php echo ROOT_URL; ?>user/?<?php echo http_build_query(['screen_name' => $user->screen_name]); ?>"><div class="card" style="width: 240px; display: inline-block; vertical-align: top; text-align: left; ">
-				<?php if(isset($user->profile_banner_url)){ ?><img src="<?php echo $user->profile_banner_url ?>" style="width: 100%; "><?php } ?>
+			<a class="a-disabled" target="_blank" href="<?php echo ROOT_URL; ?>user/?<?php echo http_build_query(['screen_name' => $user->screen_name]); ?>"><div class="card" style="width: 240px; display: inline-block; vertical-align: top; text-align: left; ">
+				<?php if(isset($user->profile_banner_url)){ ?><img src="<?php echo $user->profile_banner_url ?>" style="border-bottom: 1px solid lightgray; width: 100%; "><?php } ?>
 				<div class="card-article" style="padding-top: 0; ">
 					<table><tr>
 						<td><img src="<?php echo $user->profile_image_url_https ?>" alt="avatar" class="avatar"></td>
@@ -350,8 +351,221 @@
 			<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
 			<link rel="icon" href="<?php echo ROOT_URL; ?>favicon.ico">
-			<link rel = "stylesheet" type = "text/css" href = "<?php echo ROOT_URL; ?>style.css">
+<style>
+<?php
+        $t = [
+		'text-color' => ['light' => '#222', 'dark' => '#ddd'],
+		'background-color' => ['light' => 'whitesmoke', 'dark' => '#222'],
+		'header-background' => ['light' => 'white', 'dark' => '#111'],
+		'card-background' => ['light' => 'white', 'dark' => '#111'],
+		'body-background' => ['light' => 'white', 'dark' => 'black'],
+		'sidemenu-background' => ['light' => 'white', 'dark' => 'black'],
+		'border' => ['light' => 'lightgray', 'dark' => '#444'],
+		'button' => ['light' => 'orange', 'dark' => 'orange'],
+        ];
+	function t($theme){
+		echo $theme[THEME];
+	}
+?>
 
+body{
+	background-color: <?php t($t['body-background']); ?>;
+	color: <?php t($t['text-color']); ?>;
+	font-family: Arial, Meiryo, sans-serif;
+	margin: 0;
+}
+
+.main{
+	padding-bottom: 1em; 
+	background-color: <?php t($t['background-color']); ?>;
+	min-height: 100vh;
+}
+
+#notification_number{
+	position: absolute;
+	top: -16px;
+	right: 0;
+	color: white;
+	background-color: orange;
+	border-radius: 1em;
+	padding: 0.25em 0.5em;
+}
+
+.marginleft{
+	margin-left: 1em;
+}
+.marginright{
+	margin-right: 1em;
+}
+.paddingright{
+	padding-right: 1em;
+}
+
+.linkbutton{
+	display: inline-block;
+	color: white;
+	background-color: <?php t($t['button']); ?>;
+	border-radius: 1em;
+	padding: 0.5em 1em;
+	margin: 0.25em;
+	text-decoration: none;
+	cursor: pointer;
+}
+.a-disabled{
+	text-decoration: none;
+	color: inherit;
+}
+
+.sidemenu{
+	z-index: 1;
+	background-color: <?php t($t['sidemenu-background']); ?>;
+}
+
+#collection, #collection-nav{
+	text-align: center;
+}
+
+.tweet-sub{
+	font-size: small;
+}
+
+.avatar{
+	border-radius: 50%;
+}
+
+.header{
+	margin: 0;
+	padding: 0.75em 1em;
+	border-bottom: 1px solid <?php t($t['border']); ?>;
+	background-color: <?php t($t['header-background']); ?>;
+}
+
+.card{
+	margin: 0.2em;
+	border: 1px solid <?php t($t['border']); ?>;
+	border-radius: 0.25em;
+	background-color: <?php t($t['card-background']); ?>;
+}
+/*.card-header{
+	background-color: whitesmoke;
+	border-bottom: 1px solid <?php t($t['border']); ?>;
+	padding: 0;
+}*/
+.card-article{
+	padding: 0.75em 1em;
+}
+
+                        .disabled{
+                                color: gray;
+                        }
+                        .underline{
+                                border-bottom: 2px solid gold;
+                        }
+
+                        fieldset, legend{
+                                background-color: <?php t($t['card-background']); ?>;
+                        }
+                        fieldset{
+                                border: 1px solid <?php t($t['border']); ?>;
+                                font-size: small;
+                        }
+                        legend{
+                                font-size: medium;
+                        }
+
+@media screen and (min-width: 766px) {	/* Wii U, PC, タブレット */
+	.sidemenu{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 64px;
+		height: 100vh;
+		border-right: 1px solid <?php t($t['border']); ?>;
+		text-align: center;
+	}
+	.sidemenu img, .sidemenu > span, .sidemenu i{
+		width: 48px;
+		height: 48px;
+	}
+	.sidemenu > span{
+		display: inline-block;
+		position: relative;
+	}
+
+	.topbar{
+		left: 64px;
+		height: 24px;
+		font-size: large;
+		font-weight: bold;
+		margin-top: 0;
+		margin-bottom: 0;
+		margin-left: 64px;
+		padding: 8px;
+		padding-left: 16px;
+	}
+
+	#translate{
+		padding-left: 64px;
+	}
+
+	.main{
+		padding-left: 64px;
+	}
+
+	.paddingleft{
+		margin-left: 1em;
+	}
+
+	body{
+		box-shadow: 0px 0 5px 0px rgba(0, 0, 0, 0.3);
+	}
+	@media screen and (min-width: 981px) {
+		body{
+			width: 980px;
+		}
+	}
+}
+
+@media screen and (max-width: 767px) {	/* 3DS, スマホ */
+	.sidemenu{
+		/*position: fixed;*/
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 32px;
+		border-bottom: 1px solid <?php t($t['border']); ?>;
+		text-align: center;
+	}
+	.sidemenu img, .sidemenu > span, .sidemenu i{
+		width: 32px;
+		height: 32px;
+	}
+	.sidemenu > span{
+		display: inline-block;
+		position: relative;
+	}	
+
+	.topbar{
+		/*background: -webkit-gradient(linear, left top, left bottom, from(deepskyblue), to(dodgerblue));
+		color: lemonchiffon;*/
+		border-bottom: 1px solid <?php t($t['border']); ?>;
+		font-size: large;
+		font-weight: bold;
+		margin: 0;
+		padding: 4px;
+	}
+
+	.main{
+	}
+
+	.paddingleft{
+		padding-left: 1em;
+	}
+
+	#translate{
+	}
+}
+</style>
 			<!-- Global Site Tag (gtag.js) - Google Analytics -->
 			<!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-106651880-1"></script>
 			<script>
@@ -523,3 +737,4 @@
 		echo s($sentence);
 	}
 ?>
+

@@ -29,10 +29,15 @@
 	<head>
 		<style>
 			.profile{
-				background-image: url('<?php echo $user->profile_banner_url; ?>');
+				background-image: url('<?php
+					echo $user->profile_banner_url;
+					if ((useragent()=='3ds') || (useragent()=='new3ds')) echo '/300x100';
+					else echo '/1500x500'
+				?>');
 				background-size: contain;
 				background-position: top;
 				background-repeat: no-repeat;
+				border-bottom: 1px solid lightgray;
 			}
 			.profile-article{
 				text-align: center;
@@ -97,7 +102,11 @@
 			<div class="profile">
 				<div class="profile-article">
 					<a target="_blank" href="https://twitter.com/<?php echo $user->screen_name; ?>" class="a-disabled"><div class="card profile-user"><div class="card-article">
-						<img src="<?php echo str_replace('_normal', '', $user->profile_image_url_https); ?>" class="avatar">
+						<img src="<?php
+							$img_size = '';
+							if ((useragent()=='3ds') || (useragent()=='new3ds')) $img_size = '_bigger';
+							echo str_replace('_normal', $img_size, $user->profile_image_url_https);
+						?>" class="avatar">
 						<div class="profile-user-pc"></div>
 						<?php echo $user->name ?> <span class="disabled">@<?php echo $user->screen_name ?></span>
 						<div class="disabled" style="font-size: small; ">

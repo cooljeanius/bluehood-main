@@ -13,13 +13,18 @@
 		<?php include(ROOT_PATH.'header.php'); ?>
 		<h2 class="topbar">アルバム　β版</h2>
 		<div class="main">
-			<form id="sendform" action="addalbum.php" method="post" enctype="multipart/form-data" class="marginleft">
-				<input name="screenshot" type="file" accept="image/jpeg"><br>
-				<input type="submit" value="追加" onclick="$(this).val('送信中…'); $(this).prop('disabled', true); submit(); "><br>
-				このページをお気に入りやブックマークに登録しておくと便利です。<br>
-				アルバムの写真は@homeツイートとして公開されます。<br>
-				初回登録時、あなたのTwitterアカウントに「Twiverse_album」コレクションを作成します。
-                        </form>
+			<div class="header">
+				<form id="sendform" action="addalbum.php" method="post" enctype="multipart/form-data" class="marginleft">
+					<fieldset>
+					<legend>アルバムを追加する</legend>
+					<input name="screenshot" type="file" accept="image/jpeg"><br>
+					<input type="submit" value="送信" onclick="$(this).val('送信中…'); $(this).prop('disabled', true); submit(); "><br>
+					アルバムの写真は@homeツイートとして公開されます。<br>
+					初回登録時、あなたのTwitterアカウントに「Twiverse_album」コレクションを作成します。
+					</fieldset>
+                        	</form>
+			</div>
+		<br>
 		<center><?php
         		if (isset($_SESSION['twitter']['account']['album_id'])){
 				$conn = twitter_start();
@@ -30,7 +35,7 @@
                 			foreach($search as $status){
 						//var_dump($status);
 						$media = $status->entities->media[0];
-						echo '<a href="action.php?'.http_build_query(['id' => $status->id_str, 'img' => $media->media_url_https]).'"><img src="'.$media->media_url_https.':small" alt="'.$media->display_url.'" style="width: 240px; border: 1px solid lightgray; border-radius: 0.5em; "></a>';
+						echo '<a href="action.php?'.http_build_query(['id' => $status->id_str, 'img' => $media->media_url_https]).'"><img src="'.$media->media_url_https.':small" class="card"></a>';
 					}
 				}
         		}else echo 'アルバムがありません。';

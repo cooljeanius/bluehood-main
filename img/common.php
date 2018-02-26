@@ -1,6 +1,7 @@
 <?php
 	function put_image($path){
-		$basename = 'default.png';
+		if ((getdate()['hours']>=6) && (getdate()['hours']<18)) $basename = 'default.png';
+		else $basename = 'banwolf.png';
 		$month = (int)date('n');
 		$day = (int)date('j');
 		switch($month){

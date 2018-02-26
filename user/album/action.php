@@ -16,6 +16,7 @@
 			<img src="<?php echo htmlspecialchars($_GET['img']); ?>" style="max-height: 70vh; max-width: 90%; -webkit-filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2)); "><br>
 			<a href="<?php echo ROOT_URL; ?>tweet/diary/?<?php echo http_build_query(['album' => $_GET['id']]); ?>" class="a-disabled"><div class="card" style="display: inline-block; "><div class="card-article">つぶやきを投稿する</div></div></a>
 			<a href="<?php echo ROOT_URL; ?>tweet/draw/?<?php echo http_build_query(['album' => $_GET['id']]); ?>" class="a-disabled"><div class="card" style="display: inline-block; "><div class="card-article">お絵かきを投稿する</div></div></a>
+			<div class="card" style="display: inline-block; cursor: pointer; " onclick="if (confirm('本当に削除しますか？')) window.location = 'remove.php?<?php echo http_build_query(['album' => $_GET['id']]); ?>'; "><div class="card-article">削除</div></div>
 		</div>
 	</body>
 </html>
