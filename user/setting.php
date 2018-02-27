@@ -18,6 +18,12 @@
 		<div class="main paddingleft paddingright">
 			<form method="post" action="upset.php">
 				<fieldset>
+					<legend>サイトテーマ</legend>
+					<input name="theme" type="radio" value="auto" <?php if ($set['theme'] == 'auto') echo 'checked'; ?>>昼と夜に自動的に切り替える (日本時間準拠)
+					<input name="theme" type="radio" value="light" <?php if ($set['theme'] == 'light') echo 'checked'; ?>>昼間モード (BlueHood)
+					<input name="theme" type="radio" value="dark" <?php if ($set['theme'] == 'dark') echo 'checked'; ?>>夜間モード (BanWolf)
+				</fieldset>
+				<fieldset>
 					<legend>投稿</legend>
 					<input name="post_register" type="checkbox" <?php if ($set['post_register']) echo 'checked'; ?>>投稿を BlueHood に表示する<br>
 					チェックされているときに行った投稿は、BlueHood に登録・表示されます。<br>

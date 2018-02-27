@@ -77,15 +77,10 @@
 <html>
 	<head>
 		<style type="text/css">
-			.section{
-				background-color: white;
-				border: 1px solid lightgray;
-				border-radius: 0.5em;
-				padding: 0 1em;
-				margin-bottom: 1em;
+			.card{
 				text-align: center;
 			}
-			.section > p{
+			.card p{
 				text-align: left;
 			}
 			h3{
@@ -94,10 +89,6 @@
 				margin-top: 0.5em;
 				/*font-size: medium;*/
 				text-align: left;
-			}
-			.index a{
-                                color: inherit;
-                                text-decoration: none;
 			}
 		</style>
 	</head>
@@ -115,14 +106,14 @@
 			<p><?php l($s['env_desc']); ?></p>
 
 			<span id="service"></span>
-			<div class="section">
+			<div class="card card-article">
 			<h3><?php l($s['about']); ?></h3>
 			<p><?php l($s['about_desc']); ?></p>
 			<img src="<?php echo ROOT_URL; ?>img/TwitterLogo.png">
 			</div>
 
 			<span id="rules"></span>
-			<div class="section">
+			<div class="card card-article">
 			<h3><?php l($s['rule']); ?></h3>
 			<p><?php l($s['rule_desc']); ?></p>
 			<br>
@@ -132,16 +123,8 @@
 			<br>
 			</div>
 
-			<!-- <h3>ゲームのネタバレについて</h3>
-			<p>BlueHoodでは、ゲームのネタバレ情報を投稿する際に、「ネタバレ指定」をすることができます。<br>
-			これによって、ネタバレ情報を知りたい人、知りたくない人の共存を目指しています。<br>
-			ただし、BlueHoodはネタバレ投稿を管理する権利および義務を有しません。<br>
-			また、Twitterの世界ではネタバレの有無に関わらず、すべてのツイートが流通します。</p>
-			※ネタバレ指定は未実装です。
-			-->
-
 			<span id="violation"></span>
-			<div class="section">
+			<div class="card card-article">
 			<h3><?php l($s['violation']); ?></h3>
 			<p><?php l($s['violation_desc']); ?></p>
 			<br>

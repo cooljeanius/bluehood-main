@@ -29,6 +29,7 @@
 	<head>
 		<style>
 			.profile{
+				background-color: #<?php echo $user->profile_link_color; ?>;
 				background-image: url('<?php
 					echo $user->profile_banner_url;
 					if ((useragent()=='3ds') || (useragent()=='new3ds')) echo '/300x100';
@@ -50,6 +51,7 @@
 			}
 			@media screen and (min-width: 766px) {
 				.profile-article .card{
+					color: #222;
 					vertical-align: top;
 					background-color: rgba(255, 255, 255, 0.6);
 				}
@@ -96,8 +98,8 @@
 		?></div>
 		<div class="main">
 			<?php if ($ismypage){
-				echo '<div class="header"><a class="marginleft" href="'.ROOT_URL.'logout.php"><button>'.s($s['logout']).'</button></a>';
-				echo '<a href="setting.php"><button>'.s($s['setting']).'</button></a></div>';
+				echo '<div class="header"><a class="marginleft linkbutton" href="'.ROOT_URL.'logout.php">'.s($s['logout']).'</a>';
+				echo '<a href="setting.php" class="linkbutton">'.s($s['setting']).'</a></div>';
 			}?>
 			<div class="profile">
 				<div class="profile-article">

@@ -32,7 +32,7 @@
 					float: right;
 					width: 150px;
 					margin-right: 5%;
-					-webkit-filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2));
+					-webkit-filter: drop-shadow(2px 2px 2px rgba(128, 128, 128, 0.4));
 				}
 			}
 
@@ -56,12 +56,11 @@
 		<div class="main">
 			<div lang="ja" class="header">
 				<div id="header-wrapper">
-					<img id="pen" src="<?php echo ROOT_URL; ?>img/eyecatch.php" style="drop-shadow: ; ">
+					<img id="pen" src="<?php echo ROOT_URL; ?>img/eyecatch/<?php themeimg_basename(); ?>">
 					<div id="header-left">
-						<!--<img src="<?php echo ROOT_URL; ?>img/banner.php" alt="Twiverse" width="200px" onclick="window.amiibo.playAmiiboSE(); alert('Easter Egg! '); ">-->
 						<table id="banner" onClick = "amiibo.playAmiiboSE(); amiibo.startSearchAmiibo(); alert('Your amiibo please! '); "><tr>
-							<td><img src="<?php echo ROOT_URL; ?>img/twiverse.php" height="64px"></td>
-							<td><img src="<?php echo ROOT_URL; ?>img/banner.php"></td>
+							<td><img src="<?php echo ROOT_URL; ?>img/twiverse/<?php themeimg_basename(); ?>" height="64px"></td>
+							<td><img src="<?php echo ROOT_URL; ?>img/banner/<?php themeimg_basename(); ?>"></td>
 						</tr></table>
 						<p><?php l($s['desc']); ?></p>
 						<a href="guide.php" class="linkbutton"><?php l($s['guide']); ?></a>
@@ -73,7 +72,7 @@
 			</div>
 			<a href="<?php echo ROOT_URL; ?>view/" class="marginright" style="float: right; "><button><?php l($s['allposts']); ?></button></a>
 			<?php if (useragent() == 'wiiu'){ ?>
-				<span class="marginleft">Wii U限定！<a href="nfcbattler/">NFC Battler</a>であそぼう！</span>
+				<span class="marginleft">Wii U限定！<a href="etc/nfcbattler/">NFC Battler</a>であそぼう！</span>
 			<?php } ?>
 			<?php if ((useragent() == '3ds')||(useragent() == 'new3ds')){ ?>
 				<span class="marginleft" style="font-size: small; ">ゲームメモを<a href="tweet/draw/gamememo/">コミック風</a>に！</span>

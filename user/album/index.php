@@ -2,6 +2,10 @@
 	include('/var/www/twiverse.php');
 	//unset($_SESSION['collection_cursor']);
 	twitter_start();
+
+	$s = [
+		'more' => ['ja' => "もっとみる", 'en' => "More"],
+	];
 ?>
 
 <!DOCTYPE html>
@@ -25,21 +29,31 @@
                         	</form>
 			</div>
 		<br>
-		<center><?php
+		<center><?php try{
         		if (isset($_SESSION['twitter']['account']['album_id'])){
-				$conn = twitter_start();
-				$search = $conn->get('collections/entries', ['id' => $_SESSION['twitter']['account']['album_id'], 'count' => '200'])->objects->tweets;
-        			if (empty($search)){
+				$twitter = twitter_start();
+				$query = ['id' => $_SESSION['twitter']['account']['album_id'], 'count' => MAX_TWEETS];
+				if (isset($_GET['i'])) $query['max_position'] = $_GET['i'];
+				$collection = twitter_throw($twitter->get('collections/entries', $query));
+        			if (empty($collection)){
                 			echo 'アルバムがありません。';
         			}else{
-                			foreach($search as $status){
-						//var_dump($status);
-						$media = $status->entities->media[0];
-						echo '<a href="action.php?'.http_build_query(['id' => $status->id_str, 'img' => $media->media_url_https]).'"><img src="'.$media->media_url_https.':small" class="card"></a>';
-					}
+				        $show_i = 0;
+					?> <div> <?php
+        	        			foreach($collection->response->timeline as $context){
+        	        			        $status = $collection->objects->tweets->{$context->tweet->id};
+							$media = $status->entities->media[0];
+							echo '<a href="action.php?'.http_build_query(['id' => $status->id_str, 'img' => $media->media_url_https]).'"><img src="'.$media->media_url_https.':small" class="card" style="display: inline-block; max-width: 240px; "></a>';
+							$sort_index = $context->tweet->sort_index;
+							$show_i++;
+        	        			}
+					?> </div> <?php
+        	        		if ($show_i >= MAX_TWEETS){ ?>
+						<a href="?<?php echo http_build_query([i => $sort_index]); ?>"><button><?php l($s['more']); ?></button></a>
+					<?php }
 				}
         		}else echo 'アルバムがありません。';
-		?></center>
+		}catch(Exception $e){ catch_default($e); } ?></center>
 		</div>
 	</body>
 </html>

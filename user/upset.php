@@ -8,6 +8,10 @@
 		$twitter = twitter_start();
 		mysql_start();
 
+		mysql_query("update user set theme='".mysql_escape_string($_POST['theme'])."' where id=".$_SESSION['twitter']['id']);
+		mysql_throw();
+		$_SESSION['theme'] = mysql_escape_string($_POST['theme']);
+
 		mysql_query("update user set post_register=".var_export(isset($_POST['post_register']), true)." where id=".$_SESSION['twitter']['id']);
 		mysql_throw();
 

@@ -9,8 +9,30 @@
 	define('COLLECTON_STAMP', '945172613063520256');
 
 	define('THEME_COLOR', '#55acee');
-	if ((getdate()['hours']>=6) && (getdate()['hours']<18)) define('THEME', 'light');
-	else define('THEME', 'dark');
+
+	if (isset($_SESSION['theme'])) $theme = $_SESSION['theme'];
+	else $theme = 'auto';
+	switch ($theme){
+		case 'auto':
+		if ((getdate()['hours']>=6) && (getdate()['hours']<18)){
+			define('SITE_NAME', 'BlueHood');
+			define('THEME', 'light');
+		}else{
+			define('SITE_NAME', 'BanWolf (BlueHood)');
+			define('THEME', 'dark');
+		}
+		break;
+
+		case 'light':
+		define('SITE_NAME', 'BlueHood');
+		define('THEME', 'light');
+		break;
+
+		case 'dark':
+		define('SITE_NAME', 'BanWolf (BlueHood)');
+		define('THEME', 'dark');
+		break;
+	}
 
 	switch(useragent()){
 		case '3ds':
@@ -173,6 +195,10 @@
 			}else{
 				if ($res['album_id']) $account['album_id'] = 'custom-'.$res['album_id'];
 			}
+
+			$res = mysql_fetch_assoc(mysql_query("select theme from user where id=".$account['user']->id));
+			mysql_throw();
+			$_SESSION['theme'] = $res['theme'];
 
 			$_SESSION['twitter']['account'] = $account;
 			$_SESSION['twitter']['screen_name'] = $_SESSION['twitter']['account']['user']->screen_name;
@@ -356,12 +382,11 @@
         $t = [
 		'text-color' => ['light' => '#222', 'dark' => '#ddd'],
 		'background-color' => ['light' => 'whitesmoke', 'dark' => '#222'],
-		'header-background' => ['light' => 'white', 'dark' => '#111'],
 		'card-background' => ['light' => 'white', 'dark' => '#111'],
 		'body-background' => ['light' => 'white', 'dark' => 'black'],
 		'sidemenu-background' => ['light' => 'white', 'dark' => 'black'],
 		'border' => ['light' => 'lightgray', 'dark' => '#444'],
-		'button' => ['light' => 'orange', 'dark' => 'orange'],
+		'button' => ['light' => 'orange', 'dark' => 'darkorange'],
         ];
 	function t($theme){
 		echo $theme[THEME];
@@ -379,6 +404,12 @@ body{
 	padding-bottom: 1em; 
 	background-color: <?php t($t['background-color']); ?>;
 	min-height: 100vh;
+}
+
+.topbar{
+	background: <?php if ($theme_color) echo $theme_color; else echo THEME_COLOR; ?>;
+	color: <?php t($t['background-color']); ?>;
+	border-bottom: 1px solid <?php t($t['border']); ?>;
 }
 
 #notification_number{
@@ -403,7 +434,7 @@ body{
 
 .linkbutton{
 	display: inline-block;
-	color: white;
+	color: <?php t($t['background-color']); ?>;
 	background-color: <?php t($t['button']); ?>;
 	border-radius: 1em;
 	padding: 0.5em 1em;
@@ -437,7 +468,7 @@ body{
 	margin: 0;
 	padding: 0.75em 1em;
 	border-bottom: 1px solid <?php t($t['border']); ?>;
-	background-color: <?php t($t['header-background']); ?>;
+	background-color: <?php t($t['card-background']); ?>;
 }
 
 .card{
@@ -445,6 +476,9 @@ body{
 	border: 1px solid <?php t($t['border']); ?>;
 	border-radius: 0.25em;
 	background-color: <?php t($t['card-background']); ?>;
+}
+a .card:hover{
+	border-color: #55acee;
 }
 /*.card-header{
 	background-color: whitesmoke;
@@ -517,7 +551,7 @@ body{
 	}
 
 	body{
-		box-shadow: 0px 0 5px 0px rgba(0, 0, 0, 0.3);
+		box-shadow: 0px 0 5px 0px rgba(128, 128, 128, 0.4);
 	}
 	@media screen and (min-width: 981px) {
 		body{
@@ -543,12 +577,9 @@ body{
 	.sidemenu > span{
 		display: inline-block;
 		position: relative;
-	}	
+	}
 
 	.topbar{
-		/*background: -webkit-gradient(linear, left top, left bottom, from(deepskyblue), to(dodgerblue));
-		color: lemonchiffon;*/
-		border-bottom: 1px solid <?php t($t['border']); ?>;
 		font-size: large;
 		font-weight: bold;
 		margin: 0;
@@ -599,30 +630,18 @@ body{
 				<?php } ?>
 
 				$(function(){
-					document.title = $('.topbar').text()+' - BlueHood';
-					/*var card = '<meta name="twitter:card" content="summary" />\
-						<meta name="twitter:site" content="@bluehood_admin" />\
-						<meta name="twitter:title" content="'+$('.topbar').text()+' - BlueHood" />\
-						<meta name="twitter:description" content="Twitter のイメージをつなげるコミュニティ。The community to link images on Twitter. " />\
-						<meta name="twitter:image" content="<?php echo DOMAIN.ROOT_URL; ?>img/twiverse/default.png" />';
-					$(card).appendTo('head');*/
+					document.title = $('.topbar').text()+' - <?php echo SITE_NAME; ?>';
 				});
 			</script>
-			<style>
-				.topbar{
-			        	background: <?php if ($theme_color) echo $theme_color; else echo THEME_COLOR; ?>;
-				        color: white;
-				}
-			</style>
 			<meta name="twitter:card" content="summary" />
 			<meta name="twitter:site" content="@bluehood_admin" />
-			<meta name="twitter:title" content="<?php ?>BlueHood" />
+			<meta name="twitter:title" content="<?php ?><?php echo SITE_NAME; ?>" />
 			<meta name="twitter:description" content="Twitter のイメージをつなげるコミュニティ。The community to link images on Twitter. " />
-			<meta name="twitter:image" content="<?php echo DOMAIN.ROOT_URL; ?>img/twiverse/default.png" />
+			<meta name="twitter:image" content="<?php echo DOMAIN.ROOT_URL; ?>img/twiverse.php" />
 		</head>
 		<body>
 			<div class="sidemenu">
-				<a href="<?php echo ROOT_URL; ?>"><img src="<?php echo ROOT_URL; ?>img/twiverse/default.png" alt="Twiverse"></a>
+				<a href="<?php echo ROOT_URL; ?>"><img src="<?php echo ROOT_URL; ?>img/twiverse/<?php themeimg_basename(); ?>"></a>
 				<a href="<?php echo ROOT_URL; ?>user/"><img class="avatar" src="<?php
 					if (isset($_SESSION['twitter']['account'])) echo str_replace('normal', 'bigger', $_SESSION['twitter']['account']['user']->profile_image_url_https);
 					else echo ROOT_URL.'img/nologin.png';
@@ -736,5 +755,27 @@ body{
 	function l($sentence){
 		echo s($sentence);
 	}
-?>
 
+	function themeimg_basename(){
+		if (THEME == 'light') $basename = 'default.png';
+		else $basename = 'banwolf.png';
+		$month = (int)date('n');
+		$day = (int)date('j');
+		switch($month){
+			case 1:
+			if (($day == 1)||($day == 2)||($day == 3)) $basename = 'newyear.png';
+			break;
+
+			case 2:
+			if (($day == 3)) $basename = 'setsubun.png';
+			else if (($day == 14)) $basename = 'valen.png';
+			break;
+
+			case 12:
+			if (($day == 24)||($day == 25)) $basename = 'christmas.png';
+			else if ($day == 31) $basename = 'newyeareve.png';
+			break;
+		}
+		echo $basename;
+	}
+?>
