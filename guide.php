@@ -118,7 +118,10 @@
 			<p><?php l($s['rule_desc']); ?></p>
 			<br>
 			<br>
-			<img src="<?php echo ROOT_URL; ?>img/twiverse/default.png" width="160px"><br>
+			<figure>
+				<img src="<?php echo ROOT_URL; ?>img/twiverse/default.png" width="160px">
+				<figcaption>BlueHood (アオズキン)</figcaption>
+			</figure>
 			<br>
 			<br>
 			</div>
@@ -129,7 +132,10 @@
 			<p><?php l($s['violation_desc']); ?></p>
 			<br>
 			<br>
-			<img src="<?php echo ROOT_URL; ?>img/ban.png" width="160px"><br>
+			<figure>
+				<img src="<?php echo ROOT_URL; ?>img/twiverse/banwolf.png" width="160px">
+				<figcaption>BanWolf (バンウルフ)</figcaption>
+			</figure>
 			<br>
 			<br>
 			</div>

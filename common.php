@@ -416,10 +416,10 @@ body{
 	position: absolute;
 	top: -16px;
 	right: 0;
-	color: white;
-	background-color: orange;
 	border-radius: 1em;
 	padding: 0.25em 0.5em;
+	color: <?php t($t['background-color']); ?>;
+	background-color: <?php t($t['button']); ?>;
 }
 
 .marginleft{
