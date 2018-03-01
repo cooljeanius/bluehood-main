@@ -218,7 +218,10 @@
 	}
 
 	function twitter_reader(){
-		if (!isset($_SESSION['access_token'])){
+		if (isset($_SESSION['access_token'])){
+			$twitter = twitter_start();
+			$twitter->use_admin = false;
+		}else{
 			if (isset($_SESSION['twitter']['reader'])){
 				$twitter = unserialize($_SESSION['twitter']['reader']);
 			}else{
@@ -226,9 +229,8 @@
 				$_SESSION['twitter']['reader'] = serialize($twitter);
 			}
 
+			$twitter->use_admin = true;
 			if (check_limit($twitter->get('application/rate_limit_status', []))) die('レートリミットを超過しました。<br>しばらくしてから、再度アクセスしてください。');
-		}else{
-			$twitter = twitter_start();
 		}
 
 		return $twitter;
@@ -396,7 +398,7 @@
 body{
 	background-color: <?php t($t['body-background']); ?>;
 	color: <?php t($t['text-color']); ?>;
-	font-family: Arial, Meiryo, sans-serif;
+	font-family: Arial, sans-serif;
 	margin: 0;
 }
 
@@ -714,8 +716,11 @@ a .card:hover{
 				$status = $collection->objects->tweets->{$context->tweet->id};
 				$status->user = $collection->objects->users->{$status->user->id};
 				$status->sort_index = $context->tweet->sort_index;
-				if (tweet($status, $sub_comm, $user)) if (++$show_i >= MAX_TWEETS) break;
-				$sort_index = $status->sort_index;
+
+				if ((!$status->user->protected)||(!$twitter->use_admin)){
+					if (tweet($status, $sub_comm, $user)) if (++$show_i >= MAX_TWEETS) break;
+					$sort_index = $status->sort_index;
+				}
 			}
 
 			echo '<div style="clear: both; "></div>';

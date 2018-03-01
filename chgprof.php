@@ -13,13 +13,14 @@
 			$banner = '';
 		}else if (getdate()['hours'] == 18){
 			$name = 'BanWolf & グレたノコノコ';
-			$desc = "すきなものはカメラ、カメン、ツタンカ～メン。
-			T・ヨシザウルス・ムンチャクッパスがてんてき。
+			$desc = "BlueHood の夜の姿。
+			すきなものはカメラ、カメン、ツタンカ～メン。
 			カメオカート8デラックスでは、カロンはいつもほうたいをもちあるいてます。
 			ヘイホーはカメンをかぶってるからなかまです。
 			パタパタにあこがれてます。
+			ヨッシーがてんてき。
 			";
-			$avatar = '/var/www/html/img/twiverse/stray_troopa.jpg';
+			$avatar = '/var/www/html/img/twiverse/banwolf.png';
 			$banner = '/var/www/html/img/banner/stray_troopa.jpg';
 		}
 

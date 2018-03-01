@@ -91,7 +91,7 @@
 					$status->user = $collection->objects->users->{$status->user->id};
 					$status->sort_index = $context->tweet->sort_index;
 					$res = mysql_fetch_assoc(mysql_query("select screen_name from tweet where id = ".$status->id));
-					if (array_search($res['screen_name'], $users) === false) if (tweet($status, true, true)){
+					if ((!$status->user->protected)||(!$twitter->use_admin)) if (array_search($res['screen_name'], $users) === false) if (tweet($status, true, true)){
 						array_push($users, $res['screen_name']);
 						if (++$show_i >= MAX_TWEETS) break;
 					}
