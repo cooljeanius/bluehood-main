@@ -1,6 +1,7 @@
 <?php
         include('/var/www/twiverse.php');
 
+	try{
 	if (isset($_POST['stamp'])){
 		$stamp_data = explode(',', $_POST['stamp']);
 		$width = (int)$stamp_data[0];
@@ -34,10 +35,14 @@
 		$tweet = [];
 		$tweet['status'] = $_POST['text'];
 		$tweet['media_ids'] = $stamp->media_id_string;
-		$status = $twitter->post('statuses/update', $tweet);
+		$status = twitter_throw($twitter->post('statuses/update', $tweet));
 
 		$twitter_admin = twitter_admin();
-		$twitter_admin->post('collections/entries/add', ['id' => 'custom-'.COLLECTON_STAMP, 'tweet_id' => $status->id_str]);
+		twitter_throw($twitter_admin->post('collections/entries/add', ['id' => 'custom-'.COLLECTON_STAMP, 'tweet_id' => $status->id_str]));
+
+		header('location: '.DOMAIN.ROOT_URL.'view/stamp/');
+	}
+	}catch(Exception $e){
+		catch_default($e);
 	}
 ?>
-ツイートしました！

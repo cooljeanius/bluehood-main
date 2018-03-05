@@ -67,6 +67,7 @@
 						<a href="https://peing.net/bluehood_admin" target="_blank" class="linkbutton"><?php l($s['Q&A']); ?></a>
 						<a href="https://twitter.com/bluehood_admin" target="_blank" class="linkbutton"><?php l($s['contact']); ?></a>
 						<div style="clear: both; "></div>
+					※誠に勝手ながら、通知機能は停止中です。
 					</div>
 				</div>
 			</div>

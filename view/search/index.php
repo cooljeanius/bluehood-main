@@ -3,6 +3,7 @@
 	$s = [
 		'title' => ['ja' => "コミュニティ", 'en' => "Communities"],
 		'detector' => ['ja' => "ディテクター", 'en' => "detector"],
+		'more' => ['ja' => "もっとみる", 'en' => "More"],
 		//'' => ['ja' => "", 'en' => ""],
 	];
 	if (isset($_GET['detector'])) $detector_prefix = mysql_escape_string($_GET['detector']);
@@ -55,7 +56,11 @@
 				<?php try{
 					mysql_start();
 					if (isset($detector_prefix)){
-					        $comms = mysql_throw(mysql_query("select * from comm where soft_id like '".$detector_prefix."%' order by name"));
+						$rows = 20;
+						if (isset($_GET['offset'])) $offset = (int) $_GET['offset'];
+						else $offset = 0;
+					        $comms = mysql_throw(mysql_query("select * from comm where soft_id like '".$detector_prefix."%' order by name limit ".$offset.",".$rows));
+						$i = 0;
 						while($comm = mysql_fetch_assoc($comms)){ ?>
 						        <a href="<?php echo ROOT_URL; ?>view/?comm_id=<?php echo $comm['id']; ?>" style="text-decoration: none; color: inherit; "><div class="card comm" style="text-align: left; ">
 						                <?php if ($comm['banner']) echo '<div class="banner-wrapper"><img src="'.$comm[banner].'" class="banner"></div>'; ?>
@@ -69,6 +74,10 @@
 						                        ?></p>
 						                </div>
 						        </div></a>
+						<?php $i++;
+						}
+						if ($i >= $rows){ ?>
+							<br><br><a href="?<?php echo http_build_query(['detector' => $_GET['detector'], 'offset' => $offset + $i]); ?>"><button><?php l($s['more']); ?></button></a>
 						<?php }
 					}else{
 						$detectors = mysql_throw(mysql_query("select * from detector order by name"));

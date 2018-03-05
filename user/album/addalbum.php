@@ -21,6 +21,9 @@
 	if (!isset($_SESSION['twitter']['account']['album_id'])){
 		$collection = $conn->post('collections/create', ['name' => 'Twiverse_album']);
 		$_SESSION['twitter']['account']['album_id'] = $collection->response->timeline_id;
+		mysql_start();
+		mysql_throw(mysql_query("update user set album_id=".str_replace('custom-', '', $_SESSION['twitter']['account']['album_id'])." where id=".$_SESSION['twitter']['id']));
+		mysql_close();
 	}
 	$conn->post('collections/entries/add', ['id' => $_SESSION['twitter']['account']['album_id'], 'tweet_id' => $status->id_str]);
 

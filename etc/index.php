@@ -32,8 +32,7 @@
 		],
 		'album' => ['ja' => 'アルバム', 'en' => 'Album', ],
 		'album_desc' => [
-			'ja' => 'スクリーンショットをアルバムに登録して、投稿に使用することができます。
-				旧3DSでは現在のところ未対応です。',
+			'ja' => 'スクリーンショットをアルバムに登録して、投稿に使用することができます。',
 			'en' => "By registering to BlueHood Album, your screenshots can be used to posts anytime. 
 				This doesn't support old 3DS now, sorry! ",
 		],

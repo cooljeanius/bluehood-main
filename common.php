@@ -48,7 +48,7 @@
 		break;
 	}
 
-	//if (0)
+	if (0)
 	if (isset($_SESSION['access_token'])){	/* ログイン判定 */
 		if ((!isset($_SESSION['notification_time']))||(time() - $_SESSION['notification_time'] >= 600/* 10分 */) ){
 			$twitter = twitter_start();
@@ -405,7 +405,7 @@ body{
 .main{
 	padding-bottom: 1em; 
 	background-color: <?php t($t['background-color']); ?>;
-	min-height: 100vh;
+	/*min-height: 100vh;*/
 }
 
 .topbar{
