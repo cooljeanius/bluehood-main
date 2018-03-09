@@ -20,8 +20,11 @@
 	<body>
 		<div class="topbar"><?php l($s['title']); ?></div>
 		<div class="main">
+			<div class="header" style="position: relative; ">
+				<a href="<?php echo ROOT_URL; ?>tweet/stamp/" class="linkbutton" style="position: absolute; top: 0; right: 0; "><?php l($s['make']); ?></a>
+				作ったスタンプをお絵かき投稿で使用できます。
+			</div>
 			<div class="header">
-				<a href="<?php echo ROOT_URL; ?>tweet/stamp/" style="float: right; "><button><?php l($s['make']); ?></button></a>
 				<div style="text-align: center; "><?php l($s['selected']); ?><br>
 					<?php
 						mysql_start();

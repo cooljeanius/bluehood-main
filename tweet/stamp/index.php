@@ -8,6 +8,9 @@
 	<?php head(); ?>
 	<head>
 <style>
+	.main{
+		min-height: 0 !important;
+	}
 	#edit-stamp{
 		border: 1px solid lightgray;
 	        -webkit-touch-callout:none;
@@ -105,7 +108,6 @@ var preview_zoom = 2;
 				if (isdraw) edit(e.offsetX, e.offsetY);
 			});
 			$(window).on('mouseup', function(e){
-				edit(e.offsetX, e.offsetY);
 				isdraw = false;
 			});
 			$('#edit-stamp').click(function(e){
@@ -186,6 +188,8 @@ var preview_zoom = 2;
 			$('#phase-0').show();
 		});
 		$('#phase-1').hide();
+
+		alert("注意\n作ったスタンプはツイートとして公開され、誰でも使用できます。");
 	});
 </script>
 	</head>

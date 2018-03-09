@@ -10,18 +10,27 @@
         $set = mysql_fetch_assoc($res); mysql_throw();
 	mysql_close();
 	if ($set['draw_sc'] == 'vertical'){
-		if (!$thumb_path) $thumb_path = tempnam('/tmp', 'php').'.jpg';
-
-		if (isset($_POST['thumb'])){
+		if ($thumb_path){
 			$width = max(getimagesize($thumb_path)[0], getimagesize($draw_path)[0]);
+			exec('convert '.$thumb_path.' -resize '.$width.'x '.$thumb_path);
+			exec('convert '.$draw_path.' -resize '.$width.'x '.$draw_path);
+			exec('sync');
+			exec('convert -append '.$thumb_path.' '.$draw_path.' '.$thumb_path);
+			exec('sync');
 		}else{
+			$thumb_path = tempnam('/tmp', 'php').'.jpg';
 			$width = getimagesize($draw_path)[0];
+			$height = getimagesize($draw_path)[1];
+
+			if ($height < $width*9/16){
+				$height = (int)$width*9/16;
+			}else{
+				$width = (int)$height*16/9;
+			}
+
+			exec('convert '.$draw_path.' -background gray -gravity center -extent '.$width.'x'.$height.' '.$thumb_path);
+			exec('sync');
 		}
-		exec('convert '.$thumb_path.' -resize '.$width.'x '.$thumb_path);
-		exec('convert '.$draw_path.' -resize '.$width.'x '.$draw_path);
-		exec('sync');
-		exec('convert -append '.$thumb_path.' '.$draw_path.' '.$thumb_path);
-		exec('sync');
 
 		$thumb = $twitter->upload('media/upload', ['media' => $thumb_path]); twitter_throw($thumb);
 		$imgs = [$thumb];
@@ -34,9 +43,22 @@
 			$thumb = $twitter->upload('media/upload', ['media' => $thumb_path]); twitter_throw($thumb);
 			array_push($imgs, $thumb);
 			unlink($thumb_path);
+			$draw = $twitter->upload('media/upload', ['media' => $draw_path]); twitter_throw($draw);
+			array_push($imgs, $draw);
+		}else{
+			$width = getimagesize($draw_path)[0];
+			$height = getimagesize($draw_path)[1];
+
+			if ($height < $width*9/16){
+				$height = (int)$width*9/16;
+			}else{
+				$width = (int)$height*16/9;
+			}
+			exec('convert '.$draw_path.' -background gray -gravity center -extent '.$width.'x'.$height.' '.$draw_path);
+			exec('sync');
+			$draw = $twitter->upload('media/upload', ['media' => $draw_path]); twitter_throw($draw);
+			array_push($imgs, $draw);
 		}
-		$draw = $twitter->upload('media/upload', ['media' => $draw_path]); twitter_throw($draw);
-		array_push($imgs, $draw);
 		unlink($draw_path);
 	}else throw new Exception('添付画像とお絵かきの処理方法が不明です。\nお手数ですが、@bluehood_admin にお問い合わせしてください。');
 

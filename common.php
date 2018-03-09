@@ -405,7 +405,7 @@ body{
 .main{
 	padding-bottom: 1em; 
 	background-color: <?php t($t['background-color']); ?>;
-	/*min-height: 100vh;*/
+	min-height: 100vh;
 }
 
 .topbar{
@@ -650,12 +650,13 @@ a .card:hover{
 				?>" alt="マイページ" ></a>
 				<a href="<?php echo ROOT_URL; ?>tweet/diary/"><img src="<?php echo ROOT_URL; ?>img/diary.png" alt="つぶやき投稿"></a>
 				<a href="<?php echo ROOT_URL; ?>tweet/draw/"><img src="<?php echo ROOT_URL; ?>img/draw.png" alt="お絵かき投稿"></a>
+				<a href="<?php echo ROOT_URL; ?>view/stamp/"><img src="<?php echo ROOT_URL; ?>img/stamp.png"></a>
 				<a href="<?php echo ROOT_URL; ?>view/search/"><img src="<?php echo ROOT_URL; ?>img/comm.png" alt="コミュニティ"></a>
-				<span><a href="<?php echo ROOT_URL; ?>feed.php" target="_blank" style="text-decoration: none; "><img src="<?php echo ROOT_URL; ?>img/feed.png" alt="通知" style="position: absolute; top: 0; left: 0; "><?php
+				<!--<span><a href="<?php echo ROOT_URL; ?>feed.php" target="_blank" style="text-decoration: none; "><img src="<?php echo ROOT_URL; ?>img/feed.png" alt="通知" style="position: absolute; top: 0; left: 0; "><?php
 					if ($_SESSION['notification']){
 						echo '<p id="notification_number">'.$_SESSION['notification'].'</p>';
 					}
-				?></a></span>
+				?></a></span>-->
 				<a href="<?php echo ROOT_URL; ?>user/setting.php"><img src="<?php echo ROOT_URL; ?>img/settings.png"></a>
 				<a href="<?php echo ROOT_URL; ?>etc/"><img src="<?php echo ROOT_URL; ?>img/etc.png"></a>
 			</div>
