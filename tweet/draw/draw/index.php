@@ -70,7 +70,7 @@ canvas{
 
 				<button id="clear"><img src="new.png" alt="clear"></button>
 				<button id="prev"><img src="undo.png" alt="preview"></button>
-				<button id="stamp"><img src="stamp.png"></button>
+				<button id="stamp" class="pen-button"><img src="stamp.png"></button>
 　
 				<button id="pen_S" class="pen-button"><img src="pencil_s.png" alt="draw_S"></button>
 				<button id="pen_M" class="pen-button"><img src="pencil_m.png" alt="draw_M"></button>
@@ -81,7 +81,9 @@ canvas{
 			</div>
 			<img id="thumb" height="96px" src="../../noimage.jpg">
 
-				<canvas id="draw" style="border: 1px solid lightgray; "></canvas>
+				<div id="draw-window" style="display: inline-block; position: relative; ">
+					<canvas id="draw" style="border: 1px solid lightgray; "></canvas>
+				</div>
 				<form id="sendform" action="send.php" method="post" enctype="multipart/form-data">
 					<input type="text" name="dummy" style="position:absolute;visibility:hidden">
 					<table style="width: 600px; "><tr>
@@ -118,7 +120,17 @@ canvas{
 					catch_default($e);
 				}
 			?>
-			<br>大きさ<input id="zoom" type="number" value="1" min="1" max="8">
+			<br>
+			大きさ<select id="zoom">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+			</select>
 		</div>
 		<script>$(function(){
 			$('#stamp-dialog').dialog({
@@ -175,6 +187,7 @@ document.onwebkitfullscreenchange = function(e){
 if (canvas.getContext){
 	var context = canvas.getContext('2d');
 	var beginX, beginY;
+	var curX, curY;
 	var color = 'black';
 	var width = 2;
 	var isTouch = ('ontouchstart' in window);
@@ -183,6 +196,12 @@ if (canvas.getContext){
 	var zoom = 1;
 	var stamp = new Image();
 	stamp.crossOrigin = '';
+	stamp.id = 'stamp-img';
+	$('#draw-window')[0].appendChild(stamp);
+	$('#stamp-img').css('position', 'absolute');
+	$('#stamp-img').css('opacity', '0.5');
+	$('#stamp-img').css('pointer-events', 'none');
+	$('#stamp-img').hide();
 
 	context.fillStyle = 'white';
 	context.fillRect(0, 0, canvas_width, canvas_height);
@@ -211,6 +230,8 @@ if (canvas.getContext){
 	};
 
 	function drawstart(x, y){
+		cur_x = x;
+		cur_y = y;
 		fix = fixposition(x, y);
 		x = fix.x;
 		y = fix.y;
@@ -222,17 +243,18 @@ if (canvas.getContext){
 			context.fillStyle = color;
 			context.fillRect(beginX*2, beginY*2, 2*width, 2*width);
 		}else if (mode == 'stamp'){
-			context.drawImage(stamp, 0, 0, stamp.width, stamp.height, (x<<1) - ((stamp.width*zoom)>>1), (y<<1) - ((stamp.height*zoom)>>1), stamp.width*zoom, stamp.height*zoom);
 		}
 	}
 
 	function drawmove(x, y){
+		cur_x = x;
+		cur_y = y;
 		fix = fixposition(x, y);
 		x = fix.x;
 		y = fix.y;
+		x = Math.floor((x - width)/2);
+		y = Math.floor((y - width)/2);
 		if (mode == 'draw'){
-			x = Math.floor((x - width)/2);
-			y = Math.floor((y - width)/2);
 
 			var dist = Math.round(Math.sqrt(Math.pow(x - beginX, 2.0) + Math.pow(y - beginY, 2.0))) + 1;
 			context.fillStyle = color;
@@ -243,6 +265,25 @@ if (canvas.getContext){
 
 			beginX = x;
  			beginY = y;
+		}else if (mode == 'stamp'){
+			$('#stamp-img').css('left', (((x<<1) - ((stamp.width*zoom)>>1))/zoom)+'px');
+			$('#stamp-img').css('top', (((y<<1) - ((stamp.height*zoom)>>1))/zoom)+'px');
+			$('#stamp-img').show();
+		}
+	}
+
+	function drawend(x, y){
+		cur_x = x;
+		cur_y = y;
+		fix = fixposition(x, y);
+		x = fix.x;
+		y = fix.y;
+		x = Math.floor((x - width)/2);
+		y = Math.floor((y - width)/2);
+		if (mode == 'draw'){
+		}else if (mode == 'stamp'){
+			context.drawImage(stamp, 0, 0, stamp.width, stamp.height, (x<<1) - ((stamp.width*zoom)>>1), (y<<1) - ((stamp.height*zoom)>>1), stamp.width*zoom, stamp.height*zoom);
+			$('#stamp-img').hide();
 		}
 	}
 
@@ -266,6 +307,7 @@ if (canvas.getContext){
                                         }
 				}else{
 					if (beginX != -1){
+						drawend(cur_x, cur_y);
                                                 if (isdraw) prevdata.push(context.getImageData(0, 0, canvas_width, canvas_height));
 						if (prevdata.length > prevdata_max) prevdata.shift(); 
                                                 //save_draft();
@@ -303,6 +345,7 @@ if (canvas.getContext){
 
 			canvas.ontouchend = function(e){
 				//save_draft();
+				drawend(touch.clientX - rect.left, touch.clientY - rect.top);
 				prevdata.push(context.getImageData(0, 0, canvas_width, canvas_height));
 				if (prevdata.length > prevdata_max) prevdata.shift(); 
 				e.preventDefault();
@@ -323,8 +366,11 @@ if (canvas.getContext){
 			});
 
 			$(window).mouseup(function(e){
-				if (isDraw) prevdata.push(context.getImageData(0, 0, canvas_width, canvas_height));
-				if (prevdata.length > prevdata_max) prevdata.shift(); 
+				if (isDraw){
+					drawend(e.clientX - rect.left, e.clientY - rect.top);
+					prevdata.push(context.getImageData(0, 0, canvas_width, canvas_height));
+					if (prevdata.length > prevdata_max) prevdata.shift(); 
+				}
 				isDraw = false;
 				//save_draft();
 				//e.preventDefault();
@@ -400,16 +446,19 @@ if (canvas.getContext){
 
 	$('#stamp').click(function(){
 		var i = $('input[name=stamp]').attr('checked', false);
+		stamp.src = '';
 		$('#stamp-dialog').dialog('open');
 	});
 	$('input[name=stamp]').click(function(){
 		var i = $('input[name=stamp]:checked').val();
-		stamp.src = $('#stamp-'+i).attr('src');
 		zoom = Math.round($('#zoom').val());
+		stamp.src = $('#stamp-'+i).attr('src');
+		$('#stamp-img').css('zoom', zoom);
 		$('#stamp-dialog').dialog('close');
 	});
 	stamp.onload = function(){
 		mode = 'stamp';
+		toggle_penbutton($('#stamp'));
 	}
 
 	$('#save-draft').click(function(){
