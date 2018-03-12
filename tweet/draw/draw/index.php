@@ -84,6 +84,7 @@ canvas{
 				<div id="draw-window" style="display: inline-block; position: relative; ">
 					<canvas id="draw" style="border: 1px solid lightgray; "></canvas>
 				</div>
+				<canvas id="stamp-canvas" style="display: none; "></canvas>
 				<form id="sendform" action="send.php" method="post" enctype="multipart/form-data">
 					<input type="text" name="dummy" style="position:absolute;visibility:hidden">
 					<table style="width: 600px; "><tr>
@@ -186,7 +187,7 @@ document.onwebkitfullscreenchange = function(e){
 
 if (canvas.getContext){
 	var context = canvas.getContext('2d');
-	var beginX, beginY;
+	var beginX = -1, beginY;
 	var curX, curY;
 	var color = 'black';
 	var width = 2;
@@ -202,6 +203,7 @@ if (canvas.getContext){
 	$('#stamp-img').css('opacity', '0.5');
 	$('#stamp-img').css('pointer-events', 'none');
 	$('#stamp-img').hide();
+	var stamp_ctx = $('#stamp-canvas')[0].getContext('2d');
 
 	context.fillStyle = 'white';
 	context.fillRect(0, 0, canvas_width, canvas_height);
@@ -266,8 +268,8 @@ if (canvas.getContext){
 			beginX = x;
  			beginY = y;
 		}else if (mode == 'stamp'){
-			$('#stamp-img').css('left', (((x<<1) - ((stamp.width*zoom)>>1))/zoom)+'px');
-			$('#stamp-img').css('top', (((y<<1) - ((stamp.height*zoom)>>1))/zoom)+'px');
+			$('#stamp-img').css('left', ((x*2.0 - (stamp.width*zoom)/2.0)/zoom)+'px');
+			$('#stamp-img').css('top', ((y*2.0 - (stamp.height*zoom)/2.0)/zoom)+'px');
 			$('#stamp-img').show();
 		}
 	}
@@ -282,7 +284,24 @@ if (canvas.getContext){
 		y = Math.floor((y - width)/2);
 		if (mode == 'draw'){
 		}else if (mode == 'stamp'){
-			context.drawImage(stamp, 0, 0, stamp.width, stamp.height, (x<<1) - ((stamp.width*zoom)>>1), (y<<1) - ((stamp.height*zoom)>>1), stamp.width*zoom, stamp.height*zoom);
+			$('#stamp-canvas')[0].width = stamp.width;	/* ピクセル操作を使って、ギザギザの拡大を無理やり実現 */
+			$('#stamp-canvas')[0].height = stamp.height;
+			stamp_ctx.drawImage(stamp, 0, 0, stamp.width, stamp.height, 0, 0, stamp.width, stamp.height);
+			var stamp_data = stamp_ctx.getImageData(0, 0, stamp.width, stamp.height).data;
+			var i = 0;
+			for(var j = 0; j < stamp.height; j++){
+				for(var k = 0; k < stamp.width; k++){
+					var r = stamp_data[i++];
+					var g = stamp_data[i++];
+					var b = stamp_data[i++];
+					var a = stamp_data[i++];
+
+					if (a == 255){
+						context.fillStyle = 'rgb('+r+', '+g+', '+b+')';
+						context.fillRect((x<<1) - (stamp.width*zoom>>1) + k*zoom,(y<<1) - (stamp.height*zoom>>1) + j*zoom, zoom, zoom);
+					}
+				}
+			}
 			$('#stamp-img').hide();
 		}
 	}
@@ -345,7 +364,7 @@ if (canvas.getContext){
 
 			canvas.ontouchend = function(e){
 				//save_draft();
-				drawend(touch.clientX - rect.left, touch.clientY - rect.top);
+				drawend(cur_x, cur_y);
 				prevdata.push(context.getImageData(0, 0, canvas_width, canvas_height));
 				if (prevdata.length > prevdata_max) prevdata.shift(); 
 				e.preventDefault();
