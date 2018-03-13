@@ -37,8 +37,16 @@
 		$tweet['media_ids'] = $stamp->media_id_string;
 		$status = twitter_throw($twitter->post('statuses/update', $tweet));
 
+		mysql_start();
+		mysql_throw(mysql_query("insert into tweet (id, screen_name, hide, time) values (".$status->id.", '".$status->user->screen_name."', false, now())"));
+		mysql_close();
+		/* コレクション登録 */
 		$twitter_admin = twitter_admin();
 		twitter_throw($twitter_admin->post('collections/entries/add', ['id' => 'custom-'.COLLECTON_STAMP, 'tweet_id' => $status->id_str]));
+		// All Posts
+		$twitter_admin->post('collections/entries/add', ['id' => 'custom-'.ALL_POSTS, 'tweet_id' => $status->id_str]);
+		// マイページ
+		if (isset($_SESSION['twitter']['account']['collection_id'])) $twitter->post('collections/entries/add', ['id' => $_SESSION['twitter']['account']['collection_id'], 'tweet_id' => $status->id_str]);
 
 		header('location: '.DOMAIN.ROOT_URL.'view/stamp/');
 	}

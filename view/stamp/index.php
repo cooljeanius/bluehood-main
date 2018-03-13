@@ -42,7 +42,9 @@
 				</div>
 			</div>
 			<div style="text-align: center; "><?php
-				$collection = $twitter->get('collections/entries', ['id' => 'custom-'.COLLECTON_STAMP, 'count' => '200']);
+				$request = ['id' => 'custom-'.COLLECTON_STAMP, 'count' => '200'];
+				if (isset($_GET['i'])) $request['max_position'] = $_GET['i'];
+				$collection = $twitter->get('collections/entries', $request);
 				$i = 0;
 				foreach($collection->response->timeline as $context){
 					$status = $collection->objects->tweets->{$context->tweet->id};
@@ -56,7 +58,10 @@
 						twttr.widgets.createTweet('<?php echo $status->id; ?>', document.getElementById('stamp-<?php echo $i; ?>'));
 					});</script>
 					<?php
-					$i++;
+					if (++$i >= MAX_TWEETS){
+						?><br><a href="?<?php echo http_build_query(['i' => $context->tweet->sort_index]); ?>"><button>もっとみる</button></a><?php
+						break;
+					}
 				}
 			?></div>
 		</div>
