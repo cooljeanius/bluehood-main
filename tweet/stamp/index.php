@@ -118,6 +118,9 @@ var preview_zoom = 2;
 		$('#preview').attr('width', width*preview_zoom);
 		$('#preview').attr('height', height*preview_zoom);
 		var preview_ctx = $('#preview')[0].getContext('2d');
+		$('#preview-white').attr('width', width*preview_zoom);
+		$('#preview-white').attr('height', height*preview_zoom);
+		var preview_white_ctx = $('#preview-white')[0].getContext('2d');
 
 		$('#color-black').click(function(e){
 			cur_color = edit_black;
@@ -167,15 +170,17 @@ var preview_zoom = 2;
 					switch(color){
 						case edit_trans:
 						preview_ctx.fillStyle = 'black';
+						preview_white_ctx.fillStyle = 'white';
 						break;
 						case edit_white:
-						preview_ctx.fillStyle = 'white';
+						preview_white_ctx.fillStyle = preview_ctx.fillStyle = 'white';
 						break;
 						case edit_black:
-						preview_ctx.fillStyle = 'black';
+						preview_white_ctx.fillStyle = preview_ctx.fillStyle = 'black';
 						break;
 					}
 					preview_ctx.fillRect(j*preview_zoom, i*preview_zoom, (j + 1)*preview_zoom, (i + 1)*preview_zoom);
+					preview_white_ctx.fillRect(j*preview_zoom, i*preview_zoom, (j + 1)*preview_zoom, (i + 1)*preview_zoom);
 				});
 			});
 			$('input[name="stamp"]').val(data);
@@ -220,8 +225,9 @@ var preview_zoom = 2;
 			</div>
 			<div id="phase-1" style="position: relative; ">
 				<button id="prev" style="position: absolute; top: 0; left: 0; ">もどる</button>
-				<canvas id="preview"></canvas><br>
-				<span style="font-size: small; ">スタンプが真っ黒?<?php helpbutton('作ったスタンプが真っ黒に表示される場合は、「もどる」を押して白い輪郭をつけてみてください。'); ?></span>
+				<canvas id="preview"></canvas>
+				<canvas id="preview-white"></canvas><br>
+				<span style="font-size: small; ">スタンプが正常に表示されない?<?php helpbutton('「もどる」を押して白または黒の輪郭をつけてみてください。'); ?></span>
 				<form method="post" action="upstamp.php">
 					<textarea name="text" rows="4" style="width: 80%; " placeholder="#ハッシュタグ ライセンス表記 100文字までのコメントを追加できます。" maxlength="100"></textarea><br>
 					<input name="stamp" type="hidden">

@@ -8,7 +8,6 @@
 		'guide' => ['ja' => '利用ガイド', 'en' => "User's Guide", ],
 		'contact' => ['ja' => '公式 Twitter', 'en' => "Admin's Twitter", ],
 		'allposts' => ['ja' => 'すべての投稿', 'en' => 'All posts', ],
-		'Q&A' => ['ja' => 'Ｑ＆Ａ', 'en' => 'Q &amp; A', ],
 	];
 ?>
 
@@ -64,7 +63,6 @@
 						</tr></table>
 						<p><?php l($s['desc']); ?></p>
 						<a href="guide.php" class="linkbutton"><?php l($s['guide']); ?></a>
-						<a href="https://peing.net/bluehood_admin" target="_blank" class="linkbutton"><?php l($s['Q&A']); ?></a>
 						<a href="https://twitter.com/bluehood_admin" target="_blank" class="linkbutton"><?php l($s['contact']); ?></a>
 						<div style="clear: both; "></div>
 					</div>

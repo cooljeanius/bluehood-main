@@ -4,9 +4,11 @@
 		'title' => ['ja' => 'BlueHood利用ガイド', 'en' => "BlueHood User's Guide"],
 		'desc' => [
 			'ja' => 'BlueHoodを安全に利用するために、このガイドを参考にしてください。<br>
-			なお、このガイドはTwitter利用に関する制限を規定するものではありません。',
+			なお、このガイドはTwitter利用に関する制限を規定するものではありません。<br>
+			※このサイトは、日本時間の夜になると BanWolf になります。',
 			'en' => "Please refer this guide to use BlueHood more safely. <br>
-                	But, this doesn't regulate your Twitter rules. ",
+                	But, this doesn't regulate your Twitter rules. <br>
+			※This site will change to \"BanWolf\" in evening (Japanese Time). ",
 		],
 		'responsibility' => ['ja' => '免責事項', 'en' => 'Responsibility'],
 		'res_desc' => [
@@ -16,14 +18,11 @@
 		],
 		'env' => ['ja' => '推奨環境', 'en' => 'Enviroment Requirements'],
 		'env_desc' => [
-			'ja' => 'BlueHoodは、Wii U・3DS・PS VITAからのアクセスを想定しています。<br>
-                        PC・タブレット・スマホからは、Chromeでのアクセスを推奨します。<br>
-                        パソコンではWii U版、スマホでは3DS版のページが表示されます。<br>
+			'ja' => 'PC・タブレット・スマホからは、Chromeでのアクセスを推奨します。<br>
                         3DSからのお絵かき投稿はゲームメモを使用します。',
-			'en' => "BlueHood is a game community for Wii U, 3DS, PS VITA. <br>
-			Chrome browser is recommended to access from PC, tablet, and smartphone. <br>
+			'en' => "Chrome browser is recommended to access from PC, tablet, and smartphone. <br>
 			This site shows Wii U version pages for PC, and 3DS version pages for smartphone. <br>
-			When posts a drawing from 3DS, you'll use gamememo application. ",
+			When posts a drawing from 3DS, you'll use GameNotes application. ",
 		],
 		'about' => ['ja' => 'BlueHoodはTwitterを通じて参加するサービス', 'en' => 'BlueHood, a service through Twitter'],
 		'about_desc' => [
@@ -75,6 +74,7 @@
 
 <!DOCTYPE html>
 <html>
+	<?php head(); ?>
 	<head>
 		<style type="text/css">
 			.card{
@@ -82,6 +82,10 @@
 			}
 			.card p{
 				text-align: left;
+				line-height: 1.5;
+			}
+			.card b{
+				color: #55acee;
 			}
 			h3{
 				color: orange;
@@ -91,63 +95,106 @@
 				text-align: left;
 			}
 		</style>
+		<script>
+			$(function(){
+				$('.section').hide();
+				$('#section-1').show();
+
+				$('#menu').change(function(){
+					$('.section').hide();
+					$('#section-'+$('#menu').val()).show();
+				});
+			});
+		</script>
 	</head>
-	<?php head(); ?>
 	<body>
 		<h2 class="topbar"><?php l($s['title']); ?></h2>
 		<div class="main paddingleft paddingright" style="padding-top: 1em; ">
-			<span><?php l($s['desc']); ?></span>
+			<select id="menu">
+				<option value="1">1. BlueHood とは?</option>
+				<option value="2">2. 準備しよう</option>
+				<option value="3">3. コンテンツの紹介</option>
+				<option value="4">4. BlueHood のルール</option>
+			</select><br>
+			<br>
 
-			<span id="responsibility"></span>
-			<h3><?php l($s['responsibility']); ?></h3>
-			<p><?php l($s['res_desc']); ?></p>
+			<div id="section-1" class="section">
 
-			<h3><?php l($s['env']); ?></h3>
-			<p><?php l($s['env_desc']); ?></p>
+				<div class="card card-article">
+					<table><tr>
+					<td><img src="<?php echo ROOT_URL; ?>img/twiverse/default.png" style="width: 64px; "></td>
+					<td><img src="<?php echo ROOT_URL; ?>img/banner/default.png"></td>
+					</tr></table>
+					<table><tr>
+					<td><img src="<?php echo ROOT_URL; ?>img/twiverse/banwolf.png" style="width: 64px; "></td>
+					<td><img src="<?php echo ROOT_URL; ?>img/banner/banwolf.png"></td>
+					</tr></table>
+					<p><?php l($s['desc']); ?></p>
+				</div>
 
-			<span id="service"></span>
-			<div class="card card-article">
-			<h3><?php l($s['about']); ?></h3>
-			<p><?php l($s['about_desc']); ?></p>
-			<img src="<?php echo ROOT_URL; ?>img/TwitterLogo.png">
+				<div class="card card-article">
+					<h3><?php l($s['responsibility']); ?></h3>
+					<p><?php l($s['res_desc']); ?></p>
+				</div>
+
+				<div class="card card-article">
+					<h3>BlueHood とは?</h3>
+					<p>BlueHood は、<b>Twitter のイメージをつなげるコミュニティ</b>です。<br>
+					Twitter をベースとして、BlueHood のコミュニティが構成されています。<br>
+					BlueHood からツイートする画像 (イメージ) は、<b>自動認識</b>によってコミュニティに登録されます。<br>
+					たとえば、ネコの画像をツイートしようとすると、AI による画像認識によって「Cat」コミュニティに登録されるかもしれません。<br>
+					<br>
+					また、写真だけでなく白黒の<b>お絵かき</b>をツイートすることができます。<br>
+					さらに、お絵かきで使用できる<b>スタンプ</b>を制作することもできます。<br>
+					Twitter の世界に、もっと「イメージのつながり」を作りましょう！
+</p>
+				</div>
 			</div>
 
-			<span id="rules"></span>
-			<div class="card card-article">
-			<h3><?php l($s['rule']); ?></h3>
-			<p><?php l($s['rule_desc']); ?></p>
-			<br>
-			<br>
-			<figure>
-				<img src="<?php echo ROOT_URL; ?>img/twiverse/default.png" width="160px">
-				<figcaption>BlueHood (アオズキン)</figcaption>
-			</figure>
-			<br>
-			<br>
+			<div id="section-2" class="section">
+				<div class="card card-article">
+					<h3><?php l($s['env']); ?></h3>
+					<p><?php l($s['env_desc']); ?></p>
+				</div>
 			</div>
 
-			<span id="violation"></span>
-			<div class="card card-article">
-			<h3><?php l($s['violation']); ?></h3>
-			<p><?php l($s['violation_desc']); ?></p>
-			<br>
-			<br>
-			<figure>
-				<img src="<?php echo ROOT_URL; ?>img/twiverse/banwolf.png" width="160px">
-				<figcaption>BanWolf (バンウルフ)</figcaption>
-			</figure>
-			<br>
-			<br>
+			<div id="section-4" class="section">
+				<span id="service"></span>
+				<div class="card card-article">
+				<h3><?php l($s['about']); ?></h3>
+				<p><?php l($s['about_desc']); ?></p>
+				<img src="<?php echo ROOT_URL; ?>img/TwitterLogo.png">
+				</div>
+
+				<span id="rules"></span>
+				<div class="card card-article">
+				<h3><?php l($s['rule']); ?></h3>
+				<p><?php l($s['rule_desc']); ?></p>
+				<br>
+				<br>
+				<figure>
+					<img src="<?php echo ROOT_URL; ?>img/twiverse/default.png" width="160px">
+					<figcaption>BlueHood</figcaption>
+				</figure>
+				<br>
+				<br>
+				</div>
+
+				<span id="violation"></span>
+				<div class="card card-article">
+				<h3><?php l($s['violation']); ?></h3>
+				<p><?php l($s['violation_desc']); ?></p>
+				<br>
+				<br>
+				<figure>
+					<img src="<?php echo ROOT_URL; ?>img/twiverse/banwolf.png" width="160px">
+					<figcaption>BanWolf</figcaption>
+				</figure>
+				<br>
+				<br>
+				</div>
 			</div>
 
-			<!-- <h3 id="tweet">投稿について</h3>
-			<p>BlueHoodからの投稿には、ハッシュタグが最大2つ自動的に追加されます。<br>
-			さらにハッシュタグを追加する場合は、付け過ぎに注意してください。<br>
-			ハッシュタグは、2つまでの使用が推奨されています(<a href="https://support.twitter.com/articles/243963">ハッシュタグ（「#」記号）とは？</a>)。</p> -->
-
-			<h3 id="notification"><?php l($s['note']); ?></h3>
-			<p><?php l($s['note_desc']); ?></p>
-			<br>
 			<center>本 Web サイト中の製品名は、各社の商標です。</center>
 		</div>
 	</body>
