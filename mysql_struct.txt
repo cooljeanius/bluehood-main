@@ -131,6 +131,7 @@ CREATE TABLE `user` (
   `list_MD` tinyint(1) DEFAULT '1',
   `en_MD` tinyint(1) DEFAULT '1',
   `theme` varchar(8) DEFAULT 'auto',
+  `draft_stamp` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -144,4 +145,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-03 21:27:56
+-- Dump completed on 2018-03-21 23:32:04
