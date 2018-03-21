@@ -7,6 +7,7 @@
 
 	define('ALL_POSTS', '932243624233979905');
 	define('COLLECTON_STAMP', '945172613063520256');
+	define('COMMID_STAMP', 'stamp');
 
 	define('THEME_COLOR', '#55acee');
 
@@ -323,6 +324,9 @@
 
 	function tweet($status, $subcomm, $user){	//mysql使用
 		static $id = 0;
+		static $s = [
+			'stamp' => ['ja' => "BlueHoodスタンプ", 'en' => "BlueHoodStamp"],
+		];
 
 		$res = mysql_fetch_assoc(mysql_query("select comm_id, screen_name from tweet where id = ".$status->id));
 		if ($res){
@@ -336,10 +340,16 @@
 						if ($comm_ids != []){
 							?><td><img src="<?php echo ROOT_URL; ?>img/tag.png" style="width: 0.75em; "></td><td style="word-break: break-all; "><?php
 							foreach($comm_ids as $comm_id){
-								$comm = mysql_fetch_assoc(mysql_throw(mysql_query("select * from comm where id = '".$comm_id."'")));
-								?><a class="tweet-sub a-disabled" target="_blank" href="<?php echo ROOT_URL; ?>view/?<?php echo http_build_query(['comm_id' => $comm_id]); ?>">
-									<span style="color: gray; "><?php echo $comm['name']; ?> </span>
-								</a><?php
+								if ($comm_id != COMMID_STAMP){
+									$comm = mysql_fetch_assoc(mysql_throw(mysql_query("select * from comm where id = '".$comm_id."'")));
+									?><a class="tweet-sub a-disabled" target="_blank" href="<?php echo ROOT_URL; ?>view/?<?php echo http_build_query(['comm_id' => $comm_id]); ?>">
+										<span style="color: gray; "><?php echo $comm['name']; ?> </span>
+									</a><?php
+								}else{
+									?><a class="tweet-sub a-disabled" target="_blank" href="<?php echo ROOT_URL; ?>view/stamp/">
+                                                                                <span style="color: gray; "><?php l($s['stamp']); ?> </span>
+                                                                        </a><?php
+								}
 							}
 							?></td><?php
 						}

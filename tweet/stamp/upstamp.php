@@ -38,7 +38,7 @@
 		$status = twitter_throw($twitter->post('statuses/update', $tweet));
 
 		mysql_start();
-		mysql_throw(mysql_query("insert into tweet (id, screen_name, hide, time) values (".$status->id.", '".$status->user->screen_name."', false, now())"));
+		mysql_throw(mysql_query("insert into tweet (id, comm_id, screen_name, hide, time) values (".$status->id.", '".COMMID_STAMP."', '".$status->user->screen_name."', false, now())"));
 		mysql_close();
 		/* コレクション登録 */
 		$twitter_admin = twitter_admin();
