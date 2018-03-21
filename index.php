@@ -6,6 +6,7 @@
 		//'desc' => ['ja' => 'Twitterを活用したUniversalゲームコミュニティです。', 'en' => 'An universal game community on Twitter. ', ],
 		'desc' => ['ja' => 'Twitter のイメージをつなげるコミュニティ。', 'en' => 'The community to link images on Twitter. ', ],
 		'guide' => ['ja' => '利用ガイド', 'en' => "User's Guide", ],
+		'wiki' => ['ja' => 'Wiki', 'en' => "Wiki", ],
 		'contact' => ['ja' => '公式 Twitter', 'en' => "Admin's Twitter", ],
 		'allposts' => ['ja' => 'すべての投稿', 'en' => 'All posts', ],
 	];
@@ -63,6 +64,7 @@
 						</tr></table>
 						<p><?php l($s['desc']); ?></p>
 						<a href="guide.php" class="linkbutton"><?php l($s['guide']); ?></a>
+						<a href="https://wikiwiki.jp/bluehood/" class="linkbutton"><?php l($s['wiki']); ?></a>
 						<a href="https://twitter.com/bluehood_admin" target="_blank" class="linkbutton"><?php l($s['contact']); ?></a>
 						<div style="clear: both; "></div>
 					</div>

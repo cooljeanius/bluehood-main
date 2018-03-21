@@ -45,21 +45,24 @@ var update = function(res){
 
 	comm_ids = [];
 	var title = '';
-	var notice = "この画像は\n";
+	//var notice = "この画像は\n";
 	res.comms.forEach(function(comm){
 		comm_ids.push(comm.id);
 		title += comm.detector+'-'+comm.name+'　';
-		notice += '「'+comm.detector+'-'+comm.name+'」';
+		//notice += '「'+comm.detector+'-'+comm.name+'」';
 	});
 	if (title == ''){
 		title = '投稿';
-		notice = 'コミュニティが見つかりませんでした。\n投稿は可能です。\n';
+		//notice = 'コミュニティが見つかりませんでした。\n投稿は可能です。\n';
 	}else{
-		notice += "\nコミュニティに投稿されます。\n";
+		//notice += "\nコミュニティに投稿されます。\n";
 	}
 	$('#title').html(title);
-	if (res.msg) notice += res.msg;
-	alert(notice);
+	if (res.msg){
+		//notice += res.msg;
+		alert(res.msg);
+	}
+	//alert(notice);
 
 	send.disabled = false;
 	selimg.disabled = false;

@@ -600,14 +600,14 @@ a .card:hover{
 }
 </style>
 			<!-- Global Site Tag (gtag.js) - Google Analytics -->
-			<!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-106651880-1"></script>
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-106651880-1"></script>
 			<script>
 			  window.dataLayer = window.dataLayer || [];
 			  function gtag(){dataLayer.push(arguments)};
 			  gtag('js', new Date());
 
 			  gtag('config', 'UA-106651880-1');
-			</script>-->
+			</script>
 
 			<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 			<?php if (useragent() != '3ds'){ ?><script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><?php } ?>

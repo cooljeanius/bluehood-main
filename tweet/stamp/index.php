@@ -18,6 +18,17 @@
 	}
 </style>
 <script>
+var draft_stamp = <?php
+	mysql_start();
+	$res = mysql_fetch_assoc(mysql_query("select draft_stamp from user where id=".$_SESSION['twitter']['id']));
+	if ($res['draft_stamp']){
+		echo "JSON.parse('".$res['draft_stamp']."')";
+	}else{
+		echo 'undefined';
+	}
+	mysql_close();
+?>;
+
 var width = 24;
 var height = 24;
 var zoom = 12;
@@ -30,12 +41,16 @@ var preview_zoom = 2;
 		var edit_white = 1;
 		var edit_trans = 2;
 		var edit_data = [];
-		for(var i = 0; i < height; i++){
+		if (draft_stamp){
+			edit_data = draft_stamp;
+		}else{
+			for(var i = 0; i < height; i++){
 			var col = [];
-			for(var j = 0; j < width; j++){
-				col.push(edit_trans);
+					for(var j = 0; j < width; j++){
+					col.push(edit_trans);
+				}
+				edit_data.push(col);
 			}
-			edit_data.push(col);
 		}
 
 		var cur_color = edit_black;
@@ -84,28 +99,61 @@ var preview_zoom = 2;
 		$('#edit-stamp').attr('height', edit_height);
 		draw();
 
-		var edit = function(x, y){
+		var edit = function(x, y, begin_x = -1, begin_y = -1){
 			x = Math.floor(x/zoom);
 			y = Math.floor(y/zoom);
 
-			if (x>=0 && x<width && y>=0 && y<height){
-				edit_data[y][x] = cur_color;
-				draw();
+			var line = [];
+			if (begin_x != -1){
+				begin_x = Math.floor(begin_x/zoom);
+				begin_y = Math.floor(begin_y/zoom);
+
+				var dist = Math.round(Math.sqrt(Math.pow(x - begin_x, 2.0) + Math.pow(y - begin_y, 2.0))) + 1;
+	                        for(var i = 0; i < dist; i++){
+	                                var t = i/(dist - 1);
+	                                line.push({x: begin_x + Math.round((x - begin_x)*t), y: begin_y + Math.round((y - begin_y)*t)});
+	                        }
+
+			}else{
+				line.push({x: x, y: y});
 			}
+
+			line.forEach(function(pos){
+				if (pos.x>=0 && pos.x<width && pos.y>=0 && pos.y<height){
+					edit_data[pos.y][pos.x] = cur_color;
+				}
+			});
+			draw();
 		};
-		if ('ontouchstart' in window) $('#edit-stamp').on('touchstart touchmove', function(e){
-			var touch = e.originalEvent.targetTouches[0];
-			var rect = $('#edit-stamp')[0].getBoundingClientRect();
-			edit(touch.clientX - rect.left, touch.clientY - rect.top);
-		});
-		else{
+
+		var begin_x, begin_y;
+		if ('ontouchstart' in window){
+			$('#edit-stamp').on('touchstart', function(e){
+				var touch = e.originalEvent.targetTouches[0];
+				var rect = $('#edit-stamp')[0].getBoundingClientRect();
+				var x = touch.clientX - rect.left, y = touch.clientY - rect.top;
+				edit(x, y);
+				begin_x = x; begin_y = y;
+			});
+			$('#edit-stamp').on('touchmove', function(e){
+				var touch = e.originalEvent.targetTouches[0];
+				var rect = $('#edit-stamp')[0].getBoundingClientRect();
+				var x = touch.clientX - rect.left, y = touch.clientY - rect.top;
+				edit(x, y, begin_x, begin_y);
+				begin_x = x; begin_y = y;
+			});
+		}else{
 			var isdraw = false;
 			$('#edit-stamp').on('mousedown', function(e){
 				edit(e.offsetX, e.offsetY);
 				isdraw = true;
+				begin_x = e.offsetX; begin_y = e.offsetY;
 			});
 			$('#edit-stamp').on('mousemove', function(e){
-				if (isdraw) edit(e.offsetX, e.offsetY);
+				if (isdraw){
+					edit(e.offsetX, e.offsetY, begin_x, begin_y);
+					begin_x = e.offsetX; begin_y = e.offsetY;
+				}
 			});
 			$(window).on('mouseup', function(e){
 				isdraw = false;
@@ -161,6 +209,25 @@ var preview_zoom = 2;
 			draw();
 		});
 
+		$('#new').click(function(){
+			if (confirm('全消ししますか?')){
+				edit_data.forEach(function(col){
+                        	        col.forEach(function(color, i){
+						col[i] = edit_trans;
+        	                        });
+	                        });
+				draw();
+			}
+		});
+
+		$('#draft').click(function(){
+			$.post(tweet_url+'backupst.php', {stamp: JSON.stringify(edit_data)}, function(res){
+				alert(res);
+			}, 'html').fail(function(jqXHR, textStatus, errorThrown){
+				alert("エラーが発生しました。\n" + errorThrown);	// alert ではなく、throw したい。
+			});
+		});
+
 		$('#next').click(function(e){
 			var data = String(width)+','+String(height)+',';
 			edit_data.forEach(function(col, i){
@@ -204,6 +271,9 @@ var preview_zoom = 2;
 			<div id="phase-0">
 				<div style="display: inline-block; ">
 					<div>
+						<button id="new">全消し</button>
+						<button id="draft">下書き保存</button>
+						<span style="font-size: small; ">自動下書き保存は未実装です</span><br>
 						<button id="color-black"><div style="width: 1em; height: 1em; border: 1px solid lightgray; border-radius: 0.5em; background-color: black; "></div></button>
 						<button id="color-white"><div style="width: 1em; height: 1em; border: 1px solid lightgray; border-radius: 0.5em; background-color: white; "></div></button>
 						<button id="color-trans"><div style="width: 1em; height: 1em; border: 1px solid lightgray; border-radius: 0.5em; background-color: lightgray; "></div></button>
