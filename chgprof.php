@@ -12,7 +12,7 @@
 			$avatar = '/var/www/html/img/twiverse/default.png';
 			$banner = '';
 		}else if (getdate()['hours'] == 18){
-			$name = 'BanWolf & グレたノコノコ';
+			$name = 'グレたノコノコ';
 			$desc = "BlueHood の夜の姿。
 			すきなものはカメラ、カメン、ツタンカ～メン。
 			カメオカート8デラックスでは、カロンはいつもほうたいをもちあるいてます。

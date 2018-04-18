@@ -32,6 +32,10 @@
 			mysql_throw();
 		}
 
+		if ($_POST['stamp_height']<2 || $_POST['stamp_height']>21) throw new Exception('スタンプの高さは 2 から 21 までにしてください。');
+		mysql_query("update user set stamp_height='".mysql_escape_string($_POST['stamp_height'])."' where id=".$_SESSION['twitter']['id']);
+		mysql_throw();
+
 		mysql_close();
 
 		header('location: '.DOMAIN.ROOT_URL.'user/');

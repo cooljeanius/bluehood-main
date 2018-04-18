@@ -55,6 +55,10 @@
 						}catch(Exception $e){catch_default($e); } ?>
 					</table>
 				</fieldset>
+				<fieldset>
+					<legend>スタンプ</legend>
+					3Dデータ 高さ <input name="stamp_height" type="number" value="<?php echo $set['stamp_height']; ?>" min="2" max="21" style="width: 4em; "> mm (2~21)<?php helpbutton('3D データにおけるスタンプの持ち手の長さです。\nたとえば、2 mm に設定すると刻印面だけの薄いスタンプになります。\n21 mm に設定すると、持ち手がある標準的なスタンプになります。'); ?><br>
+				</fieldset>
 				<input type="submit">
 			</from>
 		</div>

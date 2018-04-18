@@ -22,12 +22,10 @@
 	<body>
 		<div class="topbar"><?php l($s['title']); ?></div>
 		<div class="main">
-			<div class="header" style="position: relative; ">
-				<a href="<?php echo ROOT_URL; ?>tweet/stamp/" class="linkbutton" style="position: absolute; top: 0; right: 0; "><?php l($s['make']); ?></a>
-				作ったスタンプをお絵かき投稿で使用できます。
-			</div>
 			<div class="header">
-				<div style="text-align: center; "><?php l($s['selected']); ?><br>
+			<a href="<?php echo ROOT_URL; ?>tweet/stamp/" class="linkbutton"><?php l($s['make']); ?></a>
+			<span style="font-size: small; ">作ったスタンプをお絵かき投稿で使用したり、3D プリント用データにすることができます。</span>
+				<div style="text-align: center; "><b><?php l($s['selected']); ?></b><br>
 					<?php
 						mysql_start();
 						$res = mysql_query("select image_url from selstamp where screen_name = '".$_SESSION['twitter']['screen_name']."'");

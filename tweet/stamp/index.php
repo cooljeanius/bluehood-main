@@ -299,7 +299,7 @@ var preview_zoom = 2;
 				<canvas id="preview-white"></canvas><br>
 				<span style="font-size: small; ">スタンプが正常に表示されない?<?php helpbutton('「もどる」を押して白または黒の輪郭をつけてみてください。'); ?></span>
 				<form method="post" action="upstamp.php">
-					<textarea name="text" rows="4" style="width: 80%; " placeholder="#ハッシュタグ ライセンス表記 100文字までのコメントを追加できます。" maxlength="100"></textarea><br>
+					<textarea name="text" rows="4" style="width: 80%; " placeholder="#ハッシュタグ ライセンス表記 100文字までのコメントを追加できます。" maxlength="100">#bluehood (ライセンス表記など)</textarea><br>
 					<input name="stamp" type="hidden">
 					<input type="submit" value="ツイート" onclick="$(this).val('送信中…'); $(this).prop('disabled', true); submit(); ">
 				</form>

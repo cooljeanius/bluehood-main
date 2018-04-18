@@ -52,8 +52,8 @@ canvas{
 	<?php head(); ?>
 	<head>
 		<meta name="viewport" content="width=854px, initial-scale=1.0, user-scalable=no, minimal-ui">
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="<?php echo ROOT_URL; ?>jquery-ui.css">
+		<script src="<?php echo ROOT_URL; ?>jquery-ui.min.js"></script>
 	</head>
 	<body>
 		<h2 id="title" class="topbar"><?php l($s['title']); ?></h2>
@@ -309,7 +309,9 @@ if (canvas.getContext){
 	if (ua.indexOf('nintendo wiiu') != -1){	//Wii U
 		var isdraw = false;
 		setInterval(function(){
-			if (!$('#stamp-dialog').is(':visible')){
+			var isfocus = $(':focus')[0];
+			if (isfocus) isfocus = isfocus.tagName == 'INPUT';
+			if (( !$('#stamp-dialog').is(':visible') )&&( !isfocus )){
 				var gamepad = window.wiiu.gamepad.update();
 
 				if (gamepad.tpTouch){
