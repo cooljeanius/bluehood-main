@@ -233,7 +233,7 @@ var UiComponent = class{
 						this.dispose();
 					}
 				});
-				var right = $('<span style="float: right; "></span>');
+				var right = $('<span></span>');
 				right.append(reverse).append(close);
 				column = $('<tr style="border-bottom: 1px solid lightgray; "></tr>').append($('<th colspan="2" style="font-weight: normal; padding-left: 0.5em; padding-right: 0.5em; background-color: lemonchiffon"></th>').append(this._jqname).append(right));
 			}
