@@ -1,0 +1,208 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:site" content="@bluehood_admin" />
+		<meta property="og:url" content="https://twiverse.net/etc/troopa/" />
+		<meta property="og:title" content="Troopa 👀" />
+		<meta property="og:description" content="The Web Toy Synthesizer. " />
+		<meta property="og:image" content="https://twiverse.net/etc/troopa/eyes.png" />
+
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script
+		  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+		  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+		  crossorigin="anonymous"></script>
+		<script src="UUID.js/src/uuid.js"></script>
+		<script src="leader-line/leader-line.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+		<script src="core.js"></script>
+		<script src="ui.js"></script>
+		<script src="com.js"></script>
+		<script>
+	$(() => {
+	var is_play = false;
+
+	try{
+		var sk = new Sketch();
+		$("aside").css("margin-top", $("nav").outerHeight());
+		var edit = new Editor($("body"), $("aside"), [
+			Input, 
+			Keyboard, 
+			Sine, 
+			Square, 
+			Saw, 
+			Triangle, 
+			Noise, 
+			Buffer, 
+			Amplifier, 
+			Mixer, 
+			Integrator, 
+			Differentiator, 
+			Speaker, 
+			Scope, 
+		], sk);
+
+		{
+			var file = JSON.parse('{"sketch":{"coms":[{"type":"Sine","id":"63c186b2-7337-44e5-96ea-a4ea8d6b2c3a","ins":[{"id":"38b207c5-38d3-4786-b866-72a7b91101fd","isint":false}],"outs":[{"tos":["e96b3686-b665-4b65-b08e-19a1c62eadb2"],"isint":false}]},{"type":"Speaker","id":"1c1e2194-65a6-4afd-82e5-8fb6482f0133","ins":[{"id":"e96b3686-b665-4b65-b08e-19a1c62eadb2","isint":false}],"outs":[{"tos":[],"isint":false}]},{"type":"Input","id":"9649b56d-6e77-4ace-8213-0fc7b4522d57","ins":[],"outs":[{"tos":["38b207c5-38d3-4786-b866-72a7b91101fd"],"isint":false}]}]},"ui":{"uicoms":[{"com_id":"63c186b2-7337-44e5-96ea-a4ea8d6b2c3a","x":482,"y":145,"name":"Sine","isrev":false},{"com_id":"1c1e2194-65a6-4afd-82e5-8fb6482f0133","x":685,"y":145,"name":"Speaker","isrev":false},{"com_id":"9649b56d-6e77-4ace-8213-0fc7b4522d57","x":285,"y":145,"name":"Input","isrev":false,"value":440}]}}');
+			var lut = sk.import(file.sketch);
+			edit.import(file.ui, lut);
+		}
+
+		
+		window.AudioContext = window.AudioContext||window.webkitAudioContext;
+
+		var ctx = new AudioContext();
+		var scproc = ctx.createScriptProcessor();
+
+		var frame = 0;
+		scproc.onaudioprocess = (e) => {
+			try{
+				var out_l = e.outputBuffer.getChannelData(0);
+				var out_r = e.outputBuffer.getChannelData(1);
+				var skip = 2;
+				var srate = e.outputBuffer.sampleRate/skip;
+
+				//var curtime = (out_l.length*frame)/srate;
+				for(var i = 0; i<out_l.length; i+=skip){
+					//var time = curtime + i/srate;
+					g_spouts = [];
+					sk.onChangeTime({ dt: 1.0/srate });
+
+					var sum = 0.0;
+					g_spouts.forEach((spout) => { sum += spout; });
+					for(var j = 0; j<skip; j++){
+						out_l[i + j] = out_r[i + j] = sum/g_spouts.length;
+					}
+				}
+				frame++;
+			}catch(e){
+				alert("Simulation error: "+e);
+				simEnd();
+			}
+		};
+
+		var simEnd = () => {
+			is_play = false;
+			scproc.disconnect(ctx.destination);
+			sk.onSimEnd();
+			$("#btn-play").html('Play <span style="color: hotpink; ">🔊</span>');
+		};
+
+		$("#btn-play").click(() => {
+			is_play ^= true;
+			if (is_play){
+				sk.onSimStart();
+				scproc.connect(ctx.destination);
+				$("#btn-play").html('Stop <span style="color: hotpink; ">🔇</span>');
+			}else{
+				simEnd();
+			}
+		});
+
+		$("#btn-load").click(() => {
+			var input = document.createElement("input");
+			input.type= "file";
+			input.accept =".syn";
+			input.onchange = (e) => {
+				var reader = new FileReader();
+				reader.onloadend = (e) => {
+					var file = JSON.parse(e.target.result);
+					var lut = sk.import(file.sketch);
+					edit.import(file.ui, lut);
+				};
+				reader.readAsText(e.target.files[0]);
+				$("#filename").val(e.target.files[0].name);
+			};
+			input.click();
+		});
+
+		$("#btn-save").click(() => {
+			var file = { sketch: sk.export(), ui: edit.export() };
+			var a = document.createElement("a");
+			a.download = $("#filename").val();
+			a.href = URL.createObjectURL(new Blob([JSON.stringify(file)], {type: "text/plain"}));
+			a.click();
+		});
+
+		$(window).on("beforeunload", (e) => {
+			return true;
+		});
+	}catch(e){
+		alert(e);
+	}
+});
+		</script>
+		<style>
+body{
+	margin: 0;
+	position: relative;
+	background-color: whitesmoke; 
+	user-select: none;
+}
+
+.leader-line{
+	z-index: 65535;
+}
+
+nav{
+	position: fixed;
+	width: 100%;
+	background-color: white;
+	border-bottom: 1px solid lightgray;
+	z-index: 65538;
+	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+	padding: 0.5em 1em;
+}
+
+h1{
+	display: inline;
+	font-size: medium;
+}
+
+h2{
+	display: inline;
+	font-size: smaller;
+	font-weight: normal;
+}
+
+aside{
+	position: fixed;
+	height: 100%;
+	background-color: whitesmoke;
+	z-index: 65537;
+	border-right: 1px solid lightgray;
+	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+	padding: 0.5em;
+	font-size: small;
+}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<h1>Troopa</h1> <span style="font-size: large; ">👀</span>
+			<h2>: The Web Toy Synthesizer</h2>
+			<span style="margin-left: 1em; ">
+				<button id="btn-play">Play <span style="color: hotpink; ">🔊</span></button>
+				<span style="margin-left: 1em; ">
+					<button id="btn-load">Load 📂</button>
+					<button id="btn-save">Save 💾</button>
+					<input id="filename" value="sample.syn" style="width: 96px; " placeholder="filename.syn">
+				</span>
+				<span style="margin-left: 1em; ">
+					<a href="tutorial/" target="_blank"><button>Tutorial 🔰</button></a>
+				</span>
+			</span>
+			<span style="float: right; margin-right: 2.5em; font-size: small; ">
+				α version
+				<!--<a href="help.html" target="_blank"><button>Help ❓</button></a>
+				<a target="_blank"><button>Feedback 👀</button></a>-->
+				<a href="about.html" target="_blank"><button>About ❓</button></a>
+			</span>
+		</nav>
+		<aside>
+		</aside>
+	</body>
+</html>

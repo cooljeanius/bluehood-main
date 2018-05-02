@@ -1,0 +1,59 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<style>
+h1{
+	display: inline;
+	font-size: medium;
+}
+h2{
+	display: inline;
+	font-size: medium;
+	font-weight: normal;
+}
+#logo{
+	font-size: x-large;
+}
+
+article ol>li{
+	font-size: large;
+}
+article ol ol>li{
+	font-size: medium;
+}
+		</style>
+	</head>
+	<body>
+		<h1>Troopa</h1><span id="logo"> 👀</span>
+		<h2>: The Web Toy Synthesizer</h2>
+		<span style="margin-left: 2em; ">2018/05/02 α version</span>
+		<hr>
+		<article>
+			<h3>Square Component</h3>
+			<ol>
+				<li>Description</li>
+				<p>It generates square wave. </p>
+				<figure>
+					<img src="outside.png">
+					<figcaption>The outside. </figcaption>
+				</figure>
+				<figure>
+					<img src="wave.png">
+					<figcaption>An example of the generated wave (duty: 0.25). </figcaption>
+				</figure>
+				<li>Ports</li>
+				</p><ol>
+					<li>In Ports</li>
+					<p><ul>
+						<li>freq: The frequency. </li>
+						<li>duty: The pulse duty ratio (0.0 to 1.0). </li>
+					</ul></p>
+					<li>Out Ports</li>
+					<p><ul>
+						<li>square: The square wave that amplitude is -1.0 to 1.0. </li>
+					</ul></p>
+				</ol></p>
+			</ol>
+		</article>
+	</body>
+</html>

@@ -1,0 +1,72 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<style>
+h1{
+	display: inline;
+	font-size: medium;
+}
+h2{
+	display: inline;
+	font-size: medium;
+	font-weight: normal;
+}
+#logo{
+	font-size: x-large;
+}
+
+article ol>li{
+	font-size: large;
+}
+article ol ol>li{
+	font-size: medium;
+}
+		</style>
+	</head>
+	<body>
+		<h1>Troopa</h1><span id="logo"> 👀</span>
+		<h2>: The Web Toy Synthesizer</h2>
+		<span style="margin-left: 2em; ">2018/05/02 α version</span>
+		<hr>
+		<article>
+			<h3>Scope Component</h3>
+			<ol>
+				<li>Description</li>
+				<p>It observe a signal. 
+				It is like to oscilloscope. </p>
+				<figure>
+					<img src="outside.png">
+					<figcaption>The outside. </figcaption>
+				</figure>
+				<li>Ports</li>
+				</p><ol>
+					<li>In Ports</li>
+					<p><ul>
+						<li>in_: The observed object. </li>
+					</ul></p>
+					<li>Out Ports</li>
+					<p><ul>
+						<li>thru: The signal passed through. </li>
+					</ul></p>
+				</ol></p>
+				<li>User Interface</li>
+				<p>It runs as the following 3 modes. </p>
+					<ul>
+						<li>Free Run: It always observes. </li>
+						<li>Rising Edge: It observes in synchronization with rising edges. </li>
+						<li>Falling Edge: It observes in synchronization with falling edges. </li>
+					</ul>
+				<p>While Rising Edge or Falling Edge mode, the synchronization standard value is defined by "Trigger". 
+				The time scale can be changed by "Skip". </p>
+				<figure>
+					<img src="rising.png">
+					<figcaption>An example of Rising Edge mode (trigger: 0.5). </figcaption>
+				</figure>
+				<figure>
+					<img src="falling.png">
+					<figcaption>An example of Falling Edge mode (trigger: -0.5). </figcaption>
+				</figure>
+			</ol>
+		</article>
+	</body>
+</html>

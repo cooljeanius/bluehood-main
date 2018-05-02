@@ -1,0 +1,84 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<style>
+h1{
+	display: inline;
+	font-size: medium;
+}
+h2{
+	display: inline;
+	font-size: medium;
+	font-weight: normal;
+}
+#logo{
+	font-size: x-large;
+}
+
+article ol>li{
+	font-size: large;
+}
+article ol ol>li{
+	font-size: medium;
+}
+		</style>
+	</head>
+	<body>
+		<h1>Troopa</h1><span id="logo"> 👀</span>
+		<h2>: The Web Toy Synthesizer</h2>
+		<span style="margin-left: 2em; ">2018/05/02 α version</span>
+		<hr>
+		<article>
+			<h3>Keyboard Component</h3>
+			<ol>
+				<li>Description</li>
+				<p>It outputs the note-on signals from user keyboard input. </p>
+				<figure>
+					<img src="outside.png">
+					<figcaption>The outside. </figcaption>
+				</figure>
+				<li>Ports</li>
+				</p><ol>
+					<li>In Ports</li>
+					<p>None. </p>
+					<li>Out Ports</li>
+					<p><ul>
+						<li>freq: The frequency user input. </li>
+						<li>keyon: It is set to 1.0 when user is pressing key, else 0.0. </li>
+					</ul></p>
+				</ol></p>
+				<li>User Interface</li>
+				<p>While Play mode, it detects the key pressions as below. </p>
+				<table border="1">
+				<tr><th>Key</th><th>Sound Scale</th></tr>
+				<tr><td>Z</td><td>3C</td></tr>
+				<tr><td>S</td><td>3C#</td></tr>
+				<tr><td>X</td><td>3D</td></tr>
+				<tr><td>D</td><td>3D#</td></tr>
+				<tr><td>C</td><td>3E</td></tr>
+				<tr><td>V</td><td>3F</td></tr>
+				<tr><td>G</td><td>3F#</td></tr>
+				<tr><td>B</td><td>3G</td></tr>
+				<tr><td>H</td><td>3G#</td></tr>
+				<tr><td>N</td><td>3A</td></tr>
+				<tr><td>J</td><td>3A#</td></tr>
+				<tr><td>M</td><td>3B</td></tr>
+				<tr><td>,</td><td>4C</td></tr>
+				<tr><td>Q</td><td>4C</td></tr>
+				<tr><td>2</td><td>4C#</td></tr>
+				<tr><td>W</td><td>4D</td></tr>
+				<tr><td>3</td><td>4D#</td></tr>
+				<tr><td>E</td><td>4E</td></tr>
+				<tr><td>R</td><td>4F</td></tr>
+				<tr><td>5</td><td>4F#</td></tr>
+				<tr><td>T</td><td>4G</td></tr>
+				<tr><td>6</td><td>4G#</td></tr>
+				<tr><td>Y</td><td>4A</td></tr>
+				<tr><td>7</td><td>4A#</td></tr>
+				<tr><td>U</td><td>4B</td></tr>
+				<tr><td>I</td><td>5C</td></tr>
+				</table>
+			</ol>
+		</article>
+	</body>
+</html>
