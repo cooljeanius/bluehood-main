@@ -18,16 +18,8 @@ var Editor = class{
 
 		this.sk.clearCom();
 		this._jqside.html('<h3 style="display: inline; font-size: inherit; font-weight: inherit; ">Components</h3><br>');
-		var listbox = $('<select style="width: 96px; overflow-y: hidden; margin-bottom: 1ex; "></select>');
-		coms.forEach((class_, i) => {
-			var option = $('<option style="cursor: pointer; "></option>');
-			option.append(class_.name);
-			listbox.append(option);
-		});
-		listbox.attr("size", coms.length);
-		this._jqside.append(listbox);
-		var jqaddbtn = $('<br><button style="width: 100%; ">Add ＋</button>');
-		jqaddbtn.click((e) => {
+
+		var add = () => {
 			var com = eval("new "+listbox.val()+"()");
 			this.sk.appendCom(com);
 
@@ -37,8 +29,26 @@ var Editor = class{
 			uicom.y = this._jqobj.scrollTop() + Editor.border_top;
 
 			this.appendUiComponent(uicom);
+		}
+
+		var listbox = $('<select style="width: 96px; overflow-y: hidden; margin-bottom: 1ex; "></select>');
+		coms.forEach((class_, i) => {
+			var option = $('<option style="cursor: pointer; "></option>');
+			option.dblclick((e) => {
+				add();
+			});
+			option.append(class_.name);
+			listbox.append(option);
+		});
+		listbox.attr("size", coms.length);
+		this._jqside.append(listbox);
+
+		var jqaddbtn = $('<br><button style="width: 100%; ">Add ＋</button>');
+		jqaddbtn.click((e) => {
+			add();
 		});
 		this._jqside.append(jqaddbtn);
+
 		var jqviewbtn = $('<br><button style="width: 100%; ">Document 📄</button>');
 		jqviewbtn.click((e) => {
 			window.open("doc/"+listbox.val()+"/");
@@ -417,7 +427,7 @@ var UiPortIn = class{
 
 		this.id = UUID.generate();
 		this._jqname = $('<input readonly style="width: 40px; border: none; text-align: inherit; ">');
-		this._jqradio = $('<input type="radio">');
+		this._jqradio = $('<input class="inport" type="checkbox">');
 		this._jqradio.attr("id", this.id);
 		this.jqobj = $("<div></div>");
 
@@ -506,7 +516,7 @@ var UiPortOut = class{
 
 		this.id = UUID.generate();
 		this._jqname = $('<input readonly style="width: 40px; border: none; text-align: inherit; ">');
-		this._jqradio = $('<input type="radio" draggable="true">');
+		this._jqradio = $('<input class="outport" type="radio" draggable="true">');
 		this._jqradio.attr("id", this.id);
 
 		this.jqobj = $("<div></div>");
@@ -552,6 +562,13 @@ var UiPortOut = class{
 			this._dragarrow.remove();
 			this._dragarrow = null;
 		});
+
+		this._jqradio.on("dragover", (e) => {
+			var org_e = e.originalEvent;
+			org_e.dataTransfer.dropEffect = "none";
+			org_e.preventDefault();
+		});
+
 		this._jqradio.click((e) => {
 			e.preventDefault();
 		});

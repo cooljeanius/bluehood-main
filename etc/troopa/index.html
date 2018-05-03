@@ -9,6 +9,18 @@
 		<meta property="og:description" content="The Web Toy Synthesizer. " />
 		<meta property="og:image" content="https://twiverse.net/etc/troopa/eyes.png" />
 
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118660329-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'UA-118660329-1');
+		</script>
+
+		<title>Troopa 👀</title>
+
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<script
 		  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
@@ -89,6 +101,7 @@
 			scproc.disconnect(ctx.destination);
 			sk.onSimEnd();
 			$("#btn-play").html('Play <span style="color: hotpink; ">🔊</span>');
+			$("nav").css("background-color", "white");
 		};
 
 		$("#btn-play").click(() => {
@@ -97,6 +110,7 @@
 				sk.onSimStart();
 				scproc.connect(ctx.destination);
 				$("#btn-play").html('Stop <span style="color: hotpink; ">🔇</span>');
+				$("nav").css("background-color", "mistyrose");
 			}else{
 				simEnd();
 			}
@@ -148,8 +162,8 @@ body{
 }
 
 nav{
-	position: fixed;
 	width: 100%;
+	position: fixed;
 	background-color: white;
 	border-bottom: 1px solid lightgray;
 	z-index: 65538;
@@ -169,6 +183,7 @@ h2{
 }
 
 aside{
+	zoom: 100%;
 	position: fixed;
 	height: 100%;
 	background-color: whitesmoke;
@@ -177,6 +192,13 @@ aside{
 	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
 	padding: 0.5em;
 	font-size: small;
+}
+
+.inport{
+	cursor: alias;
+}
+.outport{
+	cursor: e-resize;
 }
 		</style>
 	</head>
@@ -191,8 +213,14 @@ aside{
 					<button id="btn-save">Save 💾</button>
 					<input id="filename" value="sample.syn" style="width: 96px; " placeholder="filename.syn">
 				</span>
-				<span style="margin-left: 1em; ">
+				<span style="margin-left: 1em; font-size: small; ">
 					<a href="tutorial/" target="_blank"><button>Tutorial 🔰</button></a>
+					<!--<span style="margin-left: 0.5em; ">Zoom <select id="zoom">
+						<option value="0.5">50 %</option>
+						<option value="0.75">75 %</option>
+						<option value="1.0" selected>100 %</option>
+						<option value="1.5">150 %</option>
+					</select></span>-->
 				</span>
 			</span>
 			<span style="float: right; margin-right: 2.5em; font-size: small; ">
