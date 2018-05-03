@@ -96,12 +96,15 @@ var Input = class extends Component{
 		this.initPort(Object.keys(this.In).length, Object.keys(this.Out).length);
 		this.ui_class = UiInput;
 		this._val = 0.0;
+		this._i = 0;
 	}
 
 	onChangeTime(e){
 		super.onChangeTime(e);
-		this.outs[this.Out.value].latch = 0.0;
-		this.update();
+		if (this._i++%65536==0){
+			this.outs[this.Out.value].latch = 0.0;
+			this.update();
+		}
 		this.outs[this.Out.value].latch = this._val;
 		return this.update();
 	}
