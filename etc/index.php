@@ -102,10 +102,15 @@
 					<div class="card-article tool-desc">3D プリントした BlueHood スタンプを郵送いたします。
 					私の趣味程度のため、無料、1 週間に 1 件程度の対応となります。</div>
 				</div></a>
-				<a class="a-disabled" href="3dpost"><div class="card tool">
+				<!--<a class="a-disabled" href="3dpost"><div class="card tool">
 					<h3>3D POST</h3>
 					<div class="card-article tool-desc">3D データを投函するサイト。
 					まだ、開発者 (@bluehood_admin) にしか送れないけどね。</div>
+				</div></a>-->
+				<a class="a-disabled" href="troopa"><div class="card tool">
+					<h3>Troopa 👀</h3>
+					<div class="card-article tool-desc">Web 上で動く Toy シンセサイザー。
+					PC 限定コンテンツです。</div>
 				</div></a>
 			</div>
 		</div>

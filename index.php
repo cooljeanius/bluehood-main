@@ -64,7 +64,7 @@
 						</tr></table>
 						<p><?php l($s['desc']); ?></p>
 						<a href="guide.php" class="linkbutton"><?php l($s['guide']); ?></a>
-						<a href="https://wikiwiki.jp/bluehood/" class="linkbutton"><?php l($s['wiki']); ?></a>
+						<!--<a href="https://wikiwiki.jp/bluehood/" class="linkbutton"><?php l($s['wiki']); ?></a>-->
 						<a href="https://twitter.com/bluehood_admin" target="_blank" class="linkbutton"><?php l($s['contact']); ?></a>
 						<div style="clear: both; "></div>
 					</div>
@@ -76,6 +76,8 @@
 			<?php } ?>
 			<?php if ((useragent() == '3ds')||(useragent() == 'new3ds')){ ?>
 				<span class="marginleft" style="font-size: small; ">ゲームメモを<a href="tweet/draw/gamememo/">コミック風</a>に！</span>
+			<?php }else{ ?>
+				<span class="marginleft" style="font-size: small; ">PC 限定! <a href="etc/troopa/">Troopa 👀</a> で音作り。</span>
 			<?php } ?>
 			<div style="clear: both; "></div>
 			<center>

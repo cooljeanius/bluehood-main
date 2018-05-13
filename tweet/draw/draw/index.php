@@ -467,7 +467,6 @@ if (canvas.getContext){
 
 	$('#stamp').click(function(){
 		var i = $('input[name=stamp]').attr('checked', false);
-		stamp.src = '';
 		$('#stamp-dialog').dialog('open');
 	});
 	$('input[name=stamp]').click(function(){

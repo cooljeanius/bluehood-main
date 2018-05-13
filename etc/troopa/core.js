@@ -203,7 +203,15 @@ var Component = class{
 		});
 	}
 
-	onSimStart(){}
+	onSimStart(){
+		this.ins.forEach((in_) => {
+			in_.initVal();
+		});
+		this.outs.forEach((out) => {
+			out.initVal();
+		});
+	}
+
 	onChangeIn(){
 		if (++this._loopcnt>=256){
 			throw "An infinite loop was occured. \nPlease insert \"Buffer\" to prevent it. ";
@@ -220,10 +228,14 @@ var Component = class{
 var PortIn = class{
 	constructor(){
 		this.com = null;
-		this.val = 0.0;
 		this.src = null;
 		this.isint = false;
 		this.id = UUID.generate();
+		this.initVal();
+	}
+
+	initVal(){
+		this.val = 0.0;
 	}
 
 	connect(src){
@@ -255,9 +267,13 @@ var PortOut = class{
 	constructor(){
 		this.tos = [];
 		this.to_ids = [];
+		this.isint = false;
+		this.initVal();
+	}
+
+	initVal(){
 		this._latch = 0.0;
 		this._val = 0.0;
-		this.isint = false;
 	}
 
 	get val(){

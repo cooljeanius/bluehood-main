@@ -4,7 +4,6 @@
 
 		<meta name="twitter:card" content="summary" />
 		<meta name="twitter:site" content="@bluehood_admin" />
-		<meta property="og:url" content="https://twiverse.net/etc/troopa/" />
 		<meta property="og:title" content="Troopa 👀" />
 		<meta property="og:description" content="The Web Toy Synthesizer. " />
 		<meta property="og:image" content="https://twiverse.net/etc/troopa/eyes.png" />
@@ -49,57 +48,79 @@
 			Triangle, 
 			Noise, 
 			Buffer, 
-			Amplifier, 
 			Mixer, 
+			Subtractor, 
+			Amplifier, 
+			Divider, 
 			Integrator, 
 			Differentiator, 
+			UpperSaturator,
+			LowerSaturator,
 			Speaker, 
+			Meter, 
 			Scope, 
 		], sk);
 
 		{
-			var file = JSON.parse('{"sketch":{"coms":[{"type":"Sine","id":"63c186b2-7337-44e5-96ea-a4ea8d6b2c3a","ins":[{"id":"38b207c5-38d3-4786-b866-72a7b91101fd","isint":false}],"outs":[{"tos":["e96b3686-b665-4b65-b08e-19a1c62eadb2"],"isint":false}]},{"type":"Speaker","id":"1c1e2194-65a6-4afd-82e5-8fb6482f0133","ins":[{"id":"e96b3686-b665-4b65-b08e-19a1c62eadb2","isint":false}],"outs":[{"tos":[],"isint":false}]},{"type":"Input","id":"9649b56d-6e77-4ace-8213-0fc7b4522d57","ins":[],"outs":[{"tos":["38b207c5-38d3-4786-b866-72a7b91101fd"],"isint":false}]}]},"ui":{"uicoms":[{"com_id":"63c186b2-7337-44e5-96ea-a4ea8d6b2c3a","x":482,"y":145,"name":"Sine","isrev":false},{"com_id":"1c1e2194-65a6-4afd-82e5-8fb6482f0133","x":685,"y":145,"name":"Speaker","isrev":false},{"com_id":"9649b56d-6e77-4ace-8213-0fc7b4522d57","x":285,"y":145,"name":"Input","isrev":false,"value":440}]}}');
+			var file = JSON.parse('{"sketch":{"coms":[{"type":"Sine","id":"63c186b2-7337-44e5-96ea-a4ea8d6b2c3a","ins":[{"id":"38b207c5-38d3-4786-b866-72a7b91101fd","isint":false}],"outs":[{"tos":["e96b3686-b665-4b65-b08e-19a1c62eadb2"],"isint":false}]},{"type":"Speaker","id":"1c1e2194-65a6-4afd-82e5-8fb6482f0133","ins":[{"id":"e96b3686-b665-4b65-b08e-19a1c62eadb2","isint":false}],"outs":[{"tos":["77a8677b-2d63-4f1a-8736-839cdb104ca7"],"isint":false}]},{"type":"Input","id":"9649b56d-6e77-4ace-8213-0fc7b4522d57","ins":[],"outs":[{"tos":["38b207c5-38d3-4786-b866-72a7b91101fd"],"isint":false}]},{"type":"Scope","id":"eb3b15a4-e97c-410a-b372-f08cedf94e35","ins":[{"id":"77a8677b-2d63-4f1a-8736-839cdb104ca7","isint":false}],"outs":[{"tos":[],"isint":false}]}]},"ui":{"uicoms":[{"com_id":"63c186b2-7337-44e5-96ea-a4ea8d6b2c3a","x":339,"y":84,"name":"Sine","isrev":false},{"com_id":"1c1e2194-65a6-4afd-82e5-8fb6482f0133","x":542,"y":84,"name":"Speaker","isrev":false},{"com_id":"9649b56d-6e77-4ace-8213-0fc7b4522d57","x":143,"y":84,"name":"Input","isrev":false,"value":440},{"com_id":"eb3b15a4-e97c-410a-b372-f08cedf94e35","x":757.125,"y":84,"name":"Scope","isrev":false,"mode":1,"trig":0,"skip":1}]}}');
 			var lut = sk.import(file.sketch);
 			edit.import(file.ui, lut);
 		}
 
-		
+		var ctx;
+		var scproc;
+		var loadman;
 		window.AudioContext = window.AudioContext||window.webkitAudioContext;
+		var simStart = () => {
+			var rate = 0;
+			var skip = 1;
+			var stdrate = 1;
 
-		var ctx = new AudioContext();
-		var scproc = ctx.createScriptProcessor();
+			ctx = new AudioContext();
+			scproc = ctx.createScriptProcessor(0, 0, 1);
+			scproc.connect(ctx.destination);
 
-		var frame = 0;
-		scproc.onaudioprocess = (e) => {
-			try{
-				var out_l = e.outputBuffer.getChannelData(0);
-				var out_r = e.outputBuffer.getChannelData(1);
-				var skip = 2;
-				var srate = e.outputBuffer.sampleRate/skip;
+			scproc.onaudioprocess = (e) => {
+				try{
+					var out = e.outputBuffer.getChannelData(0);
+					stdrate = e.outputBuffer.sampleRate;
+					var srate = stdrate/skip;
+					var dt = 1.0/srate;
+					//var curtime = (out_l.length*frame)/srate;
+					for(var i = 0; i<out.length; i+=skip){
+						//var time = curtime + i/srate;
+						g_spouts = [];
+						sk.onChangeTime({ dt: dt });
 
-				//var curtime = (out_l.length*frame)/srate;
-				for(var i = 0; i<out_l.length; i+=skip){
-					//var time = curtime + i/srate;
-					g_spouts = [];
-					sk.onChangeTime({ dt: 1.0/srate });
-
-					var sum = 0.0;
-					g_spouts.forEach((spout) => { sum += spout; });
-					for(var j = 0; j<skip; j++){
-						out_l[i + j] = out_r[i + j] = sum/g_spouts.length;
+						var sum = 0.0;
+						g_spouts.forEach((spout) => { sum += spout; });
+						for(var j = 0; j<skip; j++){
+							out[i + j] = sum/g_spouts.length;
+						}
 					}
+					rate += out.length;
+				}catch(e){
+					alert("Simulation error: "+e);
+					simEnd();
 				}
-				frame++;
-			}catch(e){
-				alert("Simulation error: "+e);
-				simEnd();
-			}
-		};
+			};
+
+			loadman = setInterval(() => {
+				skip += rate/stdrate<0.75;
+				rate = 0;
+			}, 1000);
+
+			sk.onSimStart();
+			$("#btn-play").html('Stop <span style="color: hotpink; ">🔇</span>');
+			$("nav").css("background-color", "mistyrose");
+		}
 
 		var simEnd = () => {
 			is_play = false;
 			scproc.disconnect(ctx.destination);
 			sk.onSimEnd();
+			ctx.close();
+			clearInterval(loadman);
 			$("#btn-play").html('Play <span style="color: hotpink; ">🔊</span>');
 			$("nav").css("background-color", "white");
 		};
@@ -107,10 +128,7 @@
 		$("#btn-play").click(() => {
 			is_play ^= true;
 			if (is_play){
-				sk.onSimStart();
-				scproc.connect(ctx.destination);
-				$("#btn-play").html('Stop <span style="color: hotpink; ">🔇</span>');
-				$("nav").css("background-color", "mistyrose");
+				simStart();
 			}else{
 				simEnd();
 			}
@@ -140,6 +158,32 @@
 			a.href = URL.createObjectURL(new Blob([JSON.stringify(file)], {type: "text/plain"}));
 			a.click();
 		});
+
+		$(window).on("keydown", (e) => {
+			if (e.key=="F5"){
+				$("#btn-play").click();
+				e.preventDefault();
+			}else if (e.key=="o" && e.ctrlKey){
+				$("#btn-load").click();
+				e.preventDefault();
+			}else if (e.key=="s" && e.ctrlKey){
+				$("#btn-save").click();
+				e.preventDefault();
+			}
+		});
+
+		var url_param = new URLSearchParams(location.search);
+		if (url_param.has("src")){
+			var src = url_param.get("src");
+			$.get(src, {}, (data) => {
+				var lut = sk.import(data.sketch);
+				edit.import(data.ui, lut);
+				$("#filename").val(src);
+			}, "json")
+			.fail(() => {
+				alert("Couldn't load the Sketch file: "+src+". ");
+			});
+		}
 
 		$(window).on("beforeunload", (e) => {
 			return true;
@@ -205,7 +249,7 @@ aside{
 	<body>
 		<nav>
 			<h1>Troopa</h1> <span style="font-size: large; ">👀</span>
-			<h2>: The Web Toy Synthesizer</h2>
+			<h2>: The Web Toy Synthesizer. </h2>
 			<span style="margin-left: 1em; ">
 				<button id="btn-play">Play <span style="color: hotpink; ">🔊</span></button>
 				<span style="margin-left: 1em; ">
@@ -215,6 +259,7 @@ aside{
 				</span>
 				<span style="margin-left: 1em; font-size: small; ">
 					<a href="tutorial/" target="_blank"><button>Tutorial 🔰</button></a>
+					<a href="community/" target="_blank"><button>Examples 🌐</button></a>
 					<!--<span style="margin-left: 0.5em; ">Zoom <select id="zoom">
 						<option value="0.5">50 %</option>
 						<option value="0.75">75 %</option>
