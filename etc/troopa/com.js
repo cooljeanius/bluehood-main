@@ -39,6 +39,18 @@ var Input = class extends Component{
 	set value(value){
 		this._val = value;
 	}
+
+	export(){
+		var ex = super.export();
+		ex.value = this._val;
+		return ex;
+	}
+
+	import(im){
+		var lut = super.import(im);
+		this._val = im.value;
+		return lut;
+	}
 };
 
 var UiInput = class extends UiComponent{
@@ -73,8 +85,9 @@ var UiInput = class extends UiComponent{
 	}
 
 	import(im){
-		super.import(im);
+		var lut = super.import(im);
 		this.value = im.value;
+		return lut;
 	}
 };
 
@@ -570,10 +583,11 @@ var ctx = this._canvas.getContext('2d');
 	}
 
 	import(im){
-		super.import(im);
+		var lut = super.import(im);
 		this.mode = im.mode;
 		this.trig = im.trig;
 		this.skip = im.skip;
+		return lut;
 	}
 
 	dispose(){
@@ -684,6 +698,131 @@ var Divider = class extends Component{
 	onChangeIn(){
 		super.onChangeIn();
 		this.outs[this.Out.div].latch = this.ins[this.In.in_1].val/this.ins[this.In.in_2].val;
+		return this.update();
+	}
+};
+
+var Custom = class extends Component{
+	get In(){ return this._ins; }
+	get Out(){ return this._outs; }
+
+	constructor(){
+		super();
+
+		this.ui_class = UiCustom;
+		this._sk = null;
+		this._ins = {};
+		this._outs = {};
+	}
+
+	set sketch(value){
+		this._sk = value;
+
+		this._sk.upInterface();
+		this.initPort(this._sk.int_ins.length, this._sk.int_outs.length);
+
+		this._sk.int_ins.forEach((int_in, i) => {
+			this._ins[int_in.int] = i;
+		});
+		this._sk.int_outs.forEach((int_out, i) => {
+			this._outs[int_out.int] = i;
+		});
+	}
+
+	update(){
+		if (this._sk){
+			var outs = this.outs;
+			this._sk.int_outs.forEach((int_out, i) => {
+				outs[i].latch = int_out.val;
+			});
+		}
+		var chcoms = super.update();
+		//console.log(chcoms);
+		return chcoms;
+	}
+
+	onSimStart(){
+		super.onSimStart();
+		if (this._sk){
+			this._sk.onSimStart();
+		}
+		//return this.update();
+	}
+
+	onChangeIn(){
+		super.onChangeIn();
+		if (this._sk){
+			var ins = this.ins;
+			var chins = [];
+			this._sk.int_ins.forEach((int_in, i) => {
+				if (int_in.val!=ins[i].val){
+					int_in.val = ins[i].val;
+					chins.push(int_in);
+				}
+			});
+
+			var chcoms = [];
+			chins.forEach((in_) => {
+				chcoms.push(in_.com);
+			});
+			chcoms = chcoms.filter((chcom, i) => { return i==chcoms.indexOf(chcom); });
+
+	                while(chcoms.length){
+	                        chcoms = chcoms.filter((chcom, i) => { return i==chcoms.indexOf(chcom); });
+	                        var com = chcoms.shift();
+	                        Array.prototype.push.apply(chcoms, com.onChangeIn());
+	                }
+		}
+		return this.update();
+	}
+
+	onChangeTime(e){
+		super.onChangeTime(e);
+		if (this._sk){
+			this._sk.onChangeTime(e);
+		}
+		return this.update();
+	}
+
+	onSimEnd(){
+		super.onSimEnd();
+		if (this._sk){
+			this._sk.onSimEnd();
+		}
+		//return this.update();
+	}
+
+	export(){
+		var ex = super.export();
+		ex.sketch = this._sk.export();
+		return ex;
+	}
+
+	import(im){
+		var sketch = new Sketch();
+		sketch.import(im.sketch);
+		this.sketch = sketch;
+		var lut = super.import(im);
+		return lut;
+	}
+
+}
+
+var UiCustom = class extends UiComponent{
+};
+
+var Repeater = class extends Component{
+	get In(){ return {in_: 0}; }
+	get Out(){ return {thru: 0, }; }
+
+	constructor(){
+		super();
+		this.initPort(Object.keys(this.In).length, Object.keys(this.Out).length);
+	}
+
+	onChangeIn(){
+		super.onChangeIn();
+		this.outs[this.Out.thru].latch = this.ins[this.In.in_].val;
 		return this.update();
 	}
 };

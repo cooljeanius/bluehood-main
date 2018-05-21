@@ -55,6 +55,39 @@ var Editor = class{
 		});
 		this._jqside.append(jqviewbtn);
 
+		var addMacro = (file, name) => {
+			var sk = new Sketch();
+	        	sk.import(file);
+
+			var com = new Custom();
+			com.sketch = sk;
+                        this.sk.appendCom(com);
+
+                        var uicom = new UiCustom(com, this);
+                        uicom.initDom();
+                        uicom.x = this._jqobj.scrollLeft() + Editor.border_left;
+                        uicom.y = this._jqobj.scrollTop() + Editor.border_top;
+			uicom.name = name;
+                        this.appendUiComponent(uicom);
+		}
+
+		var jqlibbtn = $('<br><button style="width: 100%; margin-top: 2ex; ">Library 📔</button>');
+		jqlibbtn.click((e) => {
+                        var input = document.createElement("input");
+                        input.type= "file";
+                        input.accept =".syn";
+                        input.onchange = (e) => {
+                                var reader = new FileReader();
+				var name = e.target.files[0].name.replace(".syn", "");
+                                reader.onloadend = (e) => {
+					addMacro(JSON.parse(e.target.result).sketch, name);
+                                };
+                                reader.readAsText(e.target.files[0]);
+                        };
+                        input.click();
+		});
+		this._jqside.append(jqlibbtn);
+
 		var jq_selevent = $(window);
 		this._jqsel = $('<div style="position: absolute; border: 1px dotted gray; z-index: 65536; "></div>');
 		var jqpointer = $('<span id="pointer" style="position: absolute; "></span>');
@@ -422,11 +455,14 @@ var UiPortIn = class{
 		this.src = null;
 		this.id = "";
 		this._isrev = isrev;
+		this._defaultname = "";
 
 		this.in_.ui = this;
 
 		this.id = UUID.generate();
-		this._jqname = $('<input readonly style="width: 40px; border: none; text-align: inherit; ">');
+		this._jqname = $('<input style="width: 48px; border: none; text-align: inherit; ">');
+		this._jqname.val(this.in_.int);
+		this.nameIntCheck();
 		this._jqradio = $('<input class="inport" type="checkbox">');
 		this._jqradio.attr("id", this.id);
 		this.jqobj = $("<div></div>");
@@ -463,6 +499,23 @@ var UiPortIn = class{
 			this.disconnect();
 			e.preventDefault();
 		});
+
+		this._jqname.change((e) => {
+			this.nameIntCheck();
+		});
+	}
+
+	nameIntCheck(){
+		if (this._jqname.val()==""){
+			this._jqname.val(this._defaultname);
+		}
+		if (this._defaultname!=this._jqname.val()){
+			this.in_.int = this._jqname.val();
+			this._jqname.css("background-color", "lightpink");
+		}else{
+			this.in_.int = "";
+			this._jqname.css("background-color", "white");
+		}
 	}
 
 	onMove(){
@@ -493,7 +546,8 @@ var UiPortIn = class{
 	}
 
 	set name(value){
-		this._jqname.val(value);
+		this._defaultname = value;
+		if (this.in_.int=="") this._jqname.val(value);
 	}
 
 	dispose(){
@@ -513,9 +567,12 @@ var UiPortOut = class{
 		this.tos = [];
 		this._isrev = isrev;
 		this._dragarrow = null;
+		this._defaultname = "";
 
 		this.id = UUID.generate();
-		this._jqname = $('<input readonly style="width: 40px; border: none; text-align: inherit; ">');
+		this._jqname = $('<input style="width: 48px; border: none; text-align: inherit; ">');
+		this._jqname.val(this.out.int);
+		this.nameIntCheck();
 		this._jqradio = $('<input class="outport" type="radio" draggable="true">');
 		this._jqradio.attr("id", this.id);
 
@@ -572,6 +629,23 @@ var UiPortOut = class{
 		this._jqradio.click((e) => {
 			e.preventDefault();
 		});
+
+		this._jqname.change((e) => {
+			this.nameIntCheck();
+		});
+	}
+
+	nameIntCheck(){
+		if (this._jqname.val()==""){
+			this._jqname.val(this._defaultname);
+		}
+		if (this._defaultname!=this._jqname.val()){
+			this.out.int = this._jqname.val();
+			this._jqname.css("background-color", "lightpink");
+		}else{
+			this.out.int = "";
+			this._jqname.css("background-color", "white");
+		}
 	}
 
 	initConnection(){
@@ -614,7 +688,8 @@ var UiPortOut = class{
 	}
 
 	set name(value){
-		this._jqname.val(value);
+		this._defaultname = value;
+		if (this.out.int=="") this._jqname.val(value);
 	}
 
 	dispose(){

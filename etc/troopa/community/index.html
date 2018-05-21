@@ -26,14 +26,18 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
 		
+		<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
 		<style>
 body{
 	margin: 0;
 	position: relative;
 	background-color: whitesmoke;
+	font-family: "Lato", sans-serif;
 }
 
 nav{
+	position: fixed;
+	z-index: 1;
 	width: 100%;
 	background-color: lemonchiffon;
 	border-bottom: 1px solid lightgray;
@@ -53,9 +57,19 @@ h2{
 }
 
 header{
+	width: 100%;
+	display: inline-block;
 	padding-top: 1ex;
 	text-align: center;
 	background-color: white;
+	padding-top: 4ex;	
+	text-align: center;
+}
+
+.header-container{
+	display: inline-block;
+	width: 980px;
+	text-align: left;
 }
 
 header h3{
@@ -77,14 +91,24 @@ p{
 
 article{
 	text-align: center;
+	line-height: 1.5;
 }
 article h3{
 	font-size: x-large;
 }
 .article-container{
 	display: inline-block;
-	width: 768px;
+	width: 980px;
 	text-align: left;
+}
+
+.troopa-component{
+	line-height: inherit;
+	display: inline-block; border-collapse: collapse; border: 1px solid lightgray; box-shadow: rgba(0, 0, 0, 0.4) 2px 2px 2px; background-color: white;
+	margin: 0 0.75em;
+}
+.troopa-component-header{
+	background-color: mistyrose; border-bottom: 1px solid lightgray; 
 }
 		</style>
 	</head>
@@ -101,6 +125,7 @@ article h3{
 			</span>
 		</nav>
 		<header>
+			<div class="header-container">
 			<div id="header-slider">
 				<div><table><tr>
 					<td style="padding-right: 4em; ">
@@ -121,6 +146,7 @@ article h3{
 					<td><img src="led_yellow.png" height="384px"></td>
 				</tr></table></div>
 			</div>
+			</div>
 			<script>
 $("#header-slider").slick({
 	dots: true,
@@ -129,10 +155,15 @@ $("#header-slider").slick({
 		</header>
 		<article><div class="article-container">
 			<h3>Examples</h3>
-			<table style="display: inline-block; border-collapse: collapse; border: 1px solid lightgray; box-shadow: rgba(0, 0, 0, 0.4) 2px 2px 2px; background-color: white; ">
-				<tr style="background-color: mistyrose; border-bottom: 1px solid lightgray; "><th style="width: 256px; padding: 0.25em; ">Sine Mixed Synthesizer</th></tr>
-				<tr><td style="padding: 0.75em; ">Superimposed sine waves.</td></tr>
+			<table class="troopa-component">
+				<tr class="troopa-component-header"><th style="width: 256px; ">Sine Mixed Synthesizer</th></tr>
+				<tr><td style="padding: 0.75em; ">Press a 'Q' key in Play mode! </td></tr>
 				<tr><td style="text-align: center; "><a href="..//?src=community%2FFM.syn" target="_blank"><button>Play 🎹</button></a></td></tr>
+			</table>
+			<table class="troopa-component">
+				<tr class="troopa-component-header"><th style="width: 256px; ">Timer</th></tr>
+				<tr><td style="padding: 0.75em; ">Alarm sounds at specified time. </td></tr>
+				<tr><td style="text-align: center; "><a href="..//?src=community%2Ftimer.syn" target="_blank"><button>Play 🎹</button></a></td></tr>
 			</table>
 		</div></article>
 	</body>

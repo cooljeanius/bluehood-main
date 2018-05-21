@@ -42,13 +42,11 @@ var Sketch = class{
 	}
 
 	upInterface(){
-		var int_ins = this.int_ins;
-		var int_outs = this.int_outs;
-		int_ins = [];
-		int_outs = [];
+		this.int_ins = [];
+		this.int_outs = [];
 		this.coms.forEach((com) => {
-			int_ins = int_ins.concat(com.int_ins);
-			int_outs = int_outs.concat(com.int_outs);
+			this.int_ins = this.int_ins.concat(com.int_ins);
+			this.int_outs = this.int_outs.concat(com.int_outs);
 		});
 	}
 
@@ -144,7 +142,7 @@ var Component = class{
 		var int_ins = [];
 
 		this.ins.forEach((in_) => {
-			if (in_.isint) int_ins.push(in_);
+			if (in_.int!="") int_ins.push(in_);
 		});
 		return int_ins;
 	}
@@ -153,7 +151,7 @@ var Component = class{
 		var int_outs = [];
 
 		this.outs.forEach((out) => {
-			if (out.isint) int_outs.push(out);
+			if (out.int!="") int_outs.push(out);
 		});
 		return int_outs;
 	}
@@ -229,7 +227,7 @@ var PortIn = class{
 	constructor(){
 		this.com = null;
 		this.src = null;
-		this.isint = false;
+		this.int = "";
 		this.id = UUID.generate();
 		this.initVal();
 	}
@@ -253,12 +251,12 @@ var PortIn = class{
 	}
 
 	export(){
-		return {id: this.id, isint: this.isint, };
+		return {id: this.id, int: this.int, };
 	}
 
 	import(im){
 		this.id = im.id;
-		this.isint = im.isint;
+		this.int = im.int;
 		return { id: this.id, inst: this };
 	}
 };
@@ -267,7 +265,7 @@ var PortOut = class{
 	constructor(){
 		this.tos = [];
 		this.to_ids = [];
-		this.isint = false;
+		this.int = "";
 		this.initVal();
 	}
 
@@ -285,9 +283,9 @@ var PortOut = class{
 	}
 
 	update(){
-		if (!isFinite(this._latch)){
+		/*if (!isFinite(this._latch)){
 			throw "An port value was diverged. ";
-		}
+		}*/
 		if (this._val != this._latch){
 			this._val = this._latch;
 
@@ -310,12 +308,12 @@ var PortOut = class{
 		this.tos.forEach((to) => {
 			tos.push(to.id);
 		});
-		return {tos: tos, isint: this.isint, };
+		return {tos: tos, int: this.int, };
 	}
 
 	import(im){
 		this.to_ids = im.tos;
-		this.isint = im.isint;
+		this.int = im.int;
 	}
 
 	connectById(lut){
@@ -331,73 +329,3 @@ var PortOut = class{
 	}
 };
 
-var Custom = class extends Component{
-	constructor(){
-		super();
-
-		this.phase = 0.0;
-		this._sk = null;
-	}
-
-	set sketch(value){
-		this._sk = value;
-
-		this._sk.upInterface();
-		this.initPort(this._sk.int_ins.length, this._sk.int_outs.length);
-	}
-
-	update(){
-		if (this._sk){
-			var outs = this.outs;
-			this._sk.int_outs.forEach((int_out, i) => {
-				outs[i].latch = int_out.val;
-			});
-		}
-		super.update();
-	}
-
-	onSimStart(){
-		if (this._sk){
-			this._sk.onSimStart();
-		}
-		this.update();
-	}
-
-	onChangeIn(){
-		if (this._sk){
-			var ins = this.ins;
-			var chins = [];
-			this._sk.int_ins.forEach((int_in, i) => {
-				if (int_in.val!=ins[i].val){
-					int_in.val = ins[i].val;
-					chins.push(int_in);
-				}
-			});
-
-			var chcoms = [];
-			chins.forEach((in_) => {
-				chcoms.push(in_.com);
-			});
-			chcoms = chcoms.filter((chcom, i) => { return i==chcoms.indexOf(chcom); });
-
-			chcoms.forEach((chcom) => {
-				chcom.onChangeIn();
-			});
-		}
-		this.update();
-	}
-
-	onChangeTime(e){
-		if (this._sk){
-			this._sk.onChangeTime(e);
-		}
-		this.update();
-	}
-
-	onSimEnd(){
-		if (this._sk){
-			this._sk.onSimEnd();
-		}
-		this.update();
-	}
-}
