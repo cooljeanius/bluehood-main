@@ -11,6 +11,7 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_CANONICAL_TARGET
 
 AM_INIT_AUTOMAKE([foreign])
+AM_MAINTAINER_MODE
 
 if test "x${PACKAGE}" = "x" && test "x${PACKAGE_NAME}" != "x"; then
   test -z "${PACKAGE}" && test -n "${PACKAGE_NAME}" && export PACKAGE="${PACKAGE_NAME}"

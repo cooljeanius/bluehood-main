@@ -1,0 +1,95 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR BlueHood Development Team
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#: Gettext/tests/TranslatorTest.php:265
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-16 13:31-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Gettext/tests/assets/phpcode2/input.php:3
+msgid "DATE \\a\\t TIME"
+msgstr ""
+
+#. i18n Tagged comment inside
+#: Gettext/tests/assets/phpcode2/input.php:30
+msgid "i18n Tagged comment inside"
+msgstr ""
+
+#: Gettext/tests/assets/phpcode4/input.php:3
+msgid "matching 1"
+msgstr ""
+
+#: Gettext/tests/assets/phpcode4/input.php:4
+msgid "matching 2 singular"
+msgid_plural "matching 2 plural"
+msgstr[0] ""
+msgstr[1] ""
+
+#: Gettext/tests/assets/phpcode4/input.php:8
+msgid "skip singular"
+msgid_plural "skip plural"
+msgstr[0] ""
+msgstr[1] ""
+
+#: Gettext/tests/assets/phpcode4/input.php:9
+msgid "skip"
+msgstr ""
+
+#: Gettext/tests/assets/phpcode4/input.php:12
+msgid "skip global 2"
+msgstr ""
+
+#. Test that non-plural translations the fallback still works.
+#. Test that if the translation is unknown, English plural rules are applied
+#: Gettext/tests/TranslatorTest.php:26 Gettext/tests/TranslatorTest.php:27
+#: Gettext/tests/TranslatorTest.php:68 Gettext/tests/TranslatorTest.php:74
+msgid "single"
+msgid_plural "more"
+msgstr[0] ""
+msgstr[1] ""
+
+#: Gettext/tests/TranslatorTest.php:29
+msgid "Integer"
+msgstr ""
+
+#: Gettext/tests/TranslatorTest.php:33
+msgid "This field cannot be blank."
+msgstr ""
+
+#: Gettext/tests/TranslatorTest.php:34
+#, possible-php-format
+msgid "Value %sr is not a valid choice."
+msgstr ""
+
+#. Test that nplural=3 plural translation check comes up with the correct translation key.
+#: Gettext/tests/TranslatorTest.php:60 Gettext/tests/TranslatorTest.php:61
+#: Gettext/tests/TranslatorTest.php:62 Gettext/tests/TranslatorTest.php:63
+#: Gettext/tests/TranslatorTest.php:64 Gettext/tests/TranslatorTest.php:65
+msgid "one file"
+msgid_plural "multiple files"
+msgstr[0] ""
+msgstr[1] ""
+
+#: Gettext/tests/TranslatorTest.php:253
+msgid "hello"
+msgstr ""
+
+#: Gettext/tests/TranslatorTest.php:254 Gettext/tests/TranslatorTest.php:255
+#: Gettext/tests/TranslatorTest.php:256
+msgid "world"
+msgid_plural "worlds"
+msgstr[0] ""
+msgstr[1] ""
