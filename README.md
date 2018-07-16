@@ -11,6 +11,7 @@ BlueHood requires the following dependencies to be installed to work:
   <li>MySQL</li>
   <li>An email client (e.g. Postfix)</li>
   <li>An administrative Twitter account</li>
+  <li>GNU autotools, including gettext (for development)</li>
 </ul>
 
 ## Installation
