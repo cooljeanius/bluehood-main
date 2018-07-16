@@ -1,1 +1,11 @@
 # List of source files which contain translatable strings.
+
+callback.php
+chgprof.php
+common.php
+feed.php
+guide.php
+index.php
+logout.php
+senderr.php
+twiverse.php
