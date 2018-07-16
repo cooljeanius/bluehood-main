@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh -ex
 
 #
 # po/bluehoodtext, based on src/gdb/po/gdbtext from gdb
