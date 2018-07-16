@@ -7,6 +7,8 @@
 
 	if (isset($_REQUEST['oauth_token']) && $_SESSION['oauth_token'] !== $_REQUEST['oauth_token']) {
 		die('認証エラー！<br>新ドメイン<a href="https://twiverse.net/">twiverse.net</a>でのアクセスをお試しください。');
+		//English: Authentication error! <br>
+		//Please try accessing the new domain <a href="https://twiverse.net/">twiverse.net</a> instead.
 	}
 
 	$conn = new TwitterOAuth(CONSUMER_KEY,CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);

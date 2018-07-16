@@ -14,7 +14,7 @@
 		'res_desc' => [
 			'ja' => 'BlueHoodは個人によって現在も開発中であり、不安定な要素を含みます。<br>
                         無保証で使用してくださるようお願いします。',
-			'en' => 'BlueHood is now underdevelopng, so has no warranty. ',
+			'en' => 'BlueHood is now under development, so it has no warranty. ',
 		],
 		'env' => ['ja' => '推奨環境', 'en' => 'Enviroment Requirements'],
 		'env_desc' => [
@@ -22,7 +22,7 @@
                         3DSからのお絵かき投稿はゲームメモを使用します。',
 			'en' => "Chrome browser is recommended to access from PC, tablet, and smartphone. <br>
 			This site shows Wii U version pages for PC, and 3DS version pages for smartphone. <br>
-			When posts a drawing from 3DS, you'll use GameNotes application. ",
+			When posting a drawing from 3DS, you'll need to use the Game Notes application. ",
 		],
 		'about' => ['ja' => 'BlueHoodはTwitterを通じて参加するサービス', 'en' => 'BlueHood, a service through Twitter'],
 		'about_desc' => [
@@ -41,7 +41,7 @@
                         ルールでは、いやがらせや個人情報についても明記されています(2017年9月13日現在)。<br>
                         くわしくは、<a href="https://support.twitter.com/articles/253501" target="_top">Twitterルール</a>を確認してください。',
 			'en' => 'To use BlueHood, you need to follow Twitter rules. <br>
-                        They mention also harassments and personal informations. <br>
+                        They mention also harassment and personal information. <br>
                         For more information, please refer <a href="https://support.twitter.com/articles/253501" target="_top">Twitter rules</a>. '
 		],
 		'violation' => ['ja' => '違反投稿かな？と思ったら', 'en' => 'Report violations to Twitter'],
@@ -49,7 +49,7 @@
 			'ja' => 'BlueHoodは、ツイートに対する管理権および義務を有しません。<br>
 			また、このガイドはTwitter利用に関する制限を規定するものではありません。<br>
 			違反投稿と思われるツイートを見つけたら、<a href="https://support.twitter.com/articles/253501" target="_top">Twitterルール</a>と照らし合わせ、<a href="https://support.twitter.com/articles/486421">Twitterへ報告</a>してください。',
-			'en' => 'BlueHood doesn\'t have rights and responsibilities of tweets. <br>
+			'en' => 'BlueHood doesn\'t have rights and responsibilities for tweets posted thru it. <br>
 			And this guide doesn\'t regulate your Twitter rules. <br>
 			When you encounter a violation, please check with <a href="https://support.twitter.com/articles/253501" target="_top">Twitter rules</a>, and <a href="https://support.twitter.com/articles/486421">Report to Twitter</a>. ',
 		],
@@ -61,7 +61,7 @@
                                 <li>通知があるとき、お気に入りおよびリツイートの件数を表示します。</li>
                         </ul>
                         通知機能の動作は無保証とします。',
-			'en' => 'BlueHood notification (<img src="'.ROOT_URL.'img/feed.png" alt="通知" style="width: 1em; "> icon) works through follow rules.
+			'en' => 'BlueHood notification (<img src="'.ROOT_URL.'img/feed.png" alt="notification" style="width: 1em; "> icon) works through follow rules.
                         <ul>
                                 <li>Check favorites and retweets when move pages. </li>
                                 <li>Show the count of favorites and retweets. </li>
