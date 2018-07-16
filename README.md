@@ -7,10 +7,10 @@ A universal game community on Twitter. <br>
 BlueHood requires the following dependencies to be installed to work:
 <ul>
   <li>Apache 2</li>
-  <li>PHP 5.6 (Yes, it's an old version)</li>
+  <li>PHP 5.6 (Yes, it's an old version)</li>
   <li>MySQL</li>
-  <li>An email client (e.g. Postfix)</li>
-  <li>An administrative Twitter account</li>
+  <li>An email client (e.g. Postfix)</li>
+  <li>An administrative Twitter account</li>
 </ul>
 
 ## Installation
