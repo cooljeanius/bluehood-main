@@ -1,6 +1,6 @@
 # BlueHood
 <img src="https://github.com/blue-hood/main/blob/master/img/twiverse/default.png"><br>
-An universal game community on Twitter. <br>
+A universal game community on Twitter. <br>
 <br>
 
 ## 動作環境
