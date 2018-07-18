@@ -4,7 +4,7 @@
 		'title' => ['ja' => 'お絵かき投稿スプリッター', 'en' => 'The drawing posts splitter', ],
 		'desc' => [
 			'ja' => 'スクリーンショット付きお絵かき投稿を、「スクリーンショット」と「お絵かき」に分割するツールです。',
-			'en' => 'By this tool, the drawing posts with screenshot can be splitted into drawing and screenshot. ',
+			'en' => 'With this tool, the drawing posts with screenshots can be split into drawing and screenshot. ',
 		],
 		'image_url' => [
 			'ja' => '画像のURL',

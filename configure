@@ -648,6 +648,9 @@ LIBOBJS
 EGREP
 GREP
 CPP
+MYSQL
+APACHE_MODULES
+APACHE
 am__fastdepCC_FALSE
 am__fastdepCC_TRUE
 CCDEPMODE
@@ -751,6 +754,7 @@ enable_option_checking
 enable_silent_rules
 enable_maintainer_mode
 enable_dependency_tracking
+with_apache
 enable_nls
 with_gnu_ld
 enable_rpath
@@ -1400,6 +1404,9 @@ Optional Features:
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+  --with-apache=PATH absolute path name of apache server (default is to search httpd in
+    /usr/local/apache/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin),
+    --without-apache to disable apache detection
   --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
   --with-libiconv-prefix[=DIR]  search for libiconv in DIR/include and DIR/lib
   --without-libiconv-prefix     don't search for libiconv in includedir and libdir
@@ -3994,7 +4001,212 @@ else
 fi
 
 
+#
+# Handle user hints
+#
 
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking if apache is wanted" >&5
+$as_echo_n "checking if apache is wanted... " >&6; }
+
+# Check whether --with-apache was given.
+if test "${with_apache+set}" = set; then :
+  withval=$with_apache;
+    #
+    # Run this if -with or -without was specified
+    #
+    if test "$withval" != no ; then
+       { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+       APACHE_WANTED=yes
+       if test "$withval" != yes ; then
+         APACHE="$withval"
+       fi
+    else
+       APACHE_WANTED=no
+       { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+    fi
+
+else
+
+    #
+    # Run this if nothing was said
+    #
+    APACHE_WANTED=yes
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+fi
+
+  #
+  # Now we know if we want apache or not, only go further if
+  # it's wanted.
+  #
+  if test $APACHE_WANTED = yes ; then
+    #
+    # If not specified by caller, search in standard places
+    #
+    if test -z "$APACHE" ; then
+      # Extract the first word of "httpd", so it can be a program name with args.
+set dummy httpd; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_APACHE+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $APACHE in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_APACHE="$APACHE" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+as_dummy="/usr/local/apache/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin"
+for as_dir in $as_dummy
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_APACHE="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+APACHE=$ac_cv_path_APACHE
+if test -n "$APACHE"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $APACHE" >&5
+$as_echo "$APACHE" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+    fi
+
+    if test -z "$APACHE" ; then
+        as_fn_error $? "\"apache server executable not found\"" "$LINENO" 5;
+    fi
+    #
+    # Collect apache version number. If for nothing else, this
+    # guaranties that httpd is a working apache executable.
+    #
+        APACHE_READABLE_VERSION=`$APACHE -v | grep 'Server version' | sed -e 's;.*Apache/\([0-9\.][0-9\.]*\).*;\1;'`
+        APACHE_VERSION=`echo $APACHE_READABLE_VERSION | sed -e 's/\.//g'`
+    if test -z "$APACHE_VERSION" ; then
+        as_fn_error $? "\"could not determine apache version number\"" "$LINENO" 5;
+    fi
+    APACHE_MAJOR=`expr $APACHE_VERSION : '\(..\)'`
+    APACHE_MINOR=`expr $APACHE_VERSION : '..\(.*\)'`
+    #
+    # Check that apache version matches requested version or above
+    #
+    if test -n "2.0.0" ; then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking apache version >= 2.0.0" >&5
+$as_echo_n "checking apache version >= 2.0.0... " >&6; }
+      APACHE_REQUEST=`echo 2.0.0 | sed -e 's/\.//g'`
+      APACHE_REQUEST_MAJOR=`expr $APACHE_REQUEST : '\(..\)'`
+      APACHE_REQUEST_MINOR=`expr $APACHE_REQUEST : '..\(.*\)'`
+      if test "$APACHE_MAJOR" -lt "$APACHE_REQUEST_MAJOR" -o "$APACHE_MINOR" -lt "$APACHE_REQUEST_MINOR" ; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+        as_fn_error $? "apache version is $APACHE_READABLE_VERSION" "$LINENO" 5
+      else
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+      fi
+    fi
+    #
+    # Find out if .so modules are in libexec/module.so or modules/module.so
+    #
+    HTTP_ROOT=`$APACHE -V | grep HTTPD_ROOT | sed -e 's/.*"\(.*\)"/\1/'`
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking apache modules" >&5
+$as_echo_n "checking apache modules... " >&6; }
+    for dir in libexec modules
+    do
+      if test -f $HTTP_ROOT/$dir/mod_env.*
+      then
+        APACHE_MODULES=$dir
+      fi
+    done
+    if test -z "$APACHE_MODULES"
+    then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: not found" >&5
+$as_echo "not found" >&6; }
+    else
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: in $HTTP_ROOT/$APACHE_MODULES" >&5
+$as_echo "in $HTTP_ROOT/$APACHE_MODULES" >&6; }
+    fi
+
+  fi
+
+
+
+if test "x${ALLOW_MYSQL_TO_BREAK_MY_BUILD}" = "xyes"; then :
+
+
+# Extract the first word of "mysql$EXEEXT", so it can be a program name with args.
+set dummy mysql$EXEEXT; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_MYSQL+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $MYSQL in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_MYSQL="$MYSQL" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_MYSQL="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  test -z "$ac_cv_path_MYSQL" && ac_cv_path_MYSQL="nocommand"
+  ;;
+esac
+fi
+MYSQL=$ac_cv_path_MYSQL
+if test -n "$MYSQL"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MYSQL" >&5
+$as_echo "$MYSQL" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+if test "$MYSQL" = nocommand; then
+        as_fn_error $? "mysql not found in $PATH" "$LINENO" 5
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking if mysql works" >&5
+$as_echo_n "checking if mysql works... " >&6; }
+if echo 'SELECT * FROM user' | $MYSQL -u root -prootpass mysql > /dev/null; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+else
+        { $as_echo "$as_me:${as_lineno-$LINENO}: Before installation, set MySQL root password to rootpass; restore your root password afterwards." >&5
+$as_echo "$as_me: Before installation, set MySQL root password to rootpass; restore your root password afterwards." >&6;}
+        as_fn_error $? "mysql cannot execute SELECT with root password = rootpass" "$LINENO" 5
+fi;
+
+fi
 # Checks for header files.
 
 ac_ext=c

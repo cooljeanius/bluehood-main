@@ -1,6 +1,6 @@
 <?php
 	include('/var/www/twiverse.php');
-	twitter_admin();	// アクセス帯域制限
+	twitter_admin(); // アクセス帯域制限 (Access band limit)
 
 	function reshtml($res){
 		$html = "";
@@ -50,7 +50,7 @@ if (isset($_FILES["image"]["tmp_name"])){
 	?>
 		<img src="data:image;base64,<?php echo $image; ?>">
 	<?php
-	// リクエスト用のJSONを作成
+	// リクエスト用のJSONを作成 (Create JSON for request)
 	$json = json_encode( array(
 		"requests" => array(
 			array(
@@ -69,7 +69,7 @@ if (isset($_FILES["image"]["tmp_name"])){
 			) ,
 		) ,
 	) ) ;
-	// リクエストを実行
+	// リクエストを実行 (Execute request)
 	$curl = curl_init() ;
 	curl_setopt( $curl, CURLOPT_URL, "https://vision.googleapis.com/v1/images:annotate?key=".GOOGLE_CLOUD_PLATFORM_KEY) ;
 	curl_setopt( $curl, CURLOPT_HEADER, true ) ; 
@@ -83,9 +83,9 @@ if (isset($_FILES["image"]["tmp_name"])){
 	$res1 = curl_exec( $curl ) ;
 	$res2 = curl_getinfo( $curl ) ;
 	curl_close( $curl ) ;
-	// 取得したデータ
-	$json = substr( $res1, $res2["header_size"] ) ;				// 取得したJSON
-	$header = substr( $res1, 0, $res2["header_size"] ) ;		// レスポンスヘッダー
+	// 取得したデータ (The acquired data)
+	$json = substr( $res1, $res2["header_size"] ) ;	// 取得したJSON (The obtained JSON)
+	$header = substr( $res1, 0, $res2["header_size"] ) ; // レスポンスヘッダー (Response header)
 	$vision_res = json_decode($json);
 
 		?>

@@ -12,23 +12,23 @@
 				Wii U・PC・スマホ等で描いたお絵かきが対象です。
 				ゲームメモからのお絵かきには未対応です。',
 			'en' => 'A tool to split drawing posts with screenshot into screenshot and drawing. 
-				This supports drawing posts by Wii U, PC, smartphone, etc only, not gamememo on 3DS. ',
+				This supports drawing posts by Wii U, PC, smartphone, etc. only, not Game Notes on 3DS. ',
 		],
 		'nfcbattler' => ['ja' => 'NFC Battler', 'en' => 'NFC Battler', ],
 		'nfcbattler_desc' => [
 			'ja' => 'あなたが持ってるNFCタグ(amiiboやSuicaなど)の戦闘力を測定します。
 				測定にはWii Uが必要です。',
-			'en' => 'Your NFC Tags (amiibo, etc) can be measured own combat power by this tool. 
+			'en' => 'Your NFC Tags (amiibo, etc.) can be measured for their own combat power by this tool. 
 				Wii U Internet Browser only. ',
 		],
-		'filter' => ['ja' => 'コミカルフィルター', 'en' => 'The filter for Gamememo', ],
+		'filter' => ['ja' => 'コミカルフィルター', 'en' => 'The filter for Game Notes', ],
 		'filter_desc' => [
 			'ja' => '3DSのゲームメモで描いたお絵かきがコミック風になるフィルターです。
 				赤色と青色にトーンが付き、白黒になります。
 				お絵かき投稿の一部に組み込まれてますので、まずはゲームメモの画像ファイルを選んでください。',
-			'en' => 'A image filter for 3DS Gamememo, it may make your Gamememos more clear. 
-				Red and blue areas are replaced to tones, and your drawings change like comic. 
-				This tool is included to the drawing post page, so please select your Gamememo image file first. ',
+			'en' => 'A image filter for 3DS Game Notes, it may make your Game Notes more clear. 
+				Red and blue areas are replaced with tones, and your drawings change to look like a comic. 
+				This tool is included on the drawing post page, so please select your Game Notes image file first. ',
 		],
 		'album' => ['ja' => 'アルバム', 'en' => 'Album', ],
 		'album_desc' => [

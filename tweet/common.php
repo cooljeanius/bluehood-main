@@ -34,7 +34,7 @@
 				}
 				// All Posts
 				$twitter_admin->post('collections/entries/add', ['id' => 'custom-'.ALL_POSTS, 'tweet_id' => $status->id_str]);
-				// マイページ
+				// マイページ (my page)
 				if (isset($_SESSION['twitter']['account']['collection_id'])) $twitter->post('collections/entries/add', ['id' => $_SESSION['twitter']['account']['collection_id'], 'tweet_id' => $status->id_str]);
 			}
 			mysql_close();
@@ -112,7 +112,7 @@
 	$twitter = twitter_start();
 	$msg = '';
 
-	/* 画像 -> soft_id, $_SESSION['post_image']*/
+	/* 画像 (image) -> soft_id, $_SESSION['post_image']*/
 	if ($filename){
 		$_SESSION['post_image'] = base64_encode(file_get_contents($filename));
 
@@ -186,7 +186,7 @@
 				if (($detector=='3D')||($detector=='DS')||($detector=='PV')||($detector=='P4')||($detector=='WU')) return [];
 			}
 
-			// リクエスト用のJSONを作成
+			// リクエスト用のJSONを作成 (Create JSON for request)
 			$json = json_encode( array(
 				"requests" => array(
 					array(
@@ -202,7 +202,7 @@
 					) ,
 				) ,
 			) ) ;
-			// リクエストを実行
+			// リクエストを実行 (Execute request)
 			$curl = curl_init() ;
 			curl_setopt( $curl, CURLOPT_URL, "https://vision.googleapis.com/v1/images:annotate?key=".GOOGLE_CLOUD_PLATFORM_KEY) ;
 			curl_setopt( $curl, CURLOPT_HEADER, true ) ; 
@@ -216,9 +216,9 @@
 			$res1 = curl_exec( $curl ) ;
 			$res2 = curl_getinfo( $curl ) ;
 			curl_close( $curl ) ;
-			// 取得したデータ
-			$json = substr( $res1, $res2["header_size"] ) ;				// 取得したJSON
-			$header = substr( $res1, 0, $res2["header_size"] ) ;		// レスポンスヘッダー
+			// 取得したデータ (The acquired data)
+			$json = substr( $res1, $res2["header_size"] ) ; // 取得したJSON (The obtained JSON)
+			$header = substr( $res1, 0, $res2["header_size"] ) ; // レスポンスヘッダー (Response header)
 			$vision_res = json_decode($json);
 
 			foreach($vision_res->responses[0]->webDetection->webEntities as $webentity){
@@ -242,7 +242,7 @@
 		if ($set['en_DS']) $soft_ids = array_merge_recursive($soft_ids, detector_ds($exif));
 		if ($set['en_P4']) $soft_ids = array_merge_recursive($soft_ids, detector_ps4($exif));
 		if ($set['en_MD']) $soft_ids = array_merge_recursive($soft_ids, detector_model($exif));
-		if ($set['en_AI']) $soft_ids = array_merge_recursive($soft_ids, detector_ai($soft_ids));	/* AI ディテクタは最後に行う*/
+		if ($set['en_AI']) $soft_ids = array_merge_recursive($soft_ids, detector_ai($soft_ids)); /* AI ディテクタは最後に行う (Do the AI detector last) */
 		mysql_close();
 
 	}else if (isset($selalbum)){
@@ -255,7 +255,7 @@
 		}
 		$image = file_get_contents($status->entities->media[0]->media_url_https);
 		$_SESSION['post_image'] = base64_encode($image);
-	}else{	// 画像を外す
+	}else{	// 画像を外す (Remove images)
 		unset($_SESSION['post_image']);
 	}
 

@@ -28,6 +28,12 @@ fi
 
 # Checks for programs.
 AC_PROG_CC
+AX_PROG_APACHE([2.0.0])
+m4_ifdef([AX_PROG_MYSQL],[
+  AS_IF([test "x${ALLOW_MYSQL_TO_BREAK_MY_BUILD}" = "xyes"],[
+    AX_PROG_MYSQL
+  ])dnl
+])dnl
 
 # Checks for header files.
 AC_CHECK_HEADERS([libintl.h locale.h])
