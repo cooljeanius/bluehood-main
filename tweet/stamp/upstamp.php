@@ -40,12 +40,12 @@
 		mysql_start();
 		mysql_throw(mysql_query("insert into tweet (id, comm_id, screen_name, hide, time) values (".$status->id.", '".COMMID_STAMP."', '".$status->user->screen_name."', false, now())"));
 		mysql_close();
-		/* コレクション登録 */
+		/* コレクション登録 (Create Collection) */
 		$twitter_admin = twitter_admin();
 		twitter_throw($twitter_admin->post('collections/entries/add', ['id' => 'custom-'.COLLECTON_STAMP, 'tweet_id' => $status->id_str]));
 		// All Posts
 		$twitter_admin->post('collections/entries/add', ['id' => 'custom-'.ALL_POSTS, 'tweet_id' => $status->id_str]);
-		// マイページ
+		// マイページ (my page)
 		if (isset($_SESSION['twitter']['account']['collection_id'])) $twitter->post('collections/entries/add', ['id' => $_SESSION['twitter']['account']['collection_id'], 'tweet_id' => $status->id_str]);
 
 		header('location: '.DOMAIN.ROOT_URL.'view/stamp/');

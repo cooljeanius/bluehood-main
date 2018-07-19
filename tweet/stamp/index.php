@@ -224,7 +224,7 @@ var preview_zoom = 2;
 			$.post(tweet_url+'backupst.php', {stamp: JSON.stringify(edit_data)}, function(res){
 				alert(res);
 			}, 'html').fail(function(jqXHR, textStatus, errorThrown){
-				alert("エラーが発生しました。\n" + errorThrown);	// alert ではなく、throw したい。
+				alert("エラーが発生しました。\n" + errorThrown);	// alert ではなく (not an alert)、throw したい。 (I want to throw)
 			});
 		});
 

@@ -1,7 +1,7 @@
 <?php
 	include('/var/www/twiverse.php');
 	unset($_SESSION['collection_cursor']);
-	$twitter = twitter_start();	// 手もちスタンプの管理のため、ログイン必要
+	$twitter = twitter_start();	// 手もちスタンプの管理のため、ログイン必要 (Login is necessary for hand stick stamp management)
 
 	$s = [
 		'title' => ['ja' => "スタンプ", 'en' => "Stamp", ],

@@ -143,7 +143,7 @@ canvas{
 		});</script>
 		<script type="text/javascript" src="../../common.js"></script>
 		<script>
-var prevdata_max = 11;	// UNDO バッファサイズ
+var prevdata_max = 11;	// UNDO バッファサイズ (UNDO buffer size)
 canvas_width *= 2;
 canvas_height *= 2;
 
@@ -284,7 +284,7 @@ if (canvas.getContext){
 		y = Math.floor((y - width)/2);
 		if (mode == 'draw'){
 		}else if (mode == 'stamp'){
-			$('#stamp-canvas')[0].width = stamp.width;	/* ピクセル操作を使って、ギザギザの拡大を無理やり実現 */
+			$('#stamp-canvas')[0].width = stamp.width;	/* ピクセル操作を使って、ギザギザの拡大を無理やり実現 (Use pixel manipulation to forcibly realize jagged expansion) */
 			$('#stamp-canvas')[0].height = stamp.height;
 			stamp_ctx.drawImage(stamp, 0, 0, stamp.width, stamp.height, 0, 0, stamp.width, stamp.height);
 			var stamp_data = stamp_ctx.getImageData(0, 0, stamp.width, stamp.height).data;

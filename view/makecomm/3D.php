@@ -1,10 +1,10 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
-		'err_exif' => ['ja' => "正常な識別情報が見つかりません。3DS で撮影したスクリーンショットを送信してください。", 'en' => "Not found the right exif data. Please send screenshots made from 3DS. ", ],
+		'err_exif' => ['ja' => "正常な識別情報が見つかりません。3DS で撮影したスクリーンショットを送信してください。", 'en' => "The right exif data was not found. Please send screenshots made from 3DS. ", ],
 		'err_name' => ['ja' => "ソフト名を入力してください。", 'en' => "Please enter software's name. ", ],
 		'err_length' => ['ja' => "ソフト名を25文字以内で入力してください。", 'en' => "Software's name is max 25 characters. ", ],
-		'err' => ['ja' => "エラーが発生しました。", 'en' => "An error was occured. ", ],
+		'err' => ['ja' => "エラーが発生しました。", 'en' => "An error has occured. ", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 

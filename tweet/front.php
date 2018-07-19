@@ -6,7 +6,7 @@
 		'notfound' => ['ja' => "コミュニティが存在しません。", 'en' => "The community was not found. ", ],
 		'requirement' => [
 			'ja' => "コミュニティに投稿するには、スクリーンショットを添付する必要があります。",
-			'en' => "To post this community, please attach screenshot. ",
+			'en' => "To post this community, please attach a screenshot. ",
 		],
 		//'' => ['ja' => "", 'en' => ""],
 	];
@@ -31,7 +31,7 @@
 		?><script>detect = JSON.parse('<?php echo json_encode($detect); ?>'); </script><?php
 	}
 
-	/* 下書き */
+	/* 下書き (draft) */
         echo '<script>var draft_draw = undefined; </script>';
 	mysql_start();
         $res = mysql_fetch_assoc(mysql_query("select draft_draw from user where id=".$_SESSION['twitter']['id']));

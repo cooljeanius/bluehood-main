@@ -5,7 +5,7 @@
 	];
 
 	try{
-		$twitter = twitter_start();	// screen_name 認証のため必要
+		$twitter = twitter_start();	// screen_name 認証のため必要 (required for authentication)
 
 		mysql_start();
 
