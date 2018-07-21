@@ -1,4 +1,7 @@
 <?php
+	$s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 	session_start();
 	require_once 'twitteroauth/autoload.php';
 	use Abraham\TwitterOAuth\TwitterOAuth;

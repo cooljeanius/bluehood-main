@@ -1,7 +1,6 @@
 <?php
 	include('/var/www/twiverse.php');
 	include('common.php');
-
 	$s = [
 		'notfound' => ['ja' => "コミュニティが存在しません。", 'en' => "The community was not found. ", ],
 		'requirement' => [

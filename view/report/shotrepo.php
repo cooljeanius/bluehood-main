@@ -4,6 +4,9 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 
 	$content = '';
 	if ($_FILES['selimg']['name'] != ''){

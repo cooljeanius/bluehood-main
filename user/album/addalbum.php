@@ -1,5 +1,8 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 
 	try{
 	if ($_FILES['screenshot']['name'] != ''){

@@ -1,5 +1,8 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 	twitter_admin(); // アクセス帯域制限 (Access band limit)
 
 	function reshtml($res){

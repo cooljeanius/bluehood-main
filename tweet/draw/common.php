@@ -1,6 +1,9 @@
 <?php
 	include('/var/www/twiverse.php');
-        include('../../common.php');
+    include('../../common.php');
+    $s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 
 	function post_draw($thumb_path, $draw_path){
 	$twitter = twitter_start();

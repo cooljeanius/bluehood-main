@@ -1,5 +1,8 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 
 	function dropTweet($status, $twitter, $hide, $comm_ids){
 		try{

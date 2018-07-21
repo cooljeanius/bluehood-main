@@ -1,5 +1,8 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 ?>
 
 <!DOCTYPE html>

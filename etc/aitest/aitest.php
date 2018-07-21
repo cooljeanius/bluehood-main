@@ -1,5 +1,8 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 	twitter_start();	// 外部攻撃対策 (External attack countermeasure)
 
 	// リクエスト用のJSONを作成 (Create JSON for request)

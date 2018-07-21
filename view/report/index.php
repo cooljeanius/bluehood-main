@@ -1,4 +1,9 @@
-<?php include('/var/www/twiverse.php'); ?>
+<?php
+	include('/var/www/twiverse.php');
+	$s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
+?>
 
 <!DOCTYPE html>
 <html lang = "ja">

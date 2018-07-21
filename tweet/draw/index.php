@@ -1,5 +1,8 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 	$conn = twitter_start();
 	$query = $_SERVER['QUERY_STRING'];
 	if ((useragent() != '3ds')&&(useragent() != 'new3ds')){

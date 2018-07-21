@@ -1,6 +1,9 @@
 <?php
-        include('/var/www/twiverse.php');
-        include('../common.php');
+    include('/var/www/twiverse.php');
+    include('../common.php');
+    $s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 
 	try{
 

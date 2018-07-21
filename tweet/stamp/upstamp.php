@@ -1,5 +1,8 @@
 <?php
-        include('/var/www/twiverse.php');
+    include('/var/www/twiverse.php');
+    $s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 
 	try{
 	if (isset($_POST['stamp'])){

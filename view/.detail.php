@@ -1,5 +1,8 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 	$conn = twitter_reader();
 
 	if (!isset($_GET['query'])) die('検索条件が指定されていません。');

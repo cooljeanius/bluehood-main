@@ -1,5 +1,8 @@
 <?php
-        include('/var/www/twiverse.php');
+    include('/var/www/twiverse.php');
+    $s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 	$ver = (int)2;
 
 	if ($_GET['img']){

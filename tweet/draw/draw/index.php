@@ -1,5 +1,6 @@
 <?php
 	include('/var/www/twiverse.php');
+	//$s comes a bit later...
 	$conn = twitter_start();
 
 	include('../../front.php');

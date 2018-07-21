@@ -2,7 +2,6 @@
 	include('/var/www/twiverse.php');
 	//unset($_SESSION['collection_cursor']);
 	twitter_start();
-
 	$s = [
 		'more' => ['ja' => "もっとみる", 'en' => "More"],
 	];

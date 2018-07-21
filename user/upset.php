@@ -1,5 +1,8 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 
 	try{
 		if ($_POST['draw_width']<0 || $_POST['draw_width']>440) throw new Exception('キャンバスの横サイズは 0 から 440 までにしてください。');

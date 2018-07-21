@@ -1,9 +1,12 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 	$conn = twitter_start();
 
 	unset($_SESSION['gamememo']);
-        unset($_SESSION['draw']);
+    unset($_SESSION['draw']);
 
 	include('../../front.php');
 ?>

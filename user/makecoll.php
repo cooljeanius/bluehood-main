@@ -1,5 +1,8 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 
         $conn = twitter_start();
 	$collection = $conn->post('collections/create', ['name' => 'Twiverse']);
