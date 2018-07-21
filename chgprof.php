@@ -1,6 +1,23 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
+		'name' => [ 'ja' => "グレたノコノコ", 'en' => "Gray Koopa Troopa", ],
+		'desc' => [
+			'ja' => "BlueHood の夜の姿。
+			すきなものはカメラ、カメン、ツタンカ～メン。
+			カメオカート8デラックスでは、カロンはいつもほうたいをもちあるいてます。
+			ヘイホーはカメンをかぶってるからなかまです。
+			パタパタにあこがれてます。
+			ヨッシーがてんてき。
+			",
+			'en' => "BlueHood's night appearance.
+			My favorite things are cameras, masks, and Tutankhamen.
+			In Kameo Kart 8 Deluxe, Dry Bones always has fantastic taste.
+			Because Shy Guy is wearing a mask, it is alright.
+			I long for a Paratroopa.
+			Yoshi is strange.
+			",
+		],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 

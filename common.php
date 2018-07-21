@@ -1,5 +1,17 @@
 <?php
 	$s = [
+		'login' => ['ja' => "ログイン", 'en' => "login", ],
+		'needslogin' => [
+			'ja' => "これより先はTwitterアカウントによるログインが必要です。",
+			'en' => "Logging in with a Twitter account is necessary after this.",
+		],
+		'ratelim' => [
+			'ja' => "レートリミットを超過しました。<br>しばらくしてから、再度アクセスしてください。",
+			'en' => "Rate limit exceeded. <br> Please try again after a while.",
+		],
+		'mypage' => ['ja' => "マイページ", 'en' => "My Page", ],
+		'community' => ['ja' => "コミュニティ", 'en' => "community", ],
+		//Still a few missing, come back to later...
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 	session_start();
