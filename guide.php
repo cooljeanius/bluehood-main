@@ -68,7 +68,15 @@
                         </ul>
                         BlueHood notification is especially no warranty. ',
 		],
+		'opt1' => ['ja' => "1. BlueHood とは?", 'en' => "1. What is BlueHood?", ],
+		'opt2' => ['ja' => "2. 準備しよう", 'en' => "2. Let's prepare", ],
+		'opt3' => ['ja' => "3. コンテンツの紹介", 'en' => "3. Introduction of contents", ],
+		'opt4' => ['ja' => "4. BlueHood のルール", 'en' => "4. BlueHood's rules", ],
 		//Still a few more...
+		'disclaimer' => [
+			'ja' => "本 Web サイト中の製品名は、各社の商標です。",
+			'en' => "Product names in this website are trademarks of each company.",
+		],
 		//'' => ['ja' => '', 'en' => ''],
 	];
 ?>

@@ -9,6 +9,23 @@
 		'wiki' => ['ja' => 'Wiki', 'en' => "Wiki", ],
 		'contact' => ['ja' => '公式 Twitter', 'en' => "Admin's Twitter", ],
 		'allposts' => ['ja' => 'すべての投稿', 'en' => 'All posts', ],
+		'uacheck' => ['ja' => "Wii U限定！", 'en' => "Limited to the Wii U!", ],
+		'nfcbattler' => ['ja' => "NFC Battlerであそぼう！", 'en' => "Let's play with NFC Battler!", ],
+		'gamememo' => ['ja' => "ゲームメモをコミック風に！", 'en' => "Game Notes in a comic book style!", ],
+		'uacheck2' => ['ja' => "PC 限定! ", 'en' => "Limited to the PC!", ],
+		'Troopa' => ['ja' => "Troopa で音作り。", 'en' => "Make sound with Troopa.", ],
+		'alert1' => [
+			'ja' => "NFCリーダーを使った面白いゲームが作れそう！",
+			'en' => "I can make an interesting game using your NFC reader!",
+		],
+		'alert2' => [
+			'ja' => "Wii Uのブラウザでは、amiibo以外のNFCタグ (Suicaなど) も読み取ることができます。",
+			'en' => "With the Wii U's browser, you can also read NFC tags (such as Suica) other than amiibo.",
+		],
+		'alert3' => [
+			'ja' => "ゲームの名前は、「NFC Battler」?",
+			'en' => "The name of the game is \"NFC Battler\"?",
+		],
 		//'' => ['ja' => '', 'en' => '', ],
 	];
 ?>

@@ -43,6 +43,22 @@
 			'en' => "The stamp creator for drawing tool on Wii U, PC, smartphone, etc. 
 				But, it doesn't work comfortably",
 		],
+		'form' => ['ja' => "BlueHood スタンプ申込フォーム", 'en' => "BlueHood stamp application form", ],
+		'printer_desc' => [
+			'ja' => "3D プリントした BlueHood スタンプを郵送いたします。
+					私の趣味程度のため、無料、1 週間に 1 件程度の対応となります。",
+			'en' => "We will send a 3D printed BlueHood stamp by post. Because it is about my hobby, it will be free, about 1 case per week.",
+		],
+		'card_tool_desc' => [
+			'ja' => "3D データを投函するサイト。
+					まだ、開発者 (@bluehood_admin) にしか送れないけどね。",
+			'en' => "A site that posts 3D data. So far, I can only send it to the developer (@bluehood_admin).",
+		],
+		'Troopa_desc' => [
+			'ja' => "Web 上で動く Toy シンセサイザー。
+					PC 限定コンテンツです。",
+			'en' => "A toy synthesizer that runs on the web. It is PC-only content.",
+		],
 		//'' => ['ja' => , 'en' => '', ],
 	];
 ?>
