@@ -1,6 +1,9 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
+		'subject' => [
+			'ja' => "BlueHood エラー報告", 'en' => "BlueHood error report",
+		],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 

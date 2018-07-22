@@ -9,6 +9,7 @@
 		'wiki' => ['ja' => 'Wiki', 'en' => "Wiki", ],
 		'contact' => ['ja' => '公式 Twitter', 'en' => "Admin's Twitter", ],
 		'allposts' => ['ja' => 'すべての投稿', 'en' => 'All posts', ],
+		//'' => ['ja' => '', 'en' => '', ],
 	];
 ?>
 
@@ -115,7 +116,8 @@
 				var tag = customEvent.tag;
 				//console.log(tag);
 				if (tag.isRead){
-					var type = ['normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighter', 'poison', 'ground', 'flight', 'esper', 'bug', 'stone', 'ghost', 'metal', 'fairy'];
+					//assuming these are the Pokémon types; changing them to their proper English names:
+					var type = ['normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dark', 'steel', 'fairy'];
 
 					amiibo.playAmiiboSE();
 					alert('This amiibo is "'+type[Number(tag.common.characterId)%type.length]+'" type(?). \n\nNFCリーダーを使った面白いゲームが作れそう！\nWii Uのブラウザでは、amiibo以外のNFCタグ (Suicaなど) も読み取ることができます。\nゲームの名前は、「NFC Battler」?' );

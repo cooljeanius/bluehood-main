@@ -1,6 +1,16 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
+		'htoti' => [
+			'ja' => "この画像のハッシュタグは……",
+			'en' => "Hashtag of this image……",
+		],
+		'score' => [ 'ja' => "スコア", 'en' => "score", ],
+		'whatitdid' => [ 'ja' => "と判定されました。", 'en' => "It was judged.", ],
+		'subject' => [
+			'ja' => "画像認識テスト",
+			'en' => "Image recognition test",
+		],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 	twitter_start();	// 外部攻撃対策 (External attack countermeasure)

@@ -1,5 +1,22 @@
 <?php include('/var/www/twiverse.php');
 	$s = [
+		'title' => ['ja' => "画像認識テスト", 'en' => "Image recognition test", ],
+		'desc' => [
+			'ja' => "Google Cloud Vision API を利用して、画像から #ハッシュタグ を自動生成するテストページです。",
+			'en' => "A test page that automatically generates #hashtags from images using the Google Cloud Vision API.",
+		],
+		'l2' => [
+			'ja' => "Google Cloud Vision API の使用量を計測するため、送信ボタンを押すと @bluehood_admin にメールが送信されます。",
+			'en' => "To measure the usage of Google Cloud Vision API, press the submit button and a message will be sent to @bluehood_admin.",
+		],
+		'l3' => [
+			'ja' => "メールの内容は「画像認識テスト」の一文のみであり、送信画像や利用者情報などは含まれません。",
+			'en' => "The content of the email is only one sentence saying \"image recognition test\", and it does not include transmitted images, user information, etc.",
+		],
+		'Iwataism' => [
+			'ja' => "ご了承くださいm(__)m", 'en' => "Please understand m(__)m",
+		],
+		'waitmsg' => [ 'ja' => "処理中…", 'en' => "processing…", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 	twitter_start();
