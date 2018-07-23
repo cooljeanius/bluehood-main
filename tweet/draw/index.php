@@ -1,6 +1,19 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
+		'3DS' => ['ja' => "3DSからの投稿", 'en' => "Posting from 3DS", ],
+		'gamememo' => [
+			'ja' => "ゲームメモでかいた絵を投稿する&#13;&#10; ",
+			'en' => "Post a picture on a note from Game Notes",
+		],
+		'uacheck' => [
+			'ja' => "Wii U版お絵かきで投稿する&#13;&#10;旧3DSでは動作しません。",
+			'en' => "Post using the Wii U version of the drawing interface. It does not work with the old 3DS."
+		],
+		'stamp' => [
+			'ja' => "スタンプを投稿する&#13;&#10;試用版", 
+			'en' => "Post a stamp (Trial version)",
+		],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 	$conn = twitter_start();

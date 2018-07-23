@@ -2,6 +2,10 @@
         include('/var/www/twiverse.php');
         include('../common.php');
         $s = [
+        	'exception' => [
+        		'ja' => "お絵かきファイルが選択されていません。",
+        		'en' => "Drawing file is not selected.",
+        	],
 			//'' => ['ja' => "", 'en' => "", ],
 		];
 

@@ -2,6 +2,10 @@
 	include('/var/www/twiverse.php');
     include('../../common.php');
     $s = [
+    	'exception' => [
+    		'ja' => "添付画像とお絵かきの処理方法が不明です。\nお手数ですが、@bluehood_admin にお問い合わせしてください。",
+    		'en' => "The attached image and method for processing drawing is unknown. Sorry for your inconvenience, but please contact @bluehood_admin on Twitter.",
+    	],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 

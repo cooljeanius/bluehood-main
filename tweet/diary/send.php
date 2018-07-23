@@ -2,6 +2,7 @@
     include('/var/www/twiverse.php');
     include('../common.php');
     $s = [
+    	'err' => ['ja' => "エラーが発生しました。", 'en' => "An error occurred.", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 

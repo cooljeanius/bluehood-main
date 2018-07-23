@@ -3,6 +3,7 @@
 	$s = [
 		//'' => ['ja' => "", 'en' => "", ],
 	];
+	//oh wait there's another one of these later...
 
 	function dropTweet($status, $twitter, $hide, $comm_ids){
 		try{

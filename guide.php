@@ -72,7 +72,7 @@
 		'opt2' => ['ja' => "2. 準備しよう", 'en' => "2. Let's prepare", ],
 		'opt3' => ['ja' => "3. コンテンツの紹介", 'en' => "3. Introduction of contents", ],
 		'opt4' => ['ja' => "4. BlueHood のルール", 'en' => "4. BlueHood's rules", ],
-		'sect1' => ['ja' => "BlueHood とは?", 'en' => "What is BlueHood?"", ],
+		'sect1' => ['ja' => "BlueHood とは?", 'en' => "What is BlueHood?", ],
 		'article' => [
 			'ja' => "BlueHood は、<b>Twitter のイメージをつなげるコミュニティ</b>です。<br>
 				Twitter をベースとして、BlueHood のコミュニティが構成されています。<br>
