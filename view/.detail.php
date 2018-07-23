@@ -1,6 +1,9 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
+		'fail' => ['ja' => "検索条件が指定されていません。", 'en' => "Search condition is not specified.", ],
+		'search' => ['ja' => "ツイートの検索", 'en' => "Search tweets", ],
+		'all' => ['ja' => "ぜんぶみる", 'en' => "All things", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 	$conn = twitter_reader();

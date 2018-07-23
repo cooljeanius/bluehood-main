@@ -72,7 +72,25 @@
 		'opt2' => ['ja' => "2. 準備しよう", 'en' => "2. Let's prepare", ],
 		'opt3' => ['ja' => "3. コンテンツの紹介", 'en' => "3. Introduction of contents", ],
 		'opt4' => ['ja' => "4. BlueHood のルール", 'en' => "4. BlueHood's rules", ],
-		//Still a few more...
+		'sect1' => ['ja' => "BlueHood とは?", 'en' => "What is BlueHood?"", ],
+		'article' => [
+			'ja' => "BlueHood は、<b>Twitter のイメージをつなげるコミュニティ</b>です。<br>
+				Twitter をベースとして、BlueHood のコミュニティが構成されています。<br>
+				BlueHood からツイートする画像 (イメージ) は、<b>自動認識</b>によってコミュニティに登録されます。<br>
+				たとえば、ネコの画像をツイートしようとすると、AI による画像認識によって「Cat」コミュニティに登録されるかもしれません。<br>
+				<br>
+				また、写真だけでなく白黒の<b>お絵かき</b>をツイートすることができます。<br>
+				さらに、お絵かきで使用できる<b>スタンプ</b>を制作することもできます。<br>
+				Twitter の世界に、もっと「イメージのつながり」を作りましょう！",
+			'en' => "BlueHood is a community connecting the images of Twitter.
+				The BlueHood community is composed of and based on Twitter.
+				Images tweeted from BlueHood are registered in the community by automatic recognition.
+				For example, if you try to tweet a cat's image, it may be registered in the \"Cat\" community by image recognition by AI.
+				Also, you can tweet not only photos but black and white drawings.
+				In addition, you can also produce stamps that can be used in drawing.
+				Let's make more \"image connections\" in the world of Twitter!
+				",
+		],
 		'disclaimer' => [
 			'ja' => "本 Web サイト中の製品名は、各社の商標です。",
 			'en' => "Product names in this website are trademarks of each company.",

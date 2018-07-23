@@ -77,8 +77,13 @@
 				/*
 				ンとーは先頭不可
 				2文字以上
+				It is not possible to start with 2 characters or more.
+				The next characters are the same ones used in the magic_chars array:
 				ギラベマリホトイミへロスレルンー
+'gi' 'ra' 'be' 'ma' 'ri' 'ho' 'to' 'i' 'mi' 'he' 'ro' 'su' 're' 'ru' 'n' '-'
+				...magic...?!
 				*/
+				//OK how the foo are you supposed to do this in English?!?!?
 				var magic_chars = ['ギ','ラ','ベ','マ','リ','ホ','ト','イ','ミ','へ','ロ','ス','レ','ル','ン','ー'];
 				var Random = function(seed){
 					this.gen = function(){
@@ -95,7 +100,7 @@
 					var random = new Random(rnd);
 					var chars = magic_chars.slice(0, magic_chars.length);
 
-					var char_i = random.gen()%(chars.length - 2/* 使用不可文字 */);
+					var char_i = random.gen()%(chars.length - 2/* 使用不可文字 */); //Unavailable characters
 					var magic_str = chars[char_i];
 					chars.splice(char_i, 1);
  					for(var i = 0;i < (rnd%3) + 1;i++){
@@ -114,7 +119,7 @@
 						mp_left -= magic_power;
 						magic.power = magic_power;
 					}else{
-						magic.power = mp_left;	/* 端数処理 */
+						magic.power = mp_left;	/* 端数処理 (Rounding processing) */
 					}
 				});
 

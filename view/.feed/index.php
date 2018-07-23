@@ -1,6 +1,7 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
+		'title' => ['ja' => "みんなの投稿", 'en' => "Everyone's Posts", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 	$twitter = twitter_start();
