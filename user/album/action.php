@@ -1,6 +1,14 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
+		'album' => ['ja' => "アルバムを使う", 'en' => "Use the album", ],
+		'posttweets' => ['ja' => "つぶやきを投稿する", 'en' => "Post tweets", ],
+		'postdrawing' => ['ja' => "お絵かきを投稿する", 'en' => "Post a drawing", ],
+		'deletionprompt' => [
+			'ja' => "本当に削除しますか？",
+			'en' => "Do you really want to delete this?",
+		],
+		'delete' => ['ja' => "削除", 'en' => "Delete", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 	//unset($_SESSION['collection_cursor']);

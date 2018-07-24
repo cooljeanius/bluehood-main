@@ -1,6 +1,15 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
+		'badimg' => [
+			'ja' => "申し訳ありませんが、この画像には対応していません。<br>Wii U、3DS、PS VITAのブラウザから無加工のスクリーンショットをお試しください。",
+			'en' => "Sorry, but this image is not supported. Please try a raw screenshot from the browser of the Wii U, 3DS, or PS VITA.",
+		],
+		'noimg' => [
+			'ja' => "スクリーンショットが選択されていません。",
+			'en' => "No screenshot selected.",
+		],
+		'album' => ['ja' => " BlueHood アルバムの投稿", 'en' => "Posting of BlueHood album", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 

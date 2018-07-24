@@ -1,6 +1,19 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
+		'nocomm' => [
+			'ja' => "コミュニティが指定されていません。",
+			'en' => "No community specified.",
+		],
+		'nocomm1' => [
+			'ja' => "コミュニティが存在しません。",
+			'en' => "There is no community.",
+		],
+		'list' => ['ja' => "リスト", 'en' => "list", ],
+		'desc' => [
+			'ja' => "Twitterを活用したUniversalゲームコミュニティ",
+			'en' => "A universal game community using Twitter",
+		],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 	unset($_SESSION['collection_cursor']);

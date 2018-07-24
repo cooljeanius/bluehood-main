@@ -1,6 +1,8 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
+		'notweets' => ['ja' => "ツイートがありません。", 'en' => "No tweets found.", ],
+		'seeall' => ['ja' => "すべてのツイートをみる", 'en' => "See all tweets", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 	$conn = twitter_reader();
