@@ -11,11 +11,38 @@
 
 	$s = [
 		'title' => ['ja' => "お絵かきの投稿", 'en' => "Post Drawing"],
-		'save' => ['ja' => "お絵かきを下書き保存", 'en' => "Save drawing draftSave drawing draft"],
+		'save' => ['ja' => "お絵かきを下書き保存", 'en' => "Save draft of drawing"],
 		'fullscreen' => ['ja' => "フルスクリーン", 'en' => "Fullscreen"],
 		'tweet' => ['ja' => "ツイート", 'en' => "Tweet"],
 		'stamp' => ['ja' => "スタンプの選択", 'en' => "Select stamp"],
-		'stamp-nothing' => ['ja' => "手持ちのスタンプがありません。", 'en' => "Your stamps not found. "],
+		'stamp-nothing' => ['ja' => "手持ちのスタンプがありません。", 'en' => "Your stamps were not found. "],
+		'size' => ['ja' => "大きさ", 'en' => "size", ],
+		'placeholder' => [
+			'ja' => "#ハッシュタグ @返信先 100文字までのコメントを追加できます。",
+			'en' => "#hashtag @handle You can add comments of up to 100 characters to reply.",
+		],
+		'nofullscreen' => [
+			'ja' => "ご利用の環境ではフルスクリーン表示ができません。",
+			'en' => "Fullscreen display cannot be done in your environment.",
+		],
+		'clear' => ['ja' => "全消ししますか？", 'en' => "Do you want to erase the entire drawing?", ],
+		'savedrawing' => [
+			'ja' => "お絵かきをサーバーに下書き保存しますか？\nすでに保存されているお絵かきは上書きされます。",
+			'en' => "Would you like to save the drawing on the server? Any drawing that was already saved will be overwritten.",
+		],
+		'drawingsaved' => [
+			'ja' => "お絵かきを下書き保存しました。\n投稿画面を開くと下書きが自動的に読み込まれます。",
+			'en' => "Drawing saved as a draft. When you open the submission screen, the draft will be loaded automatically.",
+		],
+		'savefail' => [
+			'ja' => "お絵かきの自動下書き保存は無効に設定されています。\nユーザー設定にて有効にすることができます。",
+			'en' => "Saving drafts of drawings automatically is turned off. You can enable it in your user settings.",
+		],
+		'confirm' => [
+			'ja' => "投稿してもよろしいですか？",
+			'en' => "Are you sure you want to post?",
+		],
+		'sending' => ['ja' => "送信中…", 'en' => "sending…", ],
 		//'' => ['ja' => "", 'en' => ""],
 	];
 ?>

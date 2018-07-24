@@ -1,6 +1,18 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
+		'wrongwidth' => [
+			'ja' => "キャンバスの横サイズは 0 から 440 までにしてください。",
+			'en' => "Please keep the width of the canvas between 0 and 440.",
+		],
+		'wrongheight' => [
+			'ja' => "キャンバスの縦サイズは 0 から 440 までにしてください。",
+			'en' => "Please keep the height of the canvas between 0 and 440.",
+		],
+		'badstamp' => [
+			'ja' => "スタンプの高さは 2 から 21 までにしてください。",
+			'en' => "The height of the stamp should be between 2 and 21.",
+		],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 
