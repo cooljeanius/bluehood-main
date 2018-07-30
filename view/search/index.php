@@ -4,6 +4,19 @@
 		'title' => ['ja' => "コミュニティ", 'en' => "Communities"],
 		'detector' => ['ja' => "ディテクター", 'en' => "detector"],
 		'more' => ['ja' => "もっとみる", 'en' => "More"],
+		'makecomm' => ['ja' => "コミュニティを設立する", 'en' => "Create community", ],
+		'detectorhelp' => ['ja' => "ディテクターとは", 'en' => "What is a detector?", ],
+		'aboutdetectors1' => [
+			'ja' => "添付画像を自動認識し、コミュニティに振り分けるプログラムです。",
+			'en' => "A detector automatically recognizes attached images and distributes them to the community.",
+		],
+		'aboutdetectors2' => [
+			'ja' => "たとえば、3DS ディテクターは 3DS のスクリーンショットを認識し、3DS ディテクター内のコミュニティに振り分けます。",
+			'en' => "For example, 3DS Detectors recognize screenshots from a Nintendo 3DS and distribute them to communities within 3DS Detectors.",
+		],
+		'post' => ['ja' => "投稿 ", 'en' => "Post", ],
+		'list' => ['ja' => "リスト ", 'en' => "List", ],
+		'community' ['ja' => "コミュニティ", 'en' => "Community", ],
 		//'' => ['ja' => "", 'en' => ""],
 	];
 	if (isset($_GET['detector'])) $detector_prefix = mysql_escape_string($_GET['detector']);

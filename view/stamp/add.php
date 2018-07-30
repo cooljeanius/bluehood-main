@@ -1,6 +1,10 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
+		'fail' => [
+			'ja' => "手持ちは 10 個以上追加できません。",
+			'en' => "You cannot add more than 10 items.",
+		],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 

@@ -11,6 +11,19 @@
 		'dl' => ['ja' => "3D ダウンロード", 'en' => "3D Download", ],
 		'remove' => ['ja' => "削除", 'en' => "Remove", ],
 		'help_3d' => ['ja' => "3D ダウンロードとは? ", 'en' => "What's 3D Download? ", ],
+		'aboutstamps' => [
+			'ja' => "作ったスタンプをお絵かき投稿で使用したり、3D プリント用データにすることができます。",
+			'en' => "You can use the stamp you created for drawing, or you can turn it into data for 3D printing.",
+		],
+		'nostamp' => [
+			'ja' => "スタンプはありません。追加してみよう！",
+			'en' => "There are no stamps yet. Let's add one!",
+		],
+		'morehelp_3d' => [
+			'ja' => "スタンプの 3D モデルを stl ファイルでダウンロードできます。\n3D プリントすれば、現実世界で使えるかも? ",
+			'en' => "You can download the 3D model of the stamp as an STL file. If you 3D print it, maybe it could be used in the real world?",
+		],
+		'more' => ['ja' => "もっとみる", 'en' => "More", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 ?>

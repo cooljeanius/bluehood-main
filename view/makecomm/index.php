@@ -15,6 +15,7 @@
 		'3ds' => ['ja' => "3DS ディテクター", 'en' => "3DS detector", ],
 
 		'report' => ['ja' => "その他のコミュニティ操作", 'en' => "Report to establish more communities, or edit communities data", ],
+		'processing' => ['ja' => "処理中", 'en' => "processing…", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 ?>
