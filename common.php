@@ -1,17 +1,26 @@
 <?php
 	$s = [
-		'login' => ['ja' => "ログイン", 'en' => "login", ],
+		'login' => ['ja' => "ログイン", 'en' => "Login", ],
 		'needslogin' => [
 			'ja' => "これより先はTwitterアカウントによるログインが必要です。",
-			'en' => "Logging in with a Twitter account is necessary after this.",
+			'en' => "Logging in with a Twitter account is required beyond this point.",
 		],
 		'ratelim' => [
 			'ja' => "レートリミットを超過しました。<br>しばらくしてから、再度アクセスしてください。",
 			'en' => "Rate limit exceeded. <br> Please try again after a while.",
 		],
 		'mypage' => ['ja' => "マイページ", 'en' => "My Page", ],
-		'community' => ['ja' => "コミュニティ", 'en' => "community", ],
-		//Still a few missing, come back to later...
+		'community' => ['ja' => "コミュニティ", 'en' => "Community", ],
+		'notif' => ['ja' => "通知", 'en' => "Notification", ],
+		'notweets' => ['ja' => "ツイートがありません。", 'en' => "No tweets in collection.", ],
+		'more' => ['ja' => "もっとみる", 'en' => "More", ],
+		'defaulterrormsg' => [
+			'ja' => "エラーが発生しました。", 'en' => "An error occurred.",
+		],
+		'senderr' => [
+			'ja' => "このエラーを @bluehood_admin に報告できます。",
+			'en' => "You can report this error to @bluehood_admin.",
+		],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 	session_start();
@@ -705,7 +714,7 @@ a .card:hover{
 
 	function detector($soft_id){	// mysql がオープンであること。 (mysql must be open)
 		$prefix = substr($soft_id, 0, 2);
-		$detector = mysql_fetch_assoc(mysql_throw(mysql_query("select * from detector where prefix='".$prefix."'")));	// null もあり得る (it could be null)
+		$detector = mysql_fetch_assoc(mysql_throw(mysql_query("select * from detector where prefix='".$prefix."'"))); // null もあり得る (it could be null)
 		return $detector;
 	}
 

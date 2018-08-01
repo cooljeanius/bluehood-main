@@ -13,8 +13,8 @@
 			'ja' => "ソフト登録 &amp; コミュニティ作成",
 			'en' => "Software registration &amp; community creation",
 		],
-		'soft_id' => ['ja' => "ソフト ID: ", 'en' => "software ID: ", ],
-		'name' => ['ja' => "名前: ", 'en' => "name: ", ],
+		'soft_id' => ['ja' => "ソフト ID: ", 'en' => "Software ID: ", ],
+		'name' => ['ja' => "名前: ", 'en' => "Name: ", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 ?>

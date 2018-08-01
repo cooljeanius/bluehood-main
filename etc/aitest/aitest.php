@@ -7,6 +7,7 @@
 		],
 		'score' => [ 'ja' => "スコア", 'en' => "score", ],
 		'whatitdid' => [ 'ja' => "と判定されました。", 'en' => "It was judged.", ],
+		//FIXME: this part needs to be reworked.
 		'subject' => [
 			'ja' => "画像認識テスト",
 			'en' => "Image recognition test",

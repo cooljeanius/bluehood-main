@@ -34,7 +34,7 @@
 		'album_desc' => [
 			'ja' => 'スクリーンショットをアルバムに登録して、投稿に使用することができます。',
 			'en' => "By registering to BlueHood Album, your screenshots can be used to posts anytime. 
-				This doesn't support old 3DS now, sorry! ",
+				This doesn't support the old 3DS now, sorry! ",
 		],
 		'stamp' => ['ja' => 'スタンプ', 'en' => 'Stamp', ],
 		'stamp_desc' => [
@@ -43,16 +43,16 @@
 			'en' => "The stamp creator for drawing tool on Wii U, PC, smartphone, etc. 
 				But, it doesn't work comfortably",
 		],
-		'form' => ['ja' => "BlueHood スタンプ申込フォーム", 'en' => "BlueHood stamp application form", ],
+		'form' => ['ja' => "BlueHood スタンプ申込フォーム", 'en' => "BlueHood stamp request form", ],
 		'printer_desc' => [
 			'ja' => "3D プリントした BlueHood スタンプを郵送いたします。
 					私の趣味程度のため、無料、1 週間に 1 件程度の対応となります。",
-			'en' => "We will send a 3D printed BlueHood stamp by post. Because it is about my hobby, it will be free, about 1 case per week.",
+			'en' => "We will send a 3D-printed BlueHood stamp by post. It will be free, but because this is only a hobby, I will process at most one request per week.",
 		],
 		'card_tool_desc' => [
 			'ja' => "3D データを投函するサイト。
 					まだ、開発者 (@bluehood_admin) にしか送れないけどね。",
-			'en' => "A site that posts 3D data. So far, I can only send it to the developer (@bluehood_admin).",
+			'en' => "A site that mails 3D-printed objects. So far, they can only be sent to the developer (@bluehood_admin).",
 		],
 		'Troopa_desc' => [
 			'ja' => "Web 上で動く Toy シンセサイザー。

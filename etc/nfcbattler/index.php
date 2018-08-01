@@ -100,6 +100,7 @@
 				So how many Roman characters were used in the English version?
 				Which 16 characters of the Roman alphabet would you use if you were only allowed 16 of them?
 				"Etaoin shrdlu" is only 12...
+				http://letterfrequency.org/ has the rest.
 				*/
 				var magic_chars = ['ギ','ラ','ベ','マ','リ','ホ','ト','イ','ミ','へ','ロ','ス','レ','ル','ン','ー'];
 				var Random = function(seed){

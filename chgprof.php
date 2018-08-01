@@ -14,10 +14,11 @@
 			'en' => "BlueHood's night appearance.
 			My favorite things are cameras, masks, and Tutankhamen.
 			In Kameo Kart 8 Deluxe, Dry Bones always has fantastic taste.
-			Because Shy Guy is wearing a mask, he is alright.
-			I long for a Paratroopa.
+			Shy Guy is my friend because he wears a mask.
+			I look up to Paratroopa.
 			Yoshi is strange.
 			",
+			//"Dry Bones always has fantastic taste." might actually be: "Dry Bones always carries around bandages."
 		],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
