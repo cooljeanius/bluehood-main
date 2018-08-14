@@ -1,14 +1,14 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
-		'title' => ['ja' => "つぶやきの投稿", 'en' => "Posts from tweets", ],
+		'title' => ['ja' => "つぶやきの投稿", 'en' => "Twitter Posts", ],
 		'screenshot' => [
 			'ja' => "スクリーンショットはコミュニティのバナーになります。",
 			'en' => "The screenshot will be a community banner.",
 		],
-		'hashtag' => ['ja' => "ハッシュタグ", 'en' => "hashtag", ],
-		'spoiler' => ['ja' => "ネタバレ", 'en' => "spoiler", ],
-		'tweet' => ['ja' => "ツイート", 'en' => "tweet", ],
+		'hashtag' => ['ja' => "ハッシュタグ", 'en' => "Hashtag", ],
+		'spoiler' => ['ja' => "ネタバレ", 'en' => "Spoiler", ],
+		'tweet' => ['ja' => "ツイート", 'en' => "Tweet", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 	$conn = twitter_start();

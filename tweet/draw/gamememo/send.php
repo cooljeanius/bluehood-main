@@ -4,7 +4,7 @@
         $s = [
         	'exception' => [
         		'ja' => "お絵かきファイルが選択されていません。",
-        		'en' => "Drawing file is not selected.",
+        		'en' => "No drawing file selected.",
         	],
 			//'' => ['ja' => "", 'en' => "", ],
 		];

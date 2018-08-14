@@ -4,7 +4,7 @@
     $s = [
     	'exception' => [
     		'ja' => "添付画像とお絵かきの処理方法が不明です。\nお手数ですが、@bluehood_admin にお問い合わせしてください。",
-    		'en' => "The attached image and method for processing drawing is unknown. Sorry for your inconvenience, but please contact @bluehood_admin on Twitter.",
+    		'en' => "There was an unknown error processing the attached image or drawing. We apologize for the inconvenience; please contact @bluehood_admin on Twitter.",
     	],
 		//'' => ['ja' => "", 'en' => "", ],
 	];

@@ -82,18 +82,19 @@
 				また、写真だけでなく白黒の<b>お絵かき</b>をツイートすることができます。<br>
 				さらに、お絵かきで使用できる<b>スタンプ</b>を制作することもできます。<br>
 				Twitter の世界に、もっと「イメージのつながり」を作りましょう！",
-			'en' => "BlueHood is a community connecting the images of Twitter.
-				The BlueHood community is composed of and based on Twitter.
-				Images tweeted from BlueHood are registered in the community by automatic recognition.
-				For example, if you try to tweet a cat's image, it may be registered in the \"Cat\" community by image recognition by AI.
-				Also, you can tweet not only photos but black and white drawings.
-				In addition, you can also produce stamps that can be used in drawing.
+			'en' => "BlueHood is a <b>community that brings together images from Twitter</b>. <br>
+				The BlueHood community is built around Twitter and is made up of Twitter posts. <br>
+				Images tweeted from BlueHood are sorted into communities by <b>automatic categorization</b>. <br>
+				For example, if you try to tweet an image of a cat, image recognition may categorize it under the \"Cat\" community. <br>
+				<br>
+				Besides photos, you can also post black-and-white <b>drawings</b> using BlueHood. <br>
+				You can also produce <b>stamps</b> to use in these drawings. <br>
 				Let's make more \"image connections\" in the world of Twitter!
 				",
 		],
 		'disclaimer' => [
 			'ja' => "本 Web サイト中の製品名は、各社の商標です。",
-			'en' => "Product names in this website are trademarks of each company.",
+			'en' => "All product names and trademarks referred to are the property of their respective owners.",
 		],
 		//'' => ['ja' => '', 'en' => ''],
 	];

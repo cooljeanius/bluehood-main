@@ -12,7 +12,7 @@
 		'cnt_followers' => ['ja' => 'フォロワー', 'en' => 'Followers'],
 		'collectionprompt' => [
 			'ja' => "あなたのTwitterアカウントに「Twiverse」コレクションを作成しませんか？<br>作成すると、「自分の投稿」がここに表示されます！<br><br>※「自分の投稿」は公開されます。",
-			'en' => "Why not create a \"Twiverse\" collection in your Twitter account? Once created, 'My posts' will be displayed here!<br><br>※ \"My post\" will be published.",
+			'en' => "Why not create a \"Twiverse\" collection in your Twitter account? Once created, \"My posts\" will be displayed here!<br><br>*Your \"My Posts\" collection will be publicly visible.",
 		],
 		//'' => ['ja' => '', 'en' => ''],
 	];

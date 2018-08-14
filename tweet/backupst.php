@@ -3,7 +3,7 @@
 	$s = [
 		'notice' => [
 			'ja' => "下書き保存しました。\n投稿画面を開くと下書きが自動的に読み込まれます。",
-			'en' => "Draft saved. When you open the posting screen, drafts are loaded automatically.",
+			'en' => "Draft saved. \nWhen you open the post-creation screen, the draft will load automatically.",
 		],
 		'err' => ['ja' => "エラーが発生しました。\n", 'en' => "An error occurred.", ],
 		//'' => ['ja' => "", 'en' => "", ],

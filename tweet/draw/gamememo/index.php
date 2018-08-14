@@ -1,11 +1,11 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
-		'header' => ['ja' => "お絵かきの投稿", 'en' => "Drawing posts", ],
-		'screenshot' => ['ja' => "スクリーンショット", 'en' => "screenshot", ],
+		'header' => ['ja' => "お絵かきの投稿", 'en' => "Posts with Drawings", ],
+		'screenshot' => ['ja' => "スクリーンショット", 'en' => "Screenshot", ],
 		'formtext' => [
 			'ja' => "お絵かき ※権利等を確認し選択してください。",
-			'en' => "Drawing ※Please check that you have the rights etc. to use it, and select it.",
+			'en' => "Drawing *Please check that you have the rights etc. to use it, and select it.",
 		],
 		'comicfilter' => [
 			'ja' => "コミカルフィルターを使う",
@@ -13,10 +13,10 @@
 		],
 		'placeholder' => [
 			'ja' => "100文字までのコメントを追加できます。",
-			'en' => "You can add up to 100 comments.",
+			'en' => "You can add a comment of up to 100 characters.",
 		],
-		'spoiler' => ['ja' => "ネタバレ", 'en' => "spoiler", ],
-		'tweet' => ['ja' => "ツイート", 'en' => "tweet", ],
+		'spoiler' => ['ja' => "ネタバレ", 'en' => "Spoiler", ],
+		'tweet' => ['ja' => "ツイート", 'en' => "Tweet", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 	$conn = twitter_start();

@@ -21,12 +21,12 @@
 			'en' => "Posts made when this box is checked are registered and displayed on BlueHood.",
 		],
 		'drawing' => ['ja' => "お絵かき", 'en' => "Drawing", ],
-		'canvwidth' => ['ja' => "キャンバスの横サイズ ", 'en' => "canvas width", ],
+		'canvwidth' => ['ja' => "キャンバスの横サイズ ", 'en' => "Canvas width", ],
 		'canvwidthamt' => [
 			'ja' => " px (0~440 デフォルト: 320)",
 			'en' => " px (0 to 440; default: 320)",
 		],
-		'canvheight' => ['ja' => "キャンバスの縦サイズ ", 'en' => "canvas height", ],
+		'canvheight' => ['ja' => "キャンバスの縦サイズ ", 'en' => "Canvas height", ],
 		'canvheightamt' => [
 			'ja' => " px (0~440 デフォルト: 120)",
 			'en' => " px (0 to 440; default: 120)",
@@ -46,11 +46,11 @@
 			'ja' => "ディテクターは、添付画像を自動認識してコミュニティに振り分けるプログラムです。たとえば、3DS ディテクターは 3DS のスクリーンショットを認識します。",
 			'en' => "Detectors are programs that automatically recognize attached images and distribute them to their corresponding communities. For example, 3DS detectors recognize screenshots sent from a 3DS.",
 		],
-		'strength' => ['ja' => "有効", 'en' => "effectiveness", ],
+		'strength' => ['ja' => "有効", 'en' => "Effectiveness", ],
 		'makelist' => ['ja' => "リスト登録", 'en' => "Create list", ],
 		'aboutlist' => [
 			'ja' => "チェックをつけると、投稿先コミュニティの Twitter リストに自動的に登録されます。",
-			'en' => "When checked, posts will be registered automatically in the Twitter list for the posting community.",
+			'en' => "When checked, posts will be automatically added to the Twitter list for the community in which they are posted.",
 		],
 		'stamp' => ['ja' => "スタンプ", 'en' => "stamp", ],
 		'3Dness' => ['ja' => "3Dデータ 高さ ", 'en' => "3D data height ", ],

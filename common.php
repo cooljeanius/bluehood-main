@@ -1,4 +1,5 @@
 <?php
+	//FIXME: this file is included in others; might need to check for name clashes:
 	$s = [
 		'login' => ['ja' => "ログイン", 'en' => "Login", ],
 		'needslogin' => [

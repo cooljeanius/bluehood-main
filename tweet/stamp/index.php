@@ -1,14 +1,14 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
-		'erase' => ['ja' => "全消ししますか", 'en' => "Do you want to erase all of them?", ],
+		'erase' => ['ja' => "全消ししますか", 'en' => "Erase all?", ],
 		'error' => ['ja' => "エラーが発生しました。", 'en' => "An error occurred.", ],
 		'caution' => [
 			'ja' => "注意\n作ったスタンプはツイートとして公開され、誰でも使用できます。",
-			'en' => "Caution: The stamps made are released as tweets and can be used by anyone.",
+			'en' => "Caution: stamps that are created will be released as tweets and can be used by anyone.",
 		],
 		'title' => [ 'ja' => "スタンプの投稿", 'en' => "Posting a stamp", ],
-		'new' => ['ja' => "全消し", 'en' => "Full erase", ],
+		'new' => ['ja' => "全消し", 'en' => "Fully erase", ],
 		'draft' => ['ja' => "下書き保存", 'en' => "Save draft", ],
 		'sorry' => [
 			'ja' => "自動下書き保存は未実装です",
@@ -16,7 +16,7 @@
 		],
 		'gray' => [
 			'ja' => "灰色は透明色です。",
-			'en' => "Gray can be used to mark pixels meant to be transparent; whichever color is behind it will show thru.",
+			'en' => "Gray can be used to mark pixels meant to be transparent; whichever color is behind it will show through.",
 		],
 		'help' => ['ja' => "作るコツ", 'en' => "Tips for making stamps", ],
 		'instr1' => ['ja' => "なるべく真ん中に作ろう！", 'en' => "Try making it in the middle if possible!", ],
@@ -30,28 +30,28 @@
 		],
 		'3Dhelp' => [
 			'ja' => "このボタンを押すと、スタンプが指定方向に 1 ドットずれます。\nキャンバスからはみ出しそうなときに使用してください。"
-			'en' => "When this button is pushed, the stamp shifts 1 pixel in the specified direction. Please use it when it is likely to protrude from the canvas.",
+			'en' => "When this button is pushed, the stamp shifts 1 pixel in the specified direction. Use this button when part of the stamp is about to protrude from the canvas.",
 		],
-		'next' => ['ja' => "つぎへ", 'en' => "next", ],
-		'back' => ['ja' => "もどる", 'en' => "back", ],
+		'next' => ['ja' => "つぎへ", 'en' => "Next", ],
+		'back' => ['ja' => "もどる", 'en' => "Back", ],
 		'troubleshooting' => [
 			'ja' => "スタンプが正常に表示されない?",
-			'en' => "Is the stamp not displaying correctly?",
+			'en' => "Is the stamp not appearing as expected?",
 		],
 		'displayhelp' => [
 			'ja' => "「もどる」を押して白または黒の輪郭をつけてみてください。",
-			'en' => "Please press \"back\" and add white or black outlines.",
+			'en' => "Press \"Back\" and add a white or black outline.",
 		],
 		'placeholdertext' => [
 			'ja' => "#ハッシュタグ ライセンス表記 100文字までのコメントを追加できます。",
-			'en' => "#Hashtag or license notation. Up to 100 characters of comments can be added.",
+			'en' => "#Hashtag (License text) A comment, up to 100 characters, can be added.",
 		],
 		'defaulttext' => [
 			'ja' => "#bluehood (ライセンス表記など)",
-			'en' => "#bluehood (license notation etc.)",
+			'en' => "#bluehood (license text etc.)",
 		],
-		'tweet' => ['ja' => "ツイート", 'en' => "tweet", ],
-		'sending' => ['ja' => "送信中…", 'en' => "sending…", ],
+		'tweet' => ['ja' => "ツイート", 'en' => "Tweet", ],
+		'sending' => ['ja' => "送信中…", 'en' => "Sending…", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 	twitter_start();

@@ -19,13 +19,13 @@
 		'size' => ['ja' => "大きさ", 'en' => "size", ],
 		'placeholder' => [
 			'ja' => "#ハッシュタグ @返信先 100文字までのコメントを追加できます。",
-			'en' => "#hashtag @handle You can add comments of up to 100 characters to reply.",
+			'en' => "#hashtag @handle You can add a comment of up to 100 characters to reply.",
 		],
 		'nofullscreen' => [
 			'ja' => "ご利用の環境ではフルスクリーン表示ができません。",
 			'en' => "Fullscreen display cannot be done in your environment.",
 		],
-		'clear' => ['ja' => "全消ししますか？", 'en' => "Do you want to erase the entire drawing?", ],
+		'clear' => ['ja' => "全消ししますか？", 'en' => "Erase entire drawing?", ],
 		'savedrawing' => [
 			'ja' => "お絵かきをサーバーに下書き保存しますか？\nすでに保存されているお絵かきは上書きされます。",
 			'en' => "Would you like to save the drawing on the server? Any drawing that was already saved will be overwritten.",
@@ -42,7 +42,7 @@
 			'ja' => "投稿してもよろしいですか？",
 			'en' => "Are you sure you want to post?",
 		],
-		'sending' => ['ja' => "送信中…", 'en' => "sending…", ],
+		'sending' => ['ja' => "送信中…", 'en' => "Sending…", ],
 		//'' => ['ja' => "", 'en' => ""],
 	];
 ?>
