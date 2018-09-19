@@ -23,7 +23,7 @@
 			'ja' => "スタンプの 3D モデルを stl ファイルでダウンロードできます。\n3D プリントすれば、現実世界で使えるかも? ",
 			'en' => "You can download the 3D model of the stamp as an STL file. If you 3D print it, maybe it could be used in the real world?",
 		],
-		'more' => ['ja' => "もっとみる", 'en' => "More", ],
+		'more' => ['ja' => "もっとみる", 'en' => "See more", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 ?>

@@ -139,10 +139,10 @@
 		<h2 class="topbar"><?php l($s['title']); ?></h2>
 		<div class="main paddingleft paddingright" style="padding-top: 1em; ">
 			<select id="menu">
-				<option value="1">1. BlueHood とは?</option>
-				<option value="2">2. 準備しよう</option>
-				<option value="3">3. コンテンツの紹介</option>
-				<option value="4">4. BlueHood のルール</option>
+				<option value="1"><?php l($s['opt1']); ?></option>
+				<option value="2"><?php l($s['opt2']); ?></option>
+				<option value="3"><?php l($s['opt3']); ?></option>
+				<option value="4"><?php l($s['opt4']); ?></option>
 			</select><br>
 			<br>
 
@@ -166,16 +166,9 @@
 				</div>
 
 				<div class="card card-article">
-					<h3>BlueHood とは?</h3>
-					<p>BlueHood は、<b>Twitter のイメージをつなげるコミュニティ</b>です。<br>
-					Twitter をベースとして、BlueHood のコミュニティが構成されています。<br>
-					BlueHood からツイートする画像 (イメージ) は、<b>自動認識</b>によってコミュニティに登録されます。<br>
-					たとえば、ネコの画像をツイートしようとすると、AI による画像認識によって「Cat」コミュニティに登録されるかもしれません。<br>
-					<br>
-					また、写真だけでなく白黒の<b>お絵かき</b>をツイートすることができます。<br>
-					さらに、お絵かきで使用できる<b>スタンプ</b>を制作することもできます。<br>
-					Twitter の世界に、もっと「イメージのつながり」を作りましょう！
-</p>
+					<h3><?php l($s['sect1']); ?></h3>
+					<p><?php l($s['article']); ?>
+					</p>
 				</div>
 			</div>
 
@@ -223,7 +216,7 @@
 				</div>
 			</div>
 
-			<center>本 Web サイト中の製品名は、各社の商標です。</center>
+			<center><?php l($s['disclaimer']); ?></center>
 		</div>
 	</body>
 </html>

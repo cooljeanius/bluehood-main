@@ -3,20 +3,20 @@
 	//unset($_SESSION['collection_cursor']);
 	twitter_start();
 	$s = [
-		'album' => ['ja' => "アルバム　β版", 'en' => "アルバム　β版", ],
+		'album' => ['ja' => "アルバム　β版", 'en' => "Album (beta)", ],
 		'addalbum' => ['ja' => "アルバムを追加する", 'en' => "Add an album", ],
 		'send' => ['ja' => "送信", 'en' => "Send", ],
 		'sending' => ['ja' => "送信中…", 'en' => "Sending…", ],
 		'albumdesc1' => [
 			'ja' => "アルバムの写真は@homeツイートとして公開されます。",
-			'en' => "Photos of the album are published as @home tweets.",
+			'en' => "Album photos are published as @home tweets.",
 		],
 		'albumdesc2' => [
 			'ja' => "初回登録時、あなたのTwitterアカウントに「Twiverse_album」コレクションを作成します。",
-			'en' => "When you register for the first time, create \"Twiverse_album\" collection on your Twitter account.",
+			'en' => "When you register for the first time, create a \"Twiverse_album\" collection on your Twitter account.",
 		],
 		'noalbum' => [ 'ja' => "アルバムがありません。", 'en' => "There is no album.", ],
-		'more' => ['ja' => "もっとみる", 'en' => "More"],
+		'more' => ['ja' => "もっとみる", 'en' => "See more"],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 ?>

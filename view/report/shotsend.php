@@ -3,6 +3,7 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
+		//Maybe leave this in Japanese:
 		'subject' => [
 			'ja' => "Twiverseコミュニティ報告",
 			'en' => "Twiverse Community Report",

@@ -90,12 +90,12 @@
 			</div>
 			<a href="<?php echo ROOT_URL; ?>view/" class="marginright" style="float: right; "><button><?php l($s['allposts']); ?></button></a>
 			<?php if (useragent() == 'wiiu'){ ?>
-				<span class="marginleft">Wii U限定！<a href="etc/nfcbattler/">NFC Battler</a>であそぼう！</span>
+				<span class="marginleft"><?php l($s['uacheck']); ?><a href="etc/nfcbattler/">NFC Battler</a>であそぼう！</span>
 			<?php } ?>
 			<?php if ((useragent() == '3ds')||(useragent() == 'new3ds')){ ?>
 				<span class="marginleft" style="font-size: small; ">ゲームメモを<a href="tweet/draw/gamememo/">コミック風</a>に！</span>
 			<?php }else{ ?>
-				<span class="marginleft" style="font-size: small; ">PC 限定! <a href="etc/troopa/">Troopa 👀</a> で音作り。</span>
+				<span class="marginleft" style="font-size: small; "><?php l($s['uacheck2']); ?><a href="etc/troopa/">Troopa 👀</a> で音作り。</span>
 			<?php } ?>
 			<div style="clear: both; "></div>
 			<center>
