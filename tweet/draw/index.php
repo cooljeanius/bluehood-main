@@ -32,7 +32,7 @@
 	</head>
 	<?php head(); ?>
 	<body>
-		<div class="topbar">3DSからの投稿</div>
+		<div class="topbar"><?php l($s['3DS']); ?></div>
 		<div class="main">
 			<center>
 				<input type="button" value="ゲームメモでかいた絵を投稿する&#13;&#10; " style="width: 320px; " onclick="location.href = 'gamememo/?<?php echo $query; ?>'; ">

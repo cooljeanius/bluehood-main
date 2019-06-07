@@ -23,10 +23,10 @@
 		<?php if (useragent() != '3ds'){ ?><script src="<?php echo ROOT_URL; ?>twitter-text-2.0.2.min.js"></script><?php } ?>
 	</head>
 	<body>
-		<div id="title" class="topbar">つぶやきの投稿</div>
+		<div id="title" class="topbar"><?php l($s['title']); ?></div>
 		<div class="main paddingleft paddingright" style="text-align: center; "><div id="main-wrapper" style="display: inline-block; text-align: left;">
                         <div style="float: left;">
-				<div style="font-size: small; ">スクリーンショットはコミュニティのバナーになります。</div>
+				<div style="font-size: small; "><?php l($s['screenshot']); ?></div>
 				<br>
 				<div id="reply"></div>
 				<form id="imgform" action="../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send">

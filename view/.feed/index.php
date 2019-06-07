@@ -16,7 +16,7 @@
 	</head>
 	<body>
 		<?php include(ROOT_PATH.'header.php'); ?>
-		<div class="topbar">みんなの投稿</div>
+		<div class="topbar"><?php l($s['title']); ?></div>
 		<div class="main">
 			<?php
 				/*$timeline = $twitter->get('statuses/home_timeline', ['count' => '200']);

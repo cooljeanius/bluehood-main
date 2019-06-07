@@ -40,7 +40,7 @@
 	</head>
 	<?php head(); ?>
 	<body>
-		<h2 class="topbar"><?php echo $comm_name; ?> リスト</h2>
+		<h2 class="topbar"><?php echo $comm_name; ?> <?php l($s['list']); ?></h2>
 		<div class="main paddingleft paddingright">
 		<?php userlist($twitter->get('lists/members', ['list_id' => $list_id, 'count' => 5000])->users); ?>
 	</body>

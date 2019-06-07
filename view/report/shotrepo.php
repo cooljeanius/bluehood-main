@@ -34,7 +34,7 @@
 	$content .= 'ソフト名: '.$_POST['name']."\n";
 	$content .= '連絡先: '.$_POST['contact']."\n";
 ?>
-以下の情報を@Twiverse_admin に送信してもよろしいですか？<br>
+<?php l($s['confirm']); ?><br>
 <br>
 <form action="shotsend.php" method="post">
 	<textarea name="content" rows="10" cols="50" readonly><?php echo $content; ?></textarea><br>
