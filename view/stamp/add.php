@@ -1,11 +1,15 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
+		'fail' => [
+			'ja' => "手持ちは 10 個以上追加できません。",
+			'en' => "You cannot add more than 10 items.",
+		],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 
 	try{
-		$twitter = twitter_start();	// screen_name 認証のため必要
+		$twitter = twitter_start();	// screen_name 認証のため必要 (required for authentication)
 
 		mysql_start();
 

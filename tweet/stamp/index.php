@@ -1,5 +1,59 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		'erase' => ['ja' => "全消ししますか", 'en' => "Erase all?", ],
+		'error' => ['ja' => "エラーが発生しました。", 'en' => "An error occurred.", ],
+		'caution' => [
+			'ja' => "注意\n作ったスタンプはツイートとして公開され、誰でも使用できます。",
+			'en' => "Caution: stamps that are created will be released as tweets and can be used by anyone.",
+		],
+		'title' => [ 'ja' => "スタンプの投稿", 'en' => "Posting a stamp", ],
+		'new' => ['ja' => "全消し", 'en' => "Fully erase", ],
+		'draft' => ['ja' => "下書き保存", 'en' => "Save draft", ],
+		'sorry' => [
+			'ja' => "自動下書き保存は未実装です",
+			'en' => "Automatic saving of drafts is not implemented yet",
+		],
+		'gray' => [
+			'ja' => "灰色は透明色です。",
+			'en' => "Gray can be used to mark pixels meant to be transparent; whichever color is behind it will show through.",
+		],
+		'help' => ['ja' => "作るコツ", 'en' => "Tips for making stamps", ],
+		'instr1' => ['ja' => "なるべく真ん中に作ろう！", 'en' => "Try making it in the middle if possible!", ],
+		'instr2' => [
+			'ja' => "16x16 ぐらいの大きさがいいかも。",
+			'en' => "It might be as large as 16 x 16.",
+		],
+		'instr3' => [
+			'ja' => "最後に、白い輪郭を描こう！ (白の輪郭がないと、Twitter で正常に表示されない場合があります。)",
+			'en' => "Finally, try drawing a white outline around the black part! (If there is no white outline, it might not be displayed properly on Twitter, or other places where the black part might blend in with a black background.)",
+		],
+		'3Dhelp' => [
+			'ja' => "このボタンを押すと、スタンプが指定方向に 1 ドットずれます。\nキャンバスからはみ出しそうなときに使用してください。"
+			'en' => "When this button is pushed, the stamp shifts 1 pixel in the specified direction. Use this button when part of the stamp is about to protrude from the canvas.",
+		],
+		'next' => ['ja' => "つぎへ", 'en' => "Next", ],
+		'back' => ['ja' => "もどる", 'en' => "Back", ],
+		'troubleshooting' => [
+			'ja' => "スタンプが正常に表示されない?",
+			'en' => "Is the stamp not appearing as expected?",
+		],
+		'displayhelp' => [
+			'ja' => "「もどる」を押して白または黒の輪郭をつけてみてください。",
+			'en' => "Press \"Back\" and add a white or black outline.",
+		],
+		'placeholdertext' => [
+			'ja' => "#ハッシュタグ ライセンス表記 100文字までのコメントを追加できます。",
+			'en' => "#Hashtag (License text) A comment, up to 100 characters, can be added.",
+		],
+		'defaulttext' => [
+			'ja' => "#bluehood (ライセンス表記など)",
+			'en' => "#bluehood (license text etc.)",
+		],
+		'tweet' => ['ja' => "ツイート", 'en' => "Tweet", ],
+		'sending' => ['ja' => "送信中…", 'en' => "Sending…", ],
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 	twitter_start();
 ?>
 
@@ -224,7 +278,7 @@ var preview_zoom = 2;
 			$.post(tweet_url+'backupst.php', {stamp: JSON.stringify(edit_data)}, function(res){
 				alert(res);
 			}, 'html').fail(function(jqXHR, textStatus, errorThrown){
-				alert("エラーが発生しました。\n" + errorThrown);	// alert ではなく、throw したい。
+				alert("エラーが発生しました。\n" + errorThrown);	// alert ではなく (not an alert)、throw したい。 (I want to throw)
 			});
 		});
 

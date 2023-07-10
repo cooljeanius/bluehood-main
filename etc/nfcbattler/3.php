@@ -1,5 +1,12 @@
 <?php
-        include('/var/www/twiverse.php');
+    include('/var/www/twiverse.php');
+    /*
+    Many strings in this file have their translation immediately after them in the html;
+    the ones at the top here are the ones that don't already have them there:
+    */
+    $s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 	$ver = (int)3;
 
 	if ($_GET['img']){

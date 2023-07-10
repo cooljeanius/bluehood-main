@@ -9,6 +9,24 @@
 		'wiki' => ['ja' => 'Wiki', 'en' => "Wiki", ],
 		'contact' => ['ja' => '公式 Twitter', 'en' => "Admin's Twitter", ],
 		'allposts' => ['ja' => 'すべての投稿', 'en' => 'All posts', ],
+		'uacheck' => ['ja' => "Wii U限定！", 'en' => "Only available on Wii U!", ],
+		'nfcbattler' => ['ja' => "NFC Battlerであそぼう！", 'en' => "Let's play with NFC Battler!", ],
+		'gamememo' => ['ja' => "ゲームメモをコミック風に！", 'en' => "Game Notes in a comic book style!", ],
+		'uacheck2' => ['ja' => "PC 限定! ", 'en' => "Only available on PC!", ],
+		'Troopa' => ['ja' => "Troopa で音作り。", 'en' => "Make sounds with Troopa.", ],
+		'alert1' => [
+			'ja' => "NFCリーダーを使った面白いゲームが作れそう！",
+			'en' => "An interesting game can be made using the NFC reader!",
+		],
+		'alert2' => [
+			'ja' => "Wii Uのブラウザでは、amiibo以外のNFCタグ (Suicaなど) も読み取ることができます。",
+			'en' => "NFC tags that are not amiibo can also be read using the Wii U browser.",
+		],
+		'alert3' => [
+			'ja' => "ゲームの名前は、「NFC Battler」?",
+			'en' => "The name of the game is \"NFC Battler\"?",
+		],
+		//'' => ['ja' => '', 'en' => '', ],
 	];
 ?>
 
@@ -72,12 +90,12 @@
 			</div>
 			<a href="<?php echo ROOT_URL; ?>view/" class="marginright" style="float: right; "><button><?php l($s['allposts']); ?></button></a>
 			<?php if (useragent() == 'wiiu'){ ?>
-				<span class="marginleft">Wii U限定！<a href="etc/nfcbattler/">NFC Battler</a>であそぼう！</span>
+				<span class="marginleft"><?php l($s['uacheck']); ?><a href="etc/nfcbattler/">NFC Battler</a>であそぼう！</span>
 			<?php } ?>
 			<?php if ((useragent() == '3ds')||(useragent() == 'new3ds')){ ?>
 				<span class="marginleft" style="font-size: small; ">ゲームメモを<a href="tweet/draw/gamememo/">コミック風</a>に！</span>
 			<?php }else{ ?>
-				<span class="marginleft" style="font-size: small; ">PC 限定! <a href="etc/troopa/">Troopa 👀</a> で音作り。</span>
+				<span class="marginleft" style="font-size: small; "><?php l($s['uacheck2']); ?><a href="etc/troopa/">Troopa 👀</a> で音作り。</span>
 			<?php } ?>
 			<div style="clear: both; "></div>
 			<center>
@@ -115,7 +133,8 @@
 				var tag = customEvent.tag;
 				//console.log(tag);
 				if (tag.isRead){
-					var type = ['normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighter', 'poison', 'ground', 'flight', 'esper', 'bug', 'stone', 'ghost', 'metal', 'fairy'];
+					//assuming these are the Pokémon types; changing them to their proper English names:
+					var type = ['normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dark', 'steel', 'fairy'];
 
 					amiibo.playAmiiboSE();
 					alert('This amiibo is "'+type[Number(tag.common.characterId)%type.length]+'" type(?). \n\nNFCリーダーを使った面白いゲームが作れそう！\nWii Uのブラウザでは、amiibo以外のNFCタグ (Suicaなど) も読み取ることができます。\nゲームの名前は、「NFC Battler」?' );

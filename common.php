@@ -1,4 +1,29 @@
 <?php
+	//FIXME: this file is included in others; might need to check for name clashes:
+	$s = [
+		'login' => ['ja' => "ログイン", 'en' => "Login", ],
+		'needslogin' => [
+			'ja' => "これより先はTwitterアカウントによるログインが必要です。",
+			'en' => "Logging in with a Twitter account is required beyond this point.",
+		],
+		'ratelim' => [
+			'ja' => "レートリミットを超過しました。<br>しばらくしてから、再度アクセスしてください。",
+			'en' => "Rate limit exceeded. <br> Please try again after a while.",
+		],
+		'mypage' => ['ja' => "マイページ", 'en' => "My Page", ],
+		'community' => ['ja' => "コミュニティ", 'en' => "Community", ],
+		'notif' => ['ja' => "通知", 'en' => "Notification", ],
+		'notweets' => ['ja' => "ツイートがありません。", 'en' => "No tweets in collection.", ],
+		'more' => ['ja' => "もっとみる", 'en' => "More", ],
+		'defaulterrormsg' => [
+			'ja' => "エラーが発生しました。", 'en' => "An error occurred.",
+		],
+		'senderr' => [
+			'ja' => "このエラーを @bluehood_admin に報告できます。",
+			'en' => "You can report this error to @bluehood_admin.",
+		],
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 	session_start();
 	require_once 'twitteroauth/autoload.php';
 	use Abraham\TwitterOAuth\TwitterOAuth;
@@ -50,8 +75,8 @@
 	}
 
 	if (0)
-	if (isset($_SESSION['access_token'])){	/* ログイン判定 */
-		if ((!isset($_SESSION['notification_time']))||(time() - $_SESSION['notification_time'] >= 600/* 10分 */) ){
+	if (isset($_SESSION['access_token'])){	/* ログイン判定 (login determination) */
+		if ((!isset($_SESSION['notification_time']))||(time() - $_SESSION['notification_time'] >= 600/* 10分 (10 minutes) */) ){
 			$twitter = twitter_start();
 		        mysql_start();
 			$event_cnt = 0;
@@ -59,7 +84,7 @@
 			$_SESSION['notification_update'] = [];
 		        while($row = mysql_fetch_assoc($res)){
 				$status = $twitter->get('statuses/show', ['id' => $row['id']]);
-				if (isset($status->favorite_count)){	/* ツイートが存在 */
+				if (isset($status->favorite_count)){	/* ツイートが存在 (Tweet is present) */
 					if ($row['favorite_count'] < $status->favorite_count) $event_cnt += $status->favorite_count - $row['favorite_count'];
 					if ($row['retweet_count'] < $status->retweet_count) $event_cnt += $status->retweet_count - $row['retweet_count'];
 					//mysql_query("update tweet set favorite_count = ".$status->favorite_count.", retweet_count = ".$status->retweet_count." where id = '".$row['id']."'");
@@ -159,9 +184,9 @@
 			}
 
 			/*
-			コレクションID
-			null…未走査
-			0…存在しない
+			コレクションID (Collection ID)
+			null…未走査 (null…unscanned)
+			0…存在しない (0…does not exist)
 			*/
                         unset($account['collection_id']);
                         if (is_null($res['collection_id'])){
@@ -209,6 +234,7 @@
 		$limit = $twitter->get('application/rate_limit_status', []);
 		if (check_limit($limit)){
 			echo 'レートリミットを超過しました。<br>しばらくしてから、再度アクセスしてください。';
+			//English: Rate limit exceeded. <br> Please try again after a while.
 			var_dump($limit);
 			exit;
 		}
@@ -232,6 +258,7 @@
 
 			$twitter->use_admin = true;
 			if (check_limit($twitter->get('application/rate_limit_status', []))) die('レートリミットを超過しました。<br>しばらくしてから、再度アクセスしてください。');
+			//English: Rate limit exceeded. <br> Please try again after a while.
 		}
 
 		return $twitter;
@@ -240,6 +267,7 @@
 	function twitter_admin(){
 		$twitter = new TwitterOAuth(ADMIN_KEY, ADMIN_SECRET, ADMIN_COMSUMER_KEY, ADMIN_COMSUMER_SECRET);
 		if (check_limit($twitter->get('application/rate_limit_status', []))) die('レートリミットを超過しました。<br>しばらくしてから、再度アクセスしてください。');
+		//English: Rate limit exceeded. <br> Please try again after a while.
 		return $twitter;
 	}
 
@@ -267,7 +295,7 @@
 		return $db;
 	}
 
-	function mysql_throw($thru = null){	// MySQL のエラーがあったとき throw する
+	function mysql_throw($thru = null){	// MySQL のエラーがあったとき throw する (Throw when there is an error from MySQL)
 		$err = mysql_error();
 		if (!empty($err)) throw new Exception($err);
 		return $thru;
@@ -322,7 +350,7 @@
 					return $html;
 				}
 
-	function tweet($status, $subcomm, $user){	//mysql使用
+	function tweet($status, $subcomm, $user){	//mysql使用 (use MySQL)
 		static $id = 0;
 		static $s = [
 			'stamp' => ['ja' => "BlueHoodスタンプ", 'en' => "BlueHoodStamp"],
@@ -519,7 +547,7 @@ a .card:hover{
                                 font-size: medium;
                         }
 
-@media screen and (min-width: 766px) {	/* Wii U, PC, タブレット */
+@media screen and (min-width: 766px) {	/* Wii U, PC, タブレット (tablet) */
 	.sidemenu{
 		position: fixed;
 		top: 0;
@@ -572,7 +600,7 @@ a .card:hover{
 	}
 }
 
-@media screen and (max-width: 767px) {	/* 3DS, スマホ */
+@media screen and (max-width: 767px) {	/* 3DS, スマホ (smartphone) */
 	.sidemenu{
 		/*position: fixed;*/
 		top: 0;
@@ -685,9 +713,9 @@ a .card:hover{
 		<?php
 	}
 
-	function detector($soft_id){	// mysql がオープンであること。
+	function detector($soft_id){	// mysql がオープンであること。 (mysql must be open)
 		$prefix = substr($soft_id, 0, 2);
-		$detector = mysql_fetch_assoc(mysql_throw(mysql_query("select * from detector where prefix='".$prefix."'")));	// null もあり得る
+		$detector = mysql_fetch_assoc(mysql_throw(mysql_query("select * from detector where prefix='".$prefix."'"))); // null もあり得る (it could be null)
 		return $detector;
 	}
 
@@ -765,7 +793,7 @@ a .card:hover{
 	function s($sentence){
 		$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 		if (isset($sentence[$lang])) return $sentence[$lang];
-		else return $sentence['en'];	/* 英語デフォルト */
+		else return $sentence['en'];	/* 英語デフォルト (English default) */
 	}
 
 	function l($sentence){

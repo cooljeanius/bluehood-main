@@ -1,5 +1,12 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		'auth_err' => [
+			'ja' => "認証エラー！<br>新ドメイン<a href="https://twiverse.net/">twiverse.net</a>でのアクセスをお試しください。",
+			'en' => "Authentication error! <br> Please try accessing the new domain <a href="https://twiverse.net/">twiverse.net</a> instead.",
+		],
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 
 	require_once 'common.php';
 	require_once 'twitteroauth/autoload.php';

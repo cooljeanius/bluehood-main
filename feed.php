@@ -1,5 +1,8 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 
 	mysql_start();
 	foreach($_SESSION['notification_update'] as $query) mysql_query($query);

@@ -12,29 +12,29 @@
 				Wii U・PC・スマホ等で描いたお絵かきが対象です。
 				ゲームメモからのお絵かきには未対応です。',
 			'en' => 'A tool to split drawing posts with screenshot into screenshot and drawing. 
-				This supports drawing posts by Wii U, PC, smartphone, etc only, not gamememo on 3DS. ',
+				This supports drawing posts by Wii U, PC, smartphone, etc. only, not Game Notes on 3DS. ',
 		],
 		'nfcbattler' => ['ja' => 'NFC Battler', 'en' => 'NFC Battler', ],
 		'nfcbattler_desc' => [
 			'ja' => 'あなたが持ってるNFCタグ(amiiboやSuicaなど)の戦闘力を測定します。
 				測定にはWii Uが必要です。',
-			'en' => 'Your NFC Tags (amiibo, etc) can be measured own combat power by this tool. 
+			'en' => 'Your NFC Tags (amiibo, etc.) can be measured for their own combat power by this tool. 
 				Wii U Internet Browser only. ',
 		],
-		'filter' => ['ja' => 'コミカルフィルター', 'en' => 'The filter for Gamememo', ],
+		'filter' => ['ja' => 'コミカルフィルター', 'en' => 'The filter for Game Notes', ],
 		'filter_desc' => [
 			'ja' => '3DSのゲームメモで描いたお絵かきがコミック風になるフィルターです。
 				赤色と青色にトーンが付き、白黒になります。
 				お絵かき投稿の一部に組み込まれてますので、まずはゲームメモの画像ファイルを選んでください。',
-			'en' => 'A image filter for 3DS Gamememo, it may make your Gamememos more clear. 
-				Red and blue areas are replaced to tones, and your drawings change like comic. 
-				This tool is included to the drawing post page, so please select your Gamememo image file first. ',
+			'en' => 'A image filter for 3DS Game Notes, it may make your Game Notes more clear. 
+				Red and blue areas are replaced with tones, and your drawings change to look like a comic. 
+				This tool is included on the drawing post page, so please select your Game Notes image file first. ',
 		],
 		'album' => ['ja' => 'アルバム', 'en' => 'Album', ],
 		'album_desc' => [
 			'ja' => 'スクリーンショットをアルバムに登録して、投稿に使用することができます。',
 			'en' => "By registering to BlueHood Album, your screenshots can be used to posts anytime. 
-				This doesn't support old 3DS now, sorry! ",
+				This doesn't support the old 3DS now, sorry! ",
 		],
 		'stamp' => ['ja' => 'スタンプ', 'en' => 'Stamp', ],
 		'stamp_desc' => [
@@ -42,6 +42,22 @@
 				しかし、スタンプ機能は動作がまだ安定していません。',
 			'en' => "The stamp creator for drawing tool on Wii U, PC, smartphone, etc. 
 				But, it doesn't work comfortably",
+		],
+		'form' => ['ja' => "BlueHood スタンプ申込フォーム", 'en' => "BlueHood stamp request form", ],
+		'printer_desc' => [
+			'ja' => "3D プリントした BlueHood スタンプを郵送いたします。
+					私の趣味程度のため、無料、1 週間に 1 件程度の対応となります。",
+			'en' => "We will send a 3D-printed BlueHood stamp by post. It will be free, but because this is only a hobby, I will process at most one request per week.",
+		],
+		'card_tool_desc' => [
+			'ja' => "3D データを投函するサイト。
+					まだ、開発者 (@bluehood_admin) にしか送れないけどね。",
+			'en' => "A site that mails 3D-printed objects. So far, they can only be sent to the developer (@bluehood_admin).",
+		],
+		'Troopa_desc' => [
+			'ja' => "Web 上で動く Toy シンセサイザー。
+					PC 限定コンテンツです。",
+			'en' => "A toy synthesizer that runs on the web. It is PC-only content.",
 		],
 		//'' => ['ja' => , 'en' => '', ],
 	];

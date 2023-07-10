@@ -1,5 +1,10 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		'notweets' => ['ja' => "ツイートがありません。", 'en' => "No tweets found.", ],
+		'seeall' => ['ja' => "すべてのツイートをみる", 'en' => "See all tweets", ],
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 	$conn = twitter_reader();
 
 	$search = $conn->get('search/tweets', ['q' => $_POST['query'], 'result_type' => $_POST['sort'], 'count' => $_POST['n']])->statuses;

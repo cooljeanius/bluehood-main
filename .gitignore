@@ -1,0 +1,11 @@
+*.log
+configure.scan
+*.cache/*
+config.h
+*.status
+po/Makefile
+po/Makefile.in
+po/POTFILES
+po/remove-potcdate.sed
+Makefile
+stamp-h*

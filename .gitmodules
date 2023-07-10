@@ -1,0 +1,3 @@
+[submodule "Gettext"]
+	path = Gettext
+	url = https://github.com/oscarotero/Gettext.git

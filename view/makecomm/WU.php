@@ -1,10 +1,10 @@
 <?php
 	include('/var/www/twiverse.php');
 	$s = [
-		'err_ua' => ['ja' => "Wii U ブラウザから送信してください。", 'en' => "Please send from Wii U Browser. ", ],
+		'err_ua' => ['ja' => "Wii U ブラウザから送信してください。", 'en' => "Please send from the Wii U Browser. ", ],
 		'err_name' => ['ja' => "ソフト名を入力してください。", 'en' => "Please enter software's name. ", ],
-		'err_length' => ['ja' => "ソフト名を25文字以内で入力してください。", 'en' => "Software's name is max 25 characters. ", ],
-		'err' => ['ja' => "エラーが発生しました。", 'en' => "An error was occured. ", ],
+		'err_length' => ['ja' => "ソフト名を25文字以内で入力してください。", 'en' => "Software's name must be 25 characters at max. ", ],
+		'err' => ['ja' => "エラーが発生しました。", 'en' => "An error has occured. ", ],
 		//'' => ['ja' => "", 'en' => "", ],
 	];
 

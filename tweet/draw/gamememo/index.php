@@ -1,9 +1,28 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		'header' => ['ja' => "お絵かきの投稿", 'en' => "Posts with Drawings", ],
+		'screenshot' => ['ja' => "スクリーンショット", 'en' => "Screenshot", ],
+		'formtext' => [
+			'ja' => "お絵かき ※権利等を確認し選択してください。",
+			'en' => "Drawing *Please check that you have the rights etc. to use it, and select it.",
+		],
+		'comicfilter' => [
+			'ja' => "コミカルフィルターを使う",
+			'en' => "Use a comical filter",
+		],
+		'placeholder' => [
+			'ja' => "100文字までのコメントを追加できます。",
+			'en' => "You can add a comment of up to 100 characters.",
+		],
+		'spoiler' => ['ja' => "ネタバレ", 'en' => "Spoiler", ],
+		'tweet' => ['ja' => "ツイート", 'en' => "Tweet", ],
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 	$conn = twitter_start();
 
 	unset($_SESSION['gamememo']);
-        unset($_SESSION['draw']);
+    unset($_SESSION['draw']);
 
 	include('../../front.php');
 ?>
@@ -13,24 +32,24 @@
 	<head>
 	</head>
 	<body>
-		<h2 id="title" class="topbar">お絵かきの投稿</h2>
+		<h2 id="title" class="topbar"><?php l($s['header']); ?></h2>
 		<div class="main">
 			<div class="paddingleft paddingright">
 				<div id="reply"></div>
-				<span style="font-size: small; ">スクリーンショット</span>
+				<span style="font-size: small; "><?php l($s['screenshot']); ?></span>
 				<form id="imgform" action="../../thumbup.php" method="post" enctype="multipart/form-data" target="imgform_send">
 					<input id="selimg" name="selimg" type="file" accept="image/*">
 				</form>
 				<center><img id="thumb" height="96px" src="../../noimage.jpg"></center>
 				<form id="gamememo-form" action="memoup.php" method="post" enctype="multipart/form-data" target="gamememo-send">
-					<span style="font-size: small; ">お絵かき ※権利等を確認し選択してください。</span>
+					<span style="font-size: small; "><?php l($s['formtext']); ?></span>
 					<input id="gamememo" name="gamememo" type="file" accept="image/*"><br>
 				</form>
 			</div>
 			<img id="draw-preview">
 			<div class="paddingleft paddingright">
 				<form id="filter-form" action="filter.php" method="post" enctype="multipart/form-data" target="filter-send" style="font-size: small; display: none; ">
-					<input id="filter-enable" name="enable" type="checkbox">コミカルフィルターを使う<br>
+					<input id="filter-enable" name="enable" type="checkbox"><?php l($s['comicfilter']); ?><br>
 					<table id="filter-setting" style="width: 100%; display: none; "><tr>
 					<td style="background-color: #ffc0c0; ">
 					<input name="red" value="0" type="radio"><img src="tone_0.png">

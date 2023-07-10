@@ -1,21 +1,23 @@
 # BlueHood
 <img src="https://github.com/blue-hood/main/blob/master/img/twiverse/default.png"><br>
-An universal game community on Twitter. <br>
+A universal game community on Twitter. <br>
 <br>
 
-## 動作環境
-BlueHood は次の環境を利用して動作します。
+## Dependencies
+BlueHood requires the following dependencies to be installed to work:
 <ul>
   <li>Apache 2</li>
-  <li>PHP 5.6 (旧バージョンです)</li>
+  <li>PHP 5.6 (Yes, it's an old version)</li>
   <li>MySQL</li>
-  <li>メールクライアント (Postfix など)</li>
-  <li>運営用 Twitter アカウント</li>
+  <li>An email client (e.g. Postfix)</li>
+  <li>An administrative Twitter account</li>
+  <li>GNU autotools, including gettext (for development)</li>
 </ul>
 
-## インストール
-<p>(1) 運営用 Twitter アカウントに、BlueHood 運営用の Twitter アプリを3つ用意する。</p>
-<p>(2) twiverse.php を /var/www/ に配置し、内容を編集して設定を行う。</p>
-<p>(3) mysql_struct.txt を MySQL の BlueHood データベースにインポートする。</p>
+## Installation
+<p>(1) Prepare 3 Twitter applications for running BlueHood in your administrative Twitter account.</p>
+<p>(2) Place twiverse.php in /var/www/, edit its contents and set its settings. </p>
+<p>(3) Import mysql_struct.txt into BlueHood's MySQL database. </p>
 
-開発環境構築は困難を極めると思いますので、お気軽に連絡 (<a href="https://twitter.com/BlueHood_admin">@BlueHood_admin</a>) をください。
+Please contact BlueHood's original developer at (<a href="https://twitter.com/BlueHood_admin">@BlueHood_admin</a>) on Twitter, because building the development environment can be very difficult.
+

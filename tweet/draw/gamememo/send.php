@@ -1,6 +1,13 @@
 <?php
         include('/var/www/twiverse.php');
         include('../common.php');
+        $s = [
+        	'exception' => [
+        		'ja' => "お絵かきファイルが選択されていません。",
+        		'en' => "No drawing file selected.",
+        	],
+			//'' => ['ja' => "", 'en' => "", ],
+		];
 
         try{
 		if (!isset($_SESSION['draw'])) throw new Exception('お絵かきファイルが選択されていません。');

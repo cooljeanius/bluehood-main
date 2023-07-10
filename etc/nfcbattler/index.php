@@ -1,5 +1,19 @@
 <?php
-        include('/var/www/twiverse.php');
+    include('/var/www/twiverse.php');
+    /*
+    Many strings in this file have their translation immediately after them in the html;
+    the ones at the top here are the ones that don't already have them there:
+    */
+    $s = [
+    	'hashtag' => [
+    		'ja' => "#NFCBattler のツイート", 'en' => "#NFCBattler recent tweets",
+    	],
+    	'strength' => [
+    		'ja' => "このタグの戦闘力は...",
+    		'en' => "The fighting power of this tag is...",
+    	],
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 	$ver = (int)4;
 
 	if ($_GET['img']){
@@ -34,10 +48,12 @@
 			<td style="vertical-align: top; ">
 				<div id="nfcbattler" style="position: relative; text-align: center; ">
 				<div class="marginleft marginright" style="text-align: left; ">
+					//trans: ok
 					<p lang="ja">あなたが持っているNFCタグを、Wii UのNFCリーダー（GamePad の左下）にかざしてみよう！<br>
 					NFCタグは、amiiboやSuicaなどの交通系マネーに搭載されています。</p>
 					<p lang="en">Let's try holding up your NFC tags! <br>
 					The NFC tags are built in amiibos, electronic money and so on. </p>
+					//trans: ok
 					<p lang="ja">※免責事項<br>
 					NFCタグの読み取りのみを行い、書き込みは行いません。<br>
 					このプログラムを使用したことによる責任は負いかねます。Sorry！</p>
@@ -74,7 +90,17 @@
 				/*
 				ンとーは先頭不可
 				2文字以上
+				It is not possible to start with 2 characters or more.
+				The next characters are the same ones used in the magic_chars array:
 				ギラベマリホトイミへロスレルンー
+'gi' 'ra' 'be' 'ma' 'ri' 'ho' 'to' 'i' 'mi' 'he' 'ro' 'su' 're' 'ru' 'n' '-'
+				...magic...?!
+				According to: https://twitter.com/bluehood_admin/status/950273107821936642
+				...they are the katakana used in the original Japanese version of Dragon Quest 1; just 16 characters.
+				So how many Roman characters were used in the English version?
+				Which 16 characters of the Roman alphabet would you use if you were only allowed 16 of them?
+				"Etaoin shrdlu" is only 12...
+				http://letterfrequency.org/ has the rest.
 				*/
 				var magic_chars = ['ギ','ラ','ベ','マ','リ','ホ','ト','イ','ミ','へ','ロ','ス','レ','ル','ン','ー'];
 				var Random = function(seed){
@@ -92,7 +118,7 @@
 					var random = new Random(rnd);
 					var chars = magic_chars.slice(0, magic_chars.length);
 
-					var char_i = random.gen()%(chars.length - 2/* 使用不可文字 */);
+					var char_i = random.gen()%(chars.length - 2/* 使用不可文字 */); //Unavailable characters
 					var magic_str = chars[char_i];
 					chars.splice(char_i, 1);
  					for(var i = 0;i < (rnd%3) + 1;i++){
@@ -111,7 +137,7 @@
 						mp_left -= magic_power;
 						magic.power = magic_power;
 					}else{
-						magic.power = mp_left;	/* 端数処理 */
+						magic.power = mp_left;	/* 端数処理 (Rounding processing) */
 					}
 				});
 

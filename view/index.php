@@ -1,5 +1,6 @@
 <?php
 	include('/var/www/twiverse.php');
+	//$s is a bit lower...
 	unset($_SESSION['collection_cursor']);
 	//$conn = twitter_start();
 	if (isset($_GET['comm_id'])) $comm_id = mysql_escape_string($_GET['comm_id']);

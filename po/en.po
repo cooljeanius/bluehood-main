@@ -1,0 +1,94 @@
+# English translations for bluehood package.
+# Copyright (C) 2018 BlueHood Development Team
+# This file is distributed under the same license as the bluehood package.
+# Eric Gallager <egall@gwmail.gwu.edu>, 2018.
+#
+#: Gettext/tests/TranslatorTest.php:265
+msgid ""
+msgstr ""
+"Project-Id-Version: bluehood 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-16 13:31-0400\n"
+"PO-Revision-Date: 2018-07-16 13:43-0400\n"
+"Last-Translator: Eric Gallager <egall@gwmail.gwu.edu>\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: Gettext/tests/assets/phpcode2/input.php:3
+msgid "DATE \\a\\t TIME"
+msgstr "DATE \\a\\t TIME"
+
+#. i18n Tagged comment inside
+#: Gettext/tests/assets/phpcode2/input.php:30
+msgid "i18n Tagged comment inside"
+msgstr "i18n Tagged comment inside"
+
+#: Gettext/tests/assets/phpcode4/input.php:3
+msgid "matching 1"
+msgstr "matching 1"
+
+#: Gettext/tests/assets/phpcode4/input.php:4
+msgid "matching 2 singular"
+msgid_plural "matching 2 plural"
+msgstr[0] "matching 2 singular"
+msgstr[1] "matching 2 plural"
+
+#: Gettext/tests/assets/phpcode4/input.php:8
+msgid "skip singular"
+msgid_plural "skip plural"
+msgstr[0] "skip singular"
+msgstr[1] "skip plural"
+
+#: Gettext/tests/assets/phpcode4/input.php:9
+msgid "skip"
+msgstr "skip"
+
+#: Gettext/tests/assets/phpcode4/input.php:12
+msgid "skip global 2"
+msgstr "skip global 2"
+
+#. Test that non-plural translations the fallback still works.
+#. Test that if the translation is unknown, English plural rules are applied
+#: Gettext/tests/TranslatorTest.php:26 Gettext/tests/TranslatorTest.php:27
+#: Gettext/tests/TranslatorTest.php:68 Gettext/tests/TranslatorTest.php:74
+msgid "single"
+msgid_plural "more"
+msgstr[0] "single"
+msgstr[1] "more"
+
+#: Gettext/tests/TranslatorTest.php:29
+msgid "Integer"
+msgstr "Integer"
+
+#: Gettext/tests/TranslatorTest.php:33
+msgid "This field cannot be blank."
+msgstr "This field cannot be blank."
+
+#: Gettext/tests/TranslatorTest.php:34
+#, php-format
+msgid "Value %sr is not a valid choice."
+msgstr "Value %sr is not a valid choice."
+
+#. Test that nplural=3 plural translation check comes up with the correct translation key.
+#: Gettext/tests/TranslatorTest.php:60 Gettext/tests/TranslatorTest.php:61
+#: Gettext/tests/TranslatorTest.php:62 Gettext/tests/TranslatorTest.php:63
+#: Gettext/tests/TranslatorTest.php:64 Gettext/tests/TranslatorTest.php:65
+msgid "one file"
+msgid_plural "multiple files"
+msgstr[0] "one file"
+msgstr[1] "multiple files"
+
+#: Gettext/tests/TranslatorTest.php:253
+msgid "hello"
+msgstr "hello"
+
+#: Gettext/tests/TranslatorTest.php:254 Gettext/tests/TranslatorTest.php:255
+#: Gettext/tests/TranslatorTest.php:256
+msgid "world"
+msgid_plural "worlds"
+msgstr[0] "world"
+msgstr[1] "worlds"

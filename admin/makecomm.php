@@ -1,5 +1,12 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		'created' => [
+			'ja' => "作成しました。<br>コミュニティ ID: ",
+			'en' => "Created. <br> Community ID: ",
+		],
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 
 	try{
 		$id = make_comm($_POST['soft_id'], $_POST['name']);

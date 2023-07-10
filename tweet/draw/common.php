@@ -1,6 +1,13 @@
 <?php
 	include('/var/www/twiverse.php');
-        include('../../common.php');
+    include('../../common.php');
+    $s = [
+    	'exception' => [
+    		'ja' => "添付画像とお絵かきの処理方法が不明です。\nお手数ですが、@bluehood_admin にお問い合わせしてください。",
+    		'en' => "There was an unknown error processing the attached image or drawing. We apologize for the inconvenience; please contact @bluehood_admin on Twitter.",
+    	],
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 
 	function post_draw($thumb_path, $draw_path){
 	$twitter = twitter_start();

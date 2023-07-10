@@ -1,5 +1,21 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		'nocomm' => [
+			'ja' => "コミュニティが指定されていません。",
+			'en' => "No community specified.",
+		],
+		'nocomm1' => [
+			'ja' => "コミュニティが存在しません。",
+			'en' => "There is no community.",
+		],
+		'list' => ['ja' => "リスト", 'en' => "list", ],
+		'desc' => [
+			'ja' => "Twitterを活用したUniversalゲームコミュニティ",
+			'en' => "A universal game community using Twitter",
+		],
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 	unset($_SESSION['collection_cursor']);
 
 	$twitter = twitter_reader();
@@ -24,7 +40,7 @@
 	</head>
 	<?php head(); ?>
 	<body>
-		<h2 class="topbar"><?php echo $comm_name; ?> リスト</h2>
+		<h2 class="topbar"><?php echo $comm_name; ?> <?php l($s['list']); ?></h2>
 		<div class="main paddingleft paddingright">
 		<?php userlist($twitter->get('lists/members', ['list_id' => $list_id, 'count' => 5000])->users); ?>
 	</body>

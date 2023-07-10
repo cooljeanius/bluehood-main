@@ -3,6 +3,61 @@
 	unset($_SESSION['collection_cursor']);
 	$s = [
 		'title' => ['ja' => '設定', 'en' => 'Settings'],
+		'theme' => ['ja' => "サイトテーマ", 'en' => "Site theme", ],
+		'autotheme' => [
+			'ja' => "昼と夜に自動的に切り替える (日本時間準拠)",
+			'en' => "Automatically switch theme between day and night (based on Japan time)",
+		],
+		'lighttheme' => [
+			'ja' => "昼間モード (BlueHood)", 'en' => "Daytime mode (BlueHood)",
+		],
+		'darktheme' => [
+			'ja' => "夜間モード (BanWolf)", 'en' => "Night mode (BanWolf)",
+		],
+		'post' => ['ja' => "投稿", 'en' => "Post", ],
+		'dispposts' => ['ja' => "投稿を BlueHood に表示する", 'en' => "Display posts on BlueHood", ],
+		'dispposts2' => [
+			'ja' => "チェックされているときに行った投稿は、BlueHood に登録・表示されます。",
+			'en' => "Posts made when this box is checked are registered and displayed on BlueHood.",
+		],
+		'drawing' => ['ja' => "お絵かき", 'en' => "Drawing", ],
+		'canvwidth' => ['ja' => "キャンバスの横サイズ ", 'en' => "Canvas width", ],
+		'canvwidthamt' => [
+			'ja' => " px (0~440 デフォルト: 320)",
+			'en' => " px (0 to 440; default: 320)",
+		],
+		'canvheight' => ['ja' => "キャンバスの縦サイズ ", 'en' => "Canvas height", ],
+		'canvheightamt' => [
+			'ja' => " px (0~440 デフォルト: 120)",
+			'en' => " px (0 to 440; default: 120)",
+		],
+		'canvdisclaimer' => [
+			'ja' => "キャンバスの大きさを変更すると、下書きの一部情報が失われる場合があります。",
+			'en' => "Changing the size of the canvas may result in the loss of some draft information.",
+		],
+		'attachments' => [
+			'ja' => "添付画像とお絵かきを",
+			'en' => "Attached image and drawing",
+		],
+		'mergev' => ['ja' => "縦に結合する", 'en' => "Merge vertically", ],
+		'separate' => ['ja' => "別々にする", 'en' => "Separate", ],
+		'detector' => ['ja' => "ディテクター", 'en' => "Detector", ],
+		'aboutdetectors' => [
+			'ja' => "ディテクターは、添付画像を自動認識してコミュニティに振り分けるプログラムです。たとえば、3DS ディテクターは 3DS のスクリーンショットを認識します。",
+			'en' => "Detectors are programs that automatically recognize attached images and distribute them to their corresponding communities. For example, 3DS detectors recognize screenshots sent from a 3DS.",
+		],
+		'strength' => ['ja' => "有効", 'en' => "Effectiveness", ],
+		'makelist' => ['ja' => "リスト登録", 'en' => "Create list", ],
+		'aboutlist' => [
+			'ja' => "チェックをつけると、投稿先コミュニティの Twitter リストに自動的に登録されます。",
+			'en' => "When checked, posts will be automatically added to the Twitter list for the community in which they are posted.",
+		],
+		'stamp' => ['ja' => "スタンプ", 'en' => "stamp", ],
+		'3Dness' => ['ja' => "3Dデータ 高さ ", 'en' => "3D data height ", ],
+		'about3D' => [
+			'ja' => "3D データにおけるスタンプの持ち手の長さです。\nたとえば、2 mm に設定すると刻印面だけの薄いスタンプになります。\n21 mm に設定すると、持ち手がある標準的なスタンプになります。",
+			'en' => "The length of the handle of the stamp in 3D data. For example, if it is set to 2mm, the printed stamp will be a thin stamp with only an engraved surface. If set to 21mm, the printed stamp will be a standard stamp with a handle.",
+		],
 		//'' => ['ja' => '', 'en' => ''],
 	];
 	$twitter = twitter_start();

@@ -1,6 +1,38 @@
 <?php
 	include('/var/www/twiverse.php');
-	twitter_admin();	// アクセス帯域制限
+	$s = [
+		'safe' => ['ja' => "安全です", 'en' => "It's safe", ],
+		'safeish' => ['ja' => "おそらく安全です", 'en' => "Probably safe", ],
+		'fityfifty' => ['ja' => "可能性があります", 'en' => "May be dangerous", ],
+		'unsafeish' => ['ja' => "おそらく危険です", 'en' => "Probably dangerous", ],
+		'unsafe' => ['ja' => "危険です", 'en' => "It's dangerous", ],
+		'title' => [
+			'ja' => "Google Vision API による危険画像の検出プログラム",
+			'en' => "Dangerous image detection program using Google Vision API",
+		],
+		'author' => ['ja' => " by グレたノコノコ", 'en' => " by Stray Koopa Troopa", ],
+		'desc' => [
+			'ja' => "Google Vision API を使って、ネット上の悪意のあるユーザが投稿する危険な画像を自動で検出します。",
+			'en' => "Use Google Vision API to automatically detect dangerous images posted by malicious users on the net.",
+		],
+		'l2' => [
+			'ja' => "なお、このプログラムは Vision API の機能を体験していただくために公開していますので、突然ページを削除することがあります。"
+			'en' => "Please be aware that this program has been released for the purpose of testing the functions of the Vision API, so the page may suddenly be deleted.",
+		],
+		'img' => ['ja' => "検査画像", 'en' => "Test image", ],
+		'submit' => ['ja' => "画像検査実行", 'en' => "Run image test", ],
+		'output' => ['ja' => "Vision API の解析結果 (生データ)", 'en' => "Analysis result of Vision API (raw data)", ],
+		'output2' => ['ja' => "ざっくり要約すると", 'en' => "Roughly summarized", ],
+		'adult' => ['ja' => "性的な画像: ", 'en' => "Sexual image:", ],
+		'medical' => ['ja' => "グロッス画像: ", 'en' => "Gross image:", ],
+		'violence' => ['ja' => "暴力的な画像: ", 'en' => "Violent image:", ],
+		'spoof' => ['ja' => "コラ画像: ", 'en' => "Shopped image:", ],
+		'prefix' => ['ja' => "ちなみに、これは", 'en' => "By the way, this is a ", ],
+		'verb' => ['ja' => "の画像です。", 'en' => " image.", ],
+		'source' => ['ja' => "PHP ソースコード", 'en' => "PHP source code", ],
+		//'' => ['ja' => "", 'en' => "", ],
+	];
+	twitter_admin(); // アクセス帯域制限 (Access band limit)
 
 	function reshtml($res){
 		$html = "";
@@ -50,7 +82,7 @@ if (isset($_FILES["image"]["tmp_name"])){
 	?>
 		<img src="data:image;base64,<?php echo $image; ?>">
 	<?php
-	// リクエスト用のJSONを作成
+	// リクエスト用のJSONを作成 (Create JSON for request)
 	$json = json_encode( array(
 		"requests" => array(
 			array(
@@ -69,7 +101,7 @@ if (isset($_FILES["image"]["tmp_name"])){
 			) ,
 		) ,
 	) ) ;
-	// リクエストを実行
+	// リクエストを実行 (Execute request)
 	$curl = curl_init() ;
 	curl_setopt( $curl, CURLOPT_URL, "https://vision.googleapis.com/v1/images:annotate?key=".GOOGLE_CLOUD_PLATFORM_KEY) ;
 	curl_setopt( $curl, CURLOPT_HEADER, true ) ; 
@@ -83,9 +115,9 @@ if (isset($_FILES["image"]["tmp_name"])){
 	$res1 = curl_exec( $curl ) ;
 	$res2 = curl_getinfo( $curl ) ;
 	curl_close( $curl ) ;
-	// 取得したデータ
-	$json = substr( $res1, $res2["header_size"] ) ;				// 取得したJSON
-	$header = substr( $res1, 0, $res2["header_size"] ) ;		// レスポンスヘッダー
+	// 取得したデータ (The acquired data)
+	$json = substr( $res1, $res2["header_size"] ) ;	// 取得したJSON (The obtained JSON)
+	$header = substr( $res1, 0, $res2["header_size"] ) ; // レスポンスヘッダー (Response header)
 	$vision_res = json_decode($json);
 
 		?>
@@ -95,7 +127,7 @@ if (isset($_FILES["image"]["tmp_name"])){
 		<ul>
 			<?php $safe = $vision_res->responses[0]->safeSearchAnnotation; ?>
 			<li>性的な画像: <?php echo reshtml($safe->adult); ?></li>
-			<li>グロ画像: <?php echo reshtml($safe->medical); ?></li>
+			<li>グロッス画像: <?php echo reshtml($safe->medical); ?></li>
 			<li>暴力的な画像: <?php echo reshtml($safe->violence); ?></li>
 			<li>コラ画像: <?php echo reshtml($safe->spoof); ?></li>
 		</ul>

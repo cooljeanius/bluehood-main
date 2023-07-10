@@ -1,5 +1,8 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 
 function rgb2hsv($rgb){
   $r = $rgb['red'] / 255;
@@ -39,15 +42,15 @@ function rgb2hsv($rgb){
 		$hsv = rgb2hsv(['red' => ($rgb >> 16) & 0xFF, 'green' => ($rgb >> 8) & 0xFF, 'blue' => $rgb & 0xFF]);
 
 		if ($hsv['s'] < 0.625){
-			if ($hsv['v'] < 0.50){	/*黒*/
+			if ($hsv['v'] < 0.50){	/*黒 (black)*/
 				$color = 0;
-			}else{	/*白*/
+			}else{	/*白 (white)*/
 				$color = 1;
 			}
 		}else{
-			if (($hsv['h'] >= 180.0)&&($hsv['h'] < 315.0)){	/*青*/
+			if (($hsv['h'] >= 180.0)&&($hsv['h'] < 315.0)){	/*青 (blue)*/
 				$color = ($x)%3 != 0;
-			}else{	/*赤*/
+			}else{	/*赤 (red)*/
 				$color = ($x+$y)%4 != 0;
 			}
 		}

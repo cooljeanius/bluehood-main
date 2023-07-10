@@ -1,8 +1,22 @@
 <?php
 	include('/var/www/twiverse.php');
-	twitter_start();	// 外部攻撃対策
+	$s = [
+		'htoti' => [
+			'ja' => "この画像のハッシュタグは……",
+			'en' => "Hashtag of this image……",
+		],
+		'score' => [ 'ja' => "スコア", 'en' => "score", ],
+		'whatitdid' => [ 'ja' => "と判定されました。", 'en' => "It was judged.", ],
+		//FIXME: this part needs to be reworked.
+		'subject' => [
+			'ja' => "画像認識テスト",
+			'en' => "Image recognition test",
+		],
+		//'' => ['ja' => "", 'en' => "", ],
+	];
+	twitter_start();	// 外部攻撃対策 (External attack countermeasure)
 
-	// リクエスト用のJSONを作成
+	// リクエスト用のJSONを作成 (Create JSON for request)
 	$json = json_encode( array(
 		"requests" => array(
 			array(
@@ -47,7 +61,7 @@
 		) ,
 	) ) ;
 
-	// リクエストを実行
+	// リクエストを実行 (Execute request)
 	$curl = curl_init() ;
 	curl_setopt( $curl, CURLOPT_URL, "https://vision.googleapis.com/v1/images:annotate?key=".GOOGLE_CLOUD_PLATFORM_KEY) ;
 	curl_setopt( $curl, CURLOPT_HEADER, true ) ; 
@@ -62,11 +76,11 @@
 	$res2 = curl_getinfo( $curl ) ;
 	curl_close( $curl ) ;
 
-	// 取得したデータ
-	$json = substr( $res1, $res2["header_size"] ) ;				// 取得したJSON
-	$header = substr( $res1, 0, $res2["header_size"] ) ;		// レスポンスヘッダー
+	// 取得したデータ (The acquired data) 
+	$json = substr( $res1, $res2["header_size"] ) ;	// 取得したJSON (The obtained JSON)
+	$header = substr( $res1, 0, $res2["header_size"] ) ; // レスポンスヘッダー (Response header)
 
-	// 出力
+	// 出力 (output)
 	//echo "<h2>JSON</h2>" ;
 	//echo $json ;
 	//echo "<h2>ヘッダー</h2>" ;

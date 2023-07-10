@@ -1,5 +1,27 @@
 <?php
 	include('/var/www/twiverse.php');
+	$s = [
+		'name' => [ 'ja' => "グレたノコノコ", 'en' => "Gray Koopa Troopa", ],
+		'desc' => [
+			'ja' => "BlueHood の夜の姿。
+			すきなものはカメラ、カメン、ツタンカ～メン。
+			カメオカート8デラックスでは、カロンはいつもほうたいをもちあるいてます。
+			ヘイホーはカメンをかぶってるからなかまです。
+			パタパタにあこがれてます。
+			ヨッシーがてんてき。
+			",
+			//This joke doesn't really work as well in English due to the different sounds:
+			'en' => "BlueHood's night appearance.
+			My favorite things are cameras, masks, and Tutankhamen.
+			In Kameo Kart 8 Deluxe, Dry Bones always has fantastic taste.
+			Shy Guy is my friend because he wears a mask.
+			I look up to Paratroopa.
+			Yoshi is strange.
+			",
+			//"Dry Bones always has fantastic taste." might actually be: "Dry Bones always carries around bandages."
+		],
+		//'' => ['ja' => "", 'en' => "", ],
+	];
 
 	try{
 		if (getdate()['hours'] == 6){
