@@ -1,7 +1,10 @@
 # BlueHood
-<img src="https://github.com/blue-hood/main/blob/master/img/twiverse/default.png"><br>
+<img src="https://github.com/cooljeanius/bluehood-main/blob/master/img/twiverse/default.png"><br>
 A universal game community on Twitter. <br>
 <br>
+
+## Warning
+These directions are outdated and have probably stopped working; sorry about that...
 
 ## Dependencies
 BlueHood requires the following dependencies to be installed to work:
@@ -16,8 +19,8 @@ BlueHood requires the following dependencies to be installed to work:
 
 ## Installation
 <p>(1) Prepare 3 Twitter applications for running BlueHood in your administrative Twitter account.</p>
-<p>(2) Place twiverse.php in /var/www/, edit its contents and set its settings. </p>
-<p>(3) Import mysql_struct.txt into BlueHood's MySQL database. </p>
+<p>(2) Place <tt>twiverse.php</tt> in <tt>/var/www/</tt>, edit its contents and set its settings. </p>
+<p>(3) Import <tt>mysql_struct.txt</tt> into BlueHood's MySQL database. </p>
 
-Please contact BlueHood's original developer at (<a href="https://twitter.com/BlueHood_admin">@BlueHood_admin</a>) on Twitter, because building the development environment can be very difficult.
+Please contact BlueHood's original developer at (<a href="https://twitter.com/hata6502">@hata6502</a> (formerly `@Bluehood_admin`)) on Twitter, because building the development environment can be very difficult.
 
