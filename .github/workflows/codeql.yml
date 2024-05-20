@@ -17,12 +17,14 @@ on:
     branches:
       - master
       - dependabot/*
+      - submodules/*
       - trans_eng
   pull_request:
     # The branches below must be a subset of the branches above
     branches:
       - master
       - dependabot/*
+      - submodules/*
       - trans_eng
   schedule:
     - cron: '33 16 * * 1'
@@ -40,6 +42,7 @@ jobs:
     permissions:
       actions: read
       contents: read
+      packages: read
       security-events: write
 
     strategy:
