@@ -57,7 +57,7 @@ var update = function(res){
 	}else{
 		//notice += "\nコミュニティに投稿されます。\n";
 	}
-	$('#title').html(title);
+	$('#title').html(escapeHtml(title));
 	if (res.msg){
 		//notice += res.msg;
 		alert(res.msg);
