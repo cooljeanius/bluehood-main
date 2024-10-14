@@ -40,8 +40,13 @@ $(function(){
 });
 
 var update = function(res){
-	thumb.setAttribute('src', 'data:image/jpeg;base64,' + res.image);
-	updateText(res.option);
+    if (isValidBase64(res.image)) {
+        thumb.setAttribute('src', 'data:image/jpeg;base64,' + res.image);
+    } else {
+        alert("Invalid image data.");
+        thumb.setAttribute('src', 'default-image.jpg'); // Use a default image or handle the error appropriately
+    }
+    updateText(res.option);
 
 	comm_ids = [];
 	var title = '';
@@ -103,4 +108,12 @@ var updateText = function(option){
         $('#text').val(val.substr(0,pos)+$(this).val()+val.substr(pos));
         $('#text').keyup();
     });
+};
+
+var isValidBase64 = function(str) {
+    try {
+        return btoa(atob(str)) === str;
+    } catch (err) {
+        return false;
+    }
 };
