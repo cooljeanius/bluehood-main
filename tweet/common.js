@@ -79,16 +79,28 @@ $(function(){
 	if (detect) update(detect);
 });
 
+var escapeHtml = function(text) {
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+};
+
 var updateText = function(option){
-	$('#suggest').html('<select id="suggest-sel"><option value="">BlueHood トレンド</option></select>');
-	option.forEach(function(option, i){
-		var color = '#55acee';
-		$('#suggest-sel').append('<option value="'+option+'" style="color: '+color+'; ">'+option+'</option>');
-	});
-	$('#suggest-sel').change(function(){
-		var pos=$('#text').get(0).selectionStart;
-		var val=$('#text').val();
-		$('#text').val(val.substr(0,pos)+$(this).val()+val.substr(pos));
-		$('#text').keyup();
-	});
+    $('#suggest').html('<select id="suggest-sel"><option value="">BlueHood トレンド</option></select>');
+    option.forEach(function(option, i){
+        var color = '#55acee';
+        var escapedOption = escapeHtml(option);
+        $('#suggest-sel').append('<option value="'+escapedOption+'" style="color: '+color+'; ">'+escapedOption+'</option>');
+    });
+    $('#suggest-sel').change(function(){
+        var pos=$('#text').get(0).selectionStart;
+        var val=$('#text').val();
+        $('#text').val(val.substr(0,pos)+$(this).val()+val.substr(pos));
+        $('#text').keyup();
+    });
 };
